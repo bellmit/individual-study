@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 注意configuration中各个属性配置的顺序应为：
+    properties,settings,typeAliases,typeHandlers,objectFactory,objectWrapperFactory,reflectorFactory,plugins,environments,databaseIdProvider,mappers)-->
+    <!-- 自定义配置:可外部配置且可动态替换 -->
+    <properties resource="database.properties">
+        <property name="env" value="dev"/>
+    </properties>
+
+    <!-- 全局配置 -->
+    <settings>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
+        <!--是否开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!--打印sql日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!-- 环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理方式：JDBC事务管理；MANAGED 容器管理-->
+            <transactionManager type="JDBC"/>
+            <!--内建的三种数据源格式
+            UNPOOLED:每次请求打开和关闭连接
+            POOLED：数据库连接池
+            JNDI：容器可以集中或在外部配置数据源，然后放置一个JNDI的上下文应用
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${driverUrl}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+	<!-- 映射器-->
+    <mappers>
+        <mapper resource="mapper/BlogMapper.xml"/>
+    </mappers>
+</configuration>

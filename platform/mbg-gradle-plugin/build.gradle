@@ -1,0 +1,19 @@
+apply plugin: 'groovy'
+
+dependencies {
+	//groovy sdk
+    compile localGroovy()
+	//gradle sdk
+	compile gradleApi()
+
+
+	implementation mybatis_generator_core
+
+	implementation alibaba_druid
+	
+	implementation tk_mybatis_mapper
+	implementation freemarker
+	implementation mysql_connector_java
+	
+	testImplementation junit
+}

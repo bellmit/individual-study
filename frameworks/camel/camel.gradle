@@ -1,0 +1,58 @@
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java'
+	id 'groovy'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+}
+apply plugin: "ua.eshepelyuk.ManifestClasspath"
+
+dependencies {
+    implementation spring_web
+
+    implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.5.RELEASE"
+
+    // Camel Spring Cloud + Eureka 相关依赖
+    implementation "org.apache.camel:camel-ribbon-starter:${camelVersion}"
+    implementation "org.apache.camel:camel-service-starter:${camelVersion}"
+    implementation "org.apache.camel:camel-spring-cloud-starter:${camelVersion}"
+    implementation "org.apache.camel:camel-spring-cloud-netflix-starter:${camelVersion}"
+
+    // framework camel
+    compile "org.apache.camel:camel-core:${camelVersion}"
+    compile "org.apache.camel:camel-servlet-starter:${camelVersion}"
+    runtime "org.apache.camel:camel-stream:${camelVersion}"
+    runtime "org.apache.camel:camel-servlet:${camelVersion}"
+    runtime "org.apache.camel:camel-spring-boot:${camelVersion}"
+    runtime "org.apache.camel:camel-jackson:${camelVersion}"
+    // http support
+    runtime "org.apache.camel:camel-http-common:${camelVersion}"
+    runtime "org.apache.camel:camel-http:${camelVersion}"
+    // rest api support
+    runtime "org.apache.camel:camel-swagger-java:$camelVersion"
+	compile "org.apache.camel:camel-mybatis:$camelVersion"
+	// netty support
+	compile "org.apache.camel:camel-netty4:$camelVersion"
+    compile "org.apache.camel:camel-groovy:${camelVersion}"
+
+	// jdbc jar
+	implementation 'mysql:mysql-connector-java:5.1.44'
+	implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.3'
+	
+    // logback log
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+    implementation "ch.qos.logback:logback-access:${logbackVersion}"
+	
+	testImplementation "org.apache.camel:camel-test:${camelVersion}"
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}

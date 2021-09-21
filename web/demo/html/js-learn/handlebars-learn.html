@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>模版引擎学习</title>
+    <script src="../../common/js/jquery-3.3.1.js" lang="javascript"></script>
+    <!-- 模版引擎 -->
+    <script src="../../common/js/handlebars-v4.1.2.js" lang="javascript" type="text/javascript"></script>
+    <script src="../../common/js/json2.js" lang="javascript" type="text/javascript"></script>
+    <script src="js/customByHandlebars.js" lang="javascript" type="text/javascript"></script>
+</head>
+
+<body>
+    <h2>模版引擎学习</h2>
+    <div id="msg" type="text/x-handlebars-template">
+        {{debug list}}
+        <div>
+            {{#if list}}
+            {{#each list}}
+            <div>{{this.name1}}</div>
+            <div>{{this.age1}}</div>
+            {{/each}}
+            {{else}}
+            <span>无数据</span>
+            {{/if}}
+            {{#with person}}
+            <div>{{firstName}} - {{lastName}}</div>
+            {{/with}}
+        </div>
+    </div>
+
+    <div id="msg2" type="text/x-handlebars-template">
+        <div>
+            {{#if list}}
+            <ul id="list">
+                {{#each list}}
+                <li>{{this.name1}}</li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>{{error}}</p>
+            {{/if}}
+        </div>
+    </div>
+
+    <div id="msg3" type="text/x-handlebars-template">
+        <div>
+            <ul id="list">
+                {{#list}}
+                <li>{{name1}}---{{age1}}</li>
+                {{/list}}
+            </ul>
+        </div>
+    </div>
+    <!-- 和table 组合有点问题 -->
+    <div id="msg4" type="text/template">
+        <table>
+            {{#each student}}
+            <tr>
+                {{name}}
+                {{sex}}
+                {{age}}
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</body>
+
+</html>

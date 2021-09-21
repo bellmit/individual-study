@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Storage</title>
+</head>
+<body>
+    <h2>LocalStorage/SessionStorage</h2>
+    <div>
+        <button id="clearLocal">localStorage.clear()</button>
+    </div>
+</body>
+<script>
+    function init() {
+        var local = window.localStorage;
+        // 读取 localStorage
+        console.log("localStorage[server-temp] = ", localStorage.getItem("server-temp"));
+        local.setItem("server-temp", "123456");
+    }
+    init();
+</script>
+</html>

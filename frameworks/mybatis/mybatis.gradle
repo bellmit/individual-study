@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+ext {
+    mybatisVersion = '3.4.5'
+}
+
+dependencies {
+    // 半ORM 框架
+    implementation "org.mybatis:mybatis:${mybatisVersion}"
+    // 时间插件：Mybatis对Java 8 time (JSR 310)支持
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+    // jdbc jar
+    implementation 'mysql:mysql-connector-java:8.0.20'
+    implementation tk_mybatis_mapper
+	
+	testCompile 'junit:junit:4.12'
+}

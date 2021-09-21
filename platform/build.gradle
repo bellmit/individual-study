@@ -1,0 +1,69 @@
+allprojects {
+    group 'cn.gyw.platform'
+    version '1.0.0'
+}
+
+// 所有子项目的通用配置
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    // JVM 版本号要求
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    //定义版本号
+    ext {
+        junitVersion = '4.12'
+        logbackVersion = '1.2.3'
+        springBootVersion = '2.0.4.RELEASE'
+    }
+
+    repositories {
+        // maven本地仓库
+        mavenLocal()
+        // 添加 Maven 仓库
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        mavenCentral()
+    }
+
+    // 通用依赖
+    dependencies {
+        implementation slf4j_api
+    }
+
+    publishing {
+		// 配置maven-publishing插件的输出物
+        publications {
+            maven(MavenPublication) {
+                //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+                groupId project.group
+                artifactId project.name
+                version project.version
+                // 如果是war包填写components.web，如果是jar包填写components.java
+                from components.java
+            }
+        }
+		// 配置maven-publishing仓库的信息，即输出目的地
+		repositories {
+			maven {
+				url = 'D:/'
+			}
+		}
+    }
+	
+	// publishToMavenLocal是maven-publish插件自动创建的的一个任务，
+	task jarToLocalMaven(dependsOn: publishToMavenLocal) {
+		doLast {
+			def userHome = System.getProperty("user.home");
+			println "publish jar to ${userHome}/.m2/repository"
+		}
+	}
+}
+

@@ -1,0 +1,39 @@
+rootProject.name = 'frameworks'
+
+include 'camel'
+include 'mybatis'
+include 'spring'
+include 'springboot'
+include 'lucence'
+include 'netty'
+include 'flowable'
+
+// spring cloud
+include ':springcloud:eureka-server'
+project(':springcloud:eureka-server').projectDir = new File(rootDir, 'springcloud/eureka-server')
+include ':springcloud:zuul-server'
+project(':springcloud:zuul-server').projectDir = new File(rootDir, 'springcloud/zuul-server')
+include ':springcloud:account'
+project(':springcloud:account').projectDir = new File(rootDir, 'springcloud/account')
+include ':springcloud:business'
+project(':springcloud:business').projectDir = new File(rootDir, 'springcloud/business')
+include ':springcloud:order'
+project(':springcloud:order').projectDir = new File(rootDir, 'springcloud/order')
+include ':springcloud:storage'
+project(':springcloud:storage').projectDir = new File(rootDir, 'springcloud/storage')
+
+include ':springcloud:provider'
+project(':springcloud:provider').projectDir = new File(rootDir, 'springcloud/provider')
+include ':springcloud:consumer'
+project(':springcloud:consumer').projectDir = new File(rootDir, 'springcloud/consumer')
+include 'easypoi'
+
+rootProject.children.each {project ->
+    if (project.name == 'springcloud') {
+        project.children.each { subProject ->
+            subProject.buildFileName = "${subProject.name}.gradle"
+        }
+        return
+    }
+    project.buildFileName = "${project.name}.gradle"
+}

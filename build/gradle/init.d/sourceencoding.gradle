@@ -1,0 +1,7 @@
+rootProject {
+    subprojects {
+        plugins.withType(JavaPlugin) {
+            compileJava.options.encoding = 'UTF-8'
+        }
+    }
+}

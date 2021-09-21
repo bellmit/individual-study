@@ -1,0 +1,21 @@
+# 查询相关接口
+type Query {
+  bookById(id: ID): Book 
+}
+
+# 变更相关接口
+#type Mutation {
+#}
+
+type Book {
+  id: ID
+  name: String
+  pageCount: Int
+  author: Author
+}
+
+type Author {
+  id: ID
+  firstName: String
+  lastName: String
+}

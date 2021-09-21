@@ -1,0 +1,26 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation ('org.springframework.cloud:spring-cloud-starter-openfeign') {
+		exclude group:'org.springframework', module: 'spring-web'
+	}
+	implementation 'com.alibaba.cloud:spring-cloud-alibaba-seata:2.1.0.RELEASE'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation "com.alibaba:druid-spring-boot-starter:1.1.10"
+	implementation spring_boot_starter_jpa
+
+	implementation 'io.seata:seata-all:1.4.2'
+	implementation mysql_connector_java
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}

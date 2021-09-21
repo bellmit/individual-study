@@ -1,0 +1,8 @@
+server:
+    port: 8088
+spring:
+    profiles:
+        active: dev
+netty:
+    host: 127.0.0.1
+    port: 8088

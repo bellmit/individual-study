@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restful API 设计规范</title>
+</head>
+
+
+<body>
+<h3>Restful API 设计规则</h3>
+
+<p>
+<ul>
+    <li id="getMethod">查询GET</li>
+    <li id="getMethod1">查询GET1</li>
+
+    <li id="postMethod">新增POST</li>
+    <li id="putMethod">全量更新（PUT）</li>
+    <li id="deleteMethod">删除Delete</li>
+</ul>
+</p>
+<hr>
+<div id="message"></div>
+</body>
+
+<script src="../scripts/jquery-3.3.1.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("li#getMethod").click(function () {
+            var url = "http://localhost:8080/gtools/api";
+            $.get(url, function (data, status) {
+                $("#message").html("返回结果:" + data[0].id + " : " + data[0].name);
+            })
+        });
+
+        $("li#postMethod").click(function () {
+
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:8080/gtools/api',
+                contentType: "application/json;charset=UTF-8",
+                data: '{"name":"gyw"}',
+                dataType: 'json'
+            }).then(
+                function (obj) {
+                    $("#message").html(JSON.stringify(obj));
+                },
+                function () {
+                    $("#message").html('error...');
+                }
+            )
+        });
+
+        $("li#putMethod").click(function () {
+
+            $.ajax({
+                type: 'put',
+                url: 'http://localhost:8080/gtools/api',
+                contentType: "application/json;charset=UTF-8",
+                data: '{"name":"wdy"}',
+                dataType: 'json'
+            }).then(
+                function (obj) {
+                    $("#message").html(JSON.stringify(obj));
+                },
+                function () {
+                    $("#message").html('error...');
+                }
+            )
+        });
+
+        $("li#deleteMethod").click(function () {
+
+            $.ajax({
+                type: 'delete',
+                url: 'http://localhost:8080/gtools/api',
+                contentType: "application/json;charset=UTF-8",
+                data: '{"name":"wdy"}',
+                dataType: 'json'
+            }).then(
+                function (obj) {
+                    $("#message").html(JSON.stringify(obj));
+                },
+                function () {
+                    $("#message").html('error...');
+                }
+            )
+        });
+
+    });
+
+</script>
+</html>

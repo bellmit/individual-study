@@ -1,0 +1,11 @@
+
+dependencies {
+
+    implementation lucene_core
+    implementation lucene_analyzers_common
+    implementation lucene_analyzers_smartcn
+    implementation lucene_queryparser
+    implementation lucene_highlighter
+    implementation ikanalyzer
+    implementation mysql_connector_java
+}

@@ -1,0 +1,44 @@
+# 全局配置
+server:
+  servlet:
+    context-path: /sb
+  port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /home/guanyw/logs
+      rotate: true
+      pattern: '%t %a %A %m %U%q %s %D %I %B'
+      buffered: false
+
+# spring 配置
+spring:
+  # 多环境配置
+  profiles:
+    active: test
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+      exclude: application.yml
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+
+# 设置监控访问的应用根路径
+management:
+  endpoints:
+    web:
+      base-path: /monitor
+      exposure:
+        # 暴露监控访问接口
+        include: "*"
+        # 显式屏蔽监控访问接口
+        exclude: env,metrics
+  # 开放关闭应用程序端点，不建议开启
+  endpoint:
+    shutdown:
+      enabled: true
+
+service:
+  host:
+    name: ${ser.host}

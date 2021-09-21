@@ -1,0 +1,68 @@
+import org.gradle.internal.os.OperatingSystem
+
+def initPath = "${System.getProperty('java.class.path')}/../../init.d"
+println ">>buid use initPath: $initPath"
+
+def versionDefinitionFiles = [
+    'thirdparty.version',
+    'components.version'
+]
+
+def importVersionFile = {versionFile, action->
+    def importVersions = [:]
+    def script = """
+        class VersionControl {
+            def versionDefinitions
+            
+            def set(property, value) {
+                versionDefinitions[property] = value
+            }
+            
+            def get(property) {
+                return versionDefinitions[property]
+            }
+            
+            def run() {
+                ${file(versionFile).text}
+            }
+        }
+        
+        new VersionControl(versionDefinitions:versionDefinitions).run()
+    """
+    
+    logger.info "Read version of components from file: $versionFile"
+    new GroovyShell(["versionDefinitions":importVersions] as Binding).evaluate(script)
+    importVersions.each {module, version->
+        logger.debug "Module version: $module = $version"
+        action(module, version)
+    }
+}
+
+def platformDependencies = [:]
+
+// search version definition file in init.d
+versionDefinitionFiles.each {versionFile->
+    if (file("${initPath}/${versionFile}").exists()) {
+        importVersionFile("${initPath}/${versionFile}") {module, version->
+            platformDependencies[module] = version
+        }
+    }
+}
+
+allprojects {
+    def rootPath = rootProject.projectDir
+    
+    platformDependencies.each {module, version->
+        ext.set(module, version)
+    }
+    
+    // serach version definition file in project root
+    versionDefinitionFiles.each {versionFile->
+        if (file("$rootPath/$versionFile").exists()) {
+            println "find project [${project.name}] specific version definition file: $versionFile"
+            importVersionFile("$rootPath/$versionFile") {module, version->
+                ext.set(module, version)
+            }
+        }
+    }
+}

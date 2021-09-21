@@ -1,0 +1,23 @@
+ext {
+	httpClient="4.5.3"
+	logbackVersion = '1.2.3'
+}
+
+dependencies {
+	implementation platform_annotations
+	
+	// apache http client
+	implementation "org.apache.httpcomponents:httpclient:${httpClient}"
+	implementation "org.apache.httpcomponents:httpmime:${httpClient}"
+	
+	implementation 'org.apache.commons:commons-lang3:3.6'
+	implementation 'commons-codec:commons-codec:1.14'
+	
+	compileOnly 'org.slf4j:slf4j-api:1.7.25'
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
+	compileOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+	compileOnly "ch.qos.logback:logback-core:${logbackVersion}"
+	compileOnly "ch.qos.logback:logback-access:${logbackVersion}"
+
+	testImplementation junit
+}

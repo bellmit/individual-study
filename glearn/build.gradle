@@ -1,0 +1,35 @@
+allprojects { Project proj ->
+	group 'cn.gyw.glearn'
+	version '1.0.0'
+	
+	ext {
+		userHome = System.getProperty("user.home")
+	}
+	
+	if (proj != rootProject) {
+		
+	}
+}
+
+// 所有子项目的通用配置
+subprojects {
+    //定义版本号
+    ext {
+        springVersion = '5.1.2.RELEASE'
+        lombokVersion = '1.18.6'
+        junitVersion = '4.12'
+        logbackVersion = '1.2.3'
+        springBootVersion = '2.0.4.RELEASE'
+    }
+
+    repositories {
+        // maven本地仓库
+        mavenLocal()
+        // 添加 Maven 仓库
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        mavenCentral()
+    }
+}

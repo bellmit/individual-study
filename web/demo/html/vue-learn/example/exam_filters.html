@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>Vue JS</title>
+    <meta charset="UTF-8">
+    <!-- 页面不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="../../../css/common.css" rel="stylesheet" type="text/css" />
+    <script src="../../../scripts/common/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../../../scripts/common/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <h3>Vue JS 过滤器</h3>
+    <!-- 3. View -->
+    <div id="app">
+        {{msg | castCase(flag)}} 
+    </div>
+</body>
+<script>
+    $(function () {
+        // 1. 创建数据Model
+        var exampleData = {
+            flag: false,
+            msg:"aaaa"
+        };
+
+        // 2. 创建Vue实例（ViewModel）
+        var app = new Vue({
+            el: "#app", // el: vue 对象挂载的View 对象
+            data: exampleData, // data：Model 数据
+            filters: {
+                castCase: function(input, arg) {
+                    if (arg) {
+                        return input.toUpperCase();
+                    } else {
+                        return input.toLowerCase();
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</html>

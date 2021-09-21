@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS-循环学习</title>
+</head>
+<script>
+    window.onload=function(){
+        // js 不同类型的循环
+        // 1.for 循环
+        // for (var i=1;i<10;i++) {
+        //     document.write(i);
+        // }
+        // 2.for/in - 循环遍历对象的属性
+        // var person={fname:"John",lname:"Doe",age:25}; 
+        // for (x in person) {
+        //     console.log(person[x]);
+        // }
+        // 3.while 当指定的条件为 true 时循环指定的代码块
+        
+        var cars=["BMW","Volvo","Saab","Ford"];
+        var i=0;
+        for (;cars[i];)
+        {
+            console.log("for 循环："+cars[i]);
+            i++;
+        }
+        i = 0;
+        while(cars[i]){
+            console.log("while 循环："+cars[i]);
+            i++;
+        }
+
+        // 4.do/while - 同样当指定的条件为 true 时循环指定的代码块
+    }
+</script>
+<body>
+    <h2>JavaScript 学习</h2>
+    <div id="msg"></div>
+    <button type="button" id="btn1">点击事件</button>
+    
+</body>
+</html>

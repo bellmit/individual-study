@@ -1,0 +1,7 @@
+rootProject  {
+
+    subprojects {
+        task allDeps(type: DependencyReportTask) {}
+    }
+	
+}

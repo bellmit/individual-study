@@ -1,0 +1,6 @@
+创建线程的方法：
+
+1.实现Runnable接口
+2.继承Thread类
+3.Executors线程池框架
+4.有返回值的Callable接口和FutureTask类

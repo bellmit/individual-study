@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<mapper namespace="cn.gyw.gbatis.mapper.PersonMapper">
+
+    <select id="queryAll" resultType="cn.gyw.gbatis.model.Person">
+        select * from t_person where id = ?
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+一、 thinkjava《java编程思想（第四版）》
+### src 类
+1.集合相关:collection package
+2.特性相关：feature package
+1）封装
+2）继承
+3）多态
+4）抽象
+3.JUC Tools：concurrent package
+### 测试类
+1.线程创建方式：带有返回值的Callable接口测试
+cn.gyw.concurrent.CallableTest
+2.String相关操作测试
+cn.gyw.corejava.string.StringTest
+## effective《码出高效（第二版）》
+
+算法汇总
+1.模拟从一个List<里发送Long对象，完成对一个列表的排名
+2.猫狗问题
+3.圆桌问题
+4.堆的java代码实现（heap）
+    1）小顶堆
+    2）大顶堆
+
+5.设计书

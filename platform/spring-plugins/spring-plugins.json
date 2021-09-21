@@ -1,0 +1,12 @@
+{
+    "config": [
+        {
+            "active": true,
+            "className": "cn.gyw.platform.springplugins.ApiLogPlugin",
+            "id": "1",
+            "jarRemoteUrl": "file:D:/Temp/plugin/spring-plugins-1.0.0.jar",
+            "name": "统计方法调用次数"
+        }
+    ],
+    "name": "插件库"
+}

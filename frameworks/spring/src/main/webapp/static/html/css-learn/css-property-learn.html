@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS属性-值学习</title>
+    <style type="text/css">
+        /* 文本属性 */
+        #text {
+            /*color：颜色*/
+            color: #F00;
+            /*字符间距*/
+            letter-spacing: 10px;
+            /*对齐方式*/
+            text-align: center;
+            /*文本修饰  下划线-underline，  中划线(line-through)   上划线-overline  没有:none*/
+            text-decoration: line-through;
+            /*单词间距*/
+            word-spacing: 30px;
+        }
+
+        /* 字体设置 */
+        #font {
+            /*字体类型 
+            注意：这里的字体类型是读取系统的默认字体库，尽量使用通用的字体，如果你设置的字体，用户的系统上没有，就是使用默认的宋体显示。
+            */
+            /*
+            font-family:"宋体";
+            */
+            /*字体大小*/
+            /*
+            font-size:24px;
+            */
+            /*字体样式: 正(normal默认)  斜(italic)*/
+            /*
+            font-style:italic;
+            */
+            /*字体粗细  bold 加粗*/
+            /*
+            font-weight:bold;
+            */
+
+            /* font: 简写属性 */
+            font: italic bold 36px "黑体";
+        }
+
+        /* 背景设置 */
+        #background {
+            height: 100px;
+            /*背景颜色*/
+            /*
+            background-color:#0CF;
+            */
+            /*背景图片*/
+            /*
+            background-image:url(../05.%E7%B4%A0%E6%9D%90/mm.jpg);
+            */
+            /*设置背景图片是否重复，或如何重复
+                not-repeat: 不重复
+                repeat-x: x轴重复
+                repeat-y: y轴重复
+                repeat: x和y轴重复(默认)
+            */
+            /*
+            background-repeat:no-repeat;
+            */
+            /*设置背景的起始位置*/
+            /*
+            background-position:top center;
+            */
+            /*简写属性*/
+            background: #3FF url(../../img/icon/owl.png) no-repeat top center;
+        }
+
+        /* 列表属性 */
+        #list {
+            /*列表符号类型*/
+            list-style-type: none;
+            /*设置列表符号的图片*/
+            list-style-image: url(../../img/icon/owl.png);
+        }
+
+        /* 表格属性 */
+        #table table {
+            width: 400px;
+            height: 200px;
+            border: 1px solid;
+            align-items: center;
+            /*合并表格的边框*/
+            border-collapse: collapse;
+        }
+
+        #table tr,
+        #table td,
+        #table th {
+            border: 1px solid;
+        }
+
+        /* 边框样式 */
+        #border {
+            /*边框颜色*/
+            /*简写属性
+            1) 默认设置方向属性： 上 右 下 左
+            2）如果当前方向没有设置颜色，那么取对面的颜色
+            */
+            /*
+            border-color:#F00;
+            */
+            /*
+            border-left-color:#F00;
+            border-right-color:#0F0;
+            border-top-color:#00F;
+            border-bottom-color:#C90;
+            */
+            
+            /*边框宽度*/
+            /*简写属性
+            
+            */
+            /*
+            border-width:10px;
+            */
+            /*
+            border-left-width:10px;
+            border-right-width:20px;
+            border-top-width:30px;
+            border-bottom-width:40px;
+            */
+            
+            /*边框样式(注意： 边框只有加了border-style才会显示出来)
+            solid: 单实线
+            dashed:虚线
+            dotted: 点
+            double: 双实线
+            */
+            
+            /*简写属性*/
+            /*
+            border-style:solid;
+            */
+            
+            /*
+            border-left-style:solid;
+            border-right-style:dashed;
+            border-top-style:dotted;
+            border-bottom-style:double;
+            */
+        
+            /*所有边框属性的简写属性*/
+            border:2px solid #F00;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>CSS（常用属性-值） 学习</h2>
+
+    <ol>
+        <li>文本
+            <div id="text">
+                今天天气不错！
+            </div>
+        </li>
+        <li>字体
+            <div id="font">
+                字体设置
+            </div>
+        </li>
+        <li>背景
+            <div id="background">
+                背景设置
+            </div>
+        </li>
+        <li>列表
+            <div id="list">
+                <ul>
+                    <li>学生管理</li>
+                    <li>教师管理</li>
+                    <li>课程管理</li>
+                </ul>
+            </div>
+        </li>
+        <li>表格
+            <div id="table">
+                <table>
+                    <caption>2014年期末考试成绩单</caption>
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>班级</th>
+                            <th>成绩</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>狗娃</td>
+                            <td>计算机1班</td>
+                            <td>80</td>
+                        </tr>
+                        <tr>
+                            <td>狗剩</td>
+                            <td>计算机2班</td>
+                            <td>78</td>
+                        </tr>
+                        <tr>
+                            <td>狗蛋</td>
+                            <td>软件1班</td>
+                            <td>90</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+        <li>边框
+            <div id="border">div1</div>
+        </li>
+    </ol>
+
+</body>
+
+</html>

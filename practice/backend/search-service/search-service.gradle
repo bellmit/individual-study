@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+ext {
+    SpringBootVersion = '2.3.11.RELEASE'
+}
+
+dependencies {
+    implementation project(':components:common-web')
+
+    // SpringBoot2.2.x版本才支持ElasticSearch7.x
+    implementation "org.springframework.boot:spring-boot-starter-web:${SpringBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-elasticsearch:${SpringBootVersion}"
+
+    implementation mybatis_spring_boot_starter
+
+    // springboot 2.0.4 => es 5.5.0 非最新版，使用自配置
+//    implementation spring_boot_starter_data_elasticsearch
+    implementation jna
+    // https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch
+//    implementation 'org.elasticsearch:elasticsearch:7.10.1'
+//    // https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.10.1'
+    implementation mysql_connector_java
+
+    testImplementation spring_boot_starter_test
+}

@@ -1,0 +1,4 @@
+dependencies {
+	implementation dom4j
+	implementation mysql_connector_java
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+</head>
+<!-- 外联样式表 -->
+<!-- 通用样式 -->
+<link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+<!-- CSS 特定样式 -->
+<link rel="stylesheet" type="text/css" href="css/selector.css"/>
+<body>
+    <h2>CSS（层叠样式表） 学习</h2>
+    <div>
+        <ul>
+            <li>
+                <h3>基本语法</h3>
+                <p>三部分组成：选择器、属性、值</p>
+            </li>
+            <li>
+                <h3>选择器</h3>
+                <ul>
+                    <li id="idIdentity" class="specialClass">id选择器（#{id}）</li>
+                    <li class="specialClass">class选择器（.{class}）</li>
+                    <li>并列选择器（{*},{*}）</li>
+                    <li>派生选择器</li>
+                </ul>
+            </li>
+            <li>
+                <h3>框模型</h3>
+                <img src="" alt="框模型图:../img/frame-model.png"/>
+                <br />
+                <label>行框：</label><span>落花有意，<a class="row-frame">广告时间</a>流水无情</span>
+                <br/>
+                <label>块框：</label><span>世上本没有路，<div class="block-frame">走的人多了</div></span>
+            </li>
+            <li>
+                <h3>定位机制</h3>
+                <div id="pos1">a<div id="pos3">c</div></div>
+                <div id="pos2">
+                    <div class="float-div">b</div>
+                    <div class="float-div">c</div>
+                    <div class="float-div">d</div>
+                    <div class="float-div">e</div>
+                </div>
+            </li>
+            <li>
+                <h3>元素样式说明</h3>
+                <p>透明</p>
+                <table>
+                    <tr><td>姓名</td><td>年龄</td></tr>
+                    <tr><td>张三</td><td style="visibility: hidden">23</td></tr>
+                    <tr><td>王五</td><td style="display: none">26</td></tr>
+                </table>
+            </li>
+            <li>
+                <h3>控件样式控制</h3>
+                <input type="button" value="添加" class="btn" disabled="disabled" />
+            </li>
+        </ul>
+    </div>
+    
+</body>
+</html>

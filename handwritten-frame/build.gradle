@@ -1,0 +1,53 @@
+allprojects {
+	group 'cn.gyw.handwritten'
+	version '1.0.0'
+}
+
+// 所有子项目的通用配置
+subprojects {
+    apply plugin: 'java'
+
+    // JVM 版本号要求
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+    //定义版本号
+    ext {
+    }
+
+    repositories {
+        // maven本地仓库
+        mavenLocal()
+        // 添加 Maven 仓库
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+
+    // 通用依赖
+    dependencies {
+        implementation sl4j_api
+
+        // junit5
+        testImplementation junit_jupiter_api
+        testImplementation junit_jupiter_engine
+        testImplementation junit_platform_runner
+    }
+
+	test {
+		useJUnitPlatform()
+	}
+}
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

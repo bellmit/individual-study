@@ -1,0 +1,49 @@
+def springBoot='2.0.4.RELEASE'
+def springVersion='5.0.8.RELEASE'
+def activeMQVersion = '5.15.9'
+
+// spring framework
+spring_web="org.springframework:spring-web:${springVersion}"
+spring_context='org.springframework:spring-context:4.3.8.RELEASE'
+spring_core="org.springframework:spring-core:${springVersion}"
+spring_context="org.springframework:spring-context:${springVersion}"
+spring_context_support="org.springframework:spring-context-support:${springVersion}"
+spring_beans="org.springframework:spring-beans:${springVersion}"
+spring_jms="org.springframework:spring-jms:${springVersion}"
+
+// springboot framework
+spring_boot_starter_web="org.springframework.boot:spring-boot-starter-web:${springBoot}"
+spring_boot_starter_data_redis="org.springframework.boot:spring-boot-starter-data-redis:${springBoot}"
+spring_boot_starter_data_jpa="org.springframework.boot:spring-boot-starter-data-jpa:${springBoot}"
+spring_boot_starter_test="org.springframework.boot:spring-boot-starter-test:${springBoot}"
+
+// common
+junit='junit:junit:4.12'
+sl4j_api='org.slf4j:slf4j-api:1.7.25'
+javax_persistence='org.javassist:javassist:3.27.0-GA'
+commons_io='commons-io:commons-io:2.7'
+jackson_databind='com.fasterxml.jackson.core:jackson-databind:2.11.2'
+jackson_core='com.fasterxml.jackson.core:jackson-core:2.11.2'
+jackson_annotations='com.fasterxml.jackson.core:jackson-annotations:2.11.2'
+fastjson='com.alibaba:fastjson:1.2.46'
+javax_jms_api='javax.jms:javax.jms-api:2.0.1'
+
+// zookeeper
+curator_framework='org.apache.curator:curator-framework:5.1.0'
+zookeeper='org.apache.zookeeper:zookeeper:3.6.1'
+curator_recipes='org.apache.curator:curator-recipes:5.1.0' // watcher
+zkclient='com.101tec:zkclient:0.10'
+
+// mq
+activemq_all="org.apache.activemq:activemq-all:${activeMQVersion}"
+activemq_pool="org.apache.activemq:activemq-pool:${activeMQVersion}"
+rocketmq_client='com.alibaba.rocketmq:rocketmq-client:3.2.6'
+
+// cache
+jedis='redis.clients:jedis:2.9.0'
+
+// db
+mysql_connector_java='mysql:mysql-connector-java:5.1.47'
+//sharding_jdbc_core='org.apache.shardingsphere:sharding-jdbc-core:4.1.1'
+//sharding_jdbc_core='io.shardingjdbc:sharding-jdbc-core:2.0.3'
+sharding_jdbc_core='com.dangdang:sharding-jdbc-core:1.5.4.1'

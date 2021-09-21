@@ -1,0 +1,45 @@
+def dispatchTable = [
+    'hello-groovy': 'hello-groovy',
+]
+
+from('direct:rest-transaction-service').routeId('rest-transaction-service')
+    .process { exchange ->
+        println "ExchangeID:[" + exchange.exchangeId + "]"
+    }
+    .doTry()
+    .setHeader('requestObject').simple('${body}')
+    .bean('restMessageJsonConvertor', 'unpack')
+    .to('direct:rest-transaction-processing')
+    .enrich('bean:restMessageJsonConvertor?method=pack') { oldEx, newEx ->
+        oldEx.in.headers['responseObject'] = newEx.in.body
+        oldEx
+    }
+    .doCatch(Exception.class)
+    .process { exchange ->
+        println "doCatch() exception"
+    }
+    .end()
+    .log('${body}')
+    .setBody().simple('${header[responseObject]}')
+
+from('direct:rest-transaction-processing').routeId('rest-transaction-processing')
+    .process { exchange ->
+        println('1111')
+    }
+//    .recipientList { exchange ->
+    .process { exchange ->
+        println('2222')
+        def body = exchange.in.body
+        def router = dispatchTable[body.type]
+        println("router received: $router")
+        if (router) {
+            return "direct:$router"
+        } else {
+            return "direct:rest-transaction-not-supported"
+        }
+    }
+
+from('direct:rest-transaction-not-supported').routeId('rest-transaction-not-supported')
+    .process { exchange ->
+        exchange.out.body = 'transaction not support'
+    }

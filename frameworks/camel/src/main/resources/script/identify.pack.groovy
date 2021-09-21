@@ -1,0 +1,1 @@
+_object?.header?.type

@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
+.content {
+    border: 1px solid black;
+    margin: 10px;
+    width: 98%;
+    height: 400px;
+    overflow: scroll;
+    /* 自动换行 */
+    word-wrap: break-word;
+}
+
+li {
+    margin-bottom: 5px;
+}

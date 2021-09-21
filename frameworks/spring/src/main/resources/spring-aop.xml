@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="transactionAspect" class="cn.gyw.spring.db.aspects.TransactionAspect"/>
+
+    <!-- 基于XML 的切面配置 -->
+    <!--定义AOP-->
+    <aop:config>
+
+        <!-- 声明式 -->
+        <aop:pointcut id="dbServicePointCut"
+                      expression="execution(* cn.gyw.spring.db.*Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="dbServicePointCut"/>
+
+        <!--定义切面，order 定义切面执行顺序，数值越小越先执行-->
+        <aop:aspect ref="transactionAspect" order="3">
+            <!--定义切点，正则表达式-->
+            <aop:pointcut id="pointCut" expression="(execution(* cn.gyw.spring.db.*Service.*(..)))"/>
+            <!--定义增强-->
+            <aop:before method="before" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!-- 事务通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="select*" propagation="NOT_SUPPORTED" read-only="true"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="remove*" propagation="REQUIRED"/>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 启动@aspectj的自动代理支持
+    proxy-target-class : 是否使用CGLIB代理，true：cglib；false：jdk；
+    expose-proxy ： 是否内部自调用，true：是；
+    -->
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
+</beans>

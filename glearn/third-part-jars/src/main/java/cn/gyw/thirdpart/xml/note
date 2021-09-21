@@ -1,0 +1,9 @@
+xml处理工具类
+
+1.xml和java对象之间互相转换
+依赖的jar：
+	xpp3_min-1.1.4c.jar
+	xstream-1.4.3.jar
+
+
+dom4j

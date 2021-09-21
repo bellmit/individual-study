@@ -1,0 +1,147 @@
+/* 清除样式 */
+* {
+    /* margin: 0px;
+    padding: 0px; */
+}
+/* 
+1、CSS 语法组成：选择器 属性 值
+2、覆盖逻辑：特殊性由高到低（相同以最后声明的为主）
+ */
+p {
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: black; */
+    text-align: center;
+}
+/* ID选择器 */
+#idIdentity {
+    font-size: 18px;
+    color: red;
+}
+/* 类选择器 */
+.specialClass {
+    color: blue;
+}
+/* 并列选择 */
+h2,h3 {
+    /* 字体加粗 */
+    font-weight: bold;
+}
+/* 派生选择器 */
+li ul li {
+    background-color: yellow;
+}
+/* 组合选择器 */
+.specialClass li {
+    background-color: blueviolet;
+}
+/* 行框 */
+a.row-frame {
+    color: aqua;
+    /* 框模型，inline/block */
+    display: inline;
+}
+/* 块框 */
+div.block-frame {
+    color: aqua;
+    /* 框模型，可以转为：inline-block，设置宽度，不换行 */
+    display: block;
+    /* 相对定位 */
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+/* 定位机制 */
+div#pos1,div#pos2 {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+div#pos3 {
+    /* 绝对定位 */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+/* 浮动定位 */
+div.float-div {
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    float: left;
+}
+table {
+    /* 设置元素透明 */
+    filter: alpha(opacity=90);
+    -moz-opacity:0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    /* 设置表格的细线效果 */
+    border-spacing: 1px;
+    /* background-color: black; */
+}
+tr,th,td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: white;
+}
+/* 隐藏 */
+.hidden {
+    display: none;
+    /* 
+    position: absolute;
+    top: -10000em;
+    left: -100000em;
+    */
+}
+/* 简写属性 */
+body {
+    background:  10px 25% no-repeat fixed;
+    /* border: 3px dotted black;
+    border-left-color: red; */
+}
+h1,h2,h3,h4,h5 {
+    font-weight: normal;
+}
+.btn {
+    height: 50px;
+    width: 100px;
+    margin: 25px 30px;
+}
+
+/* 分页 */
+.myRed {
+    color: red
+}
+
+.myYellow {
+    color: yellow
+}
+
+.mySize {
+    font-size: 39px
+}
+
+.active {
+    color: red
+}
+
+.page {
+    list-style-type: none;
+}
+
+.page>li {
+    float: left;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    background: #eee;
+}

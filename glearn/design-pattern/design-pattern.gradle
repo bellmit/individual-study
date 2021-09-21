@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation platform_annotations
+    implementation sl4j_api
+    runtimeOnly logback_classic
+    runtimeOnly logback_core
+    runtimeOnly logback_access
+
+    testImplementation junit_jupiter_api
+    testImplementation junit_jupiter_engine
+    testImplementation junit_platform_runner
+}
+
+test {
+    useJUnitPlatform()
+}

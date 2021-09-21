@@ -1,0 +1,11 @@
+allprojects {
+    ext {
+        userHome = System.getProperty("user.home")
+        isRelease = "true".equalsIgnoreCase(System.getProperty("release"))
+        localRepository = "file://$userHome/.m2/repository"
+        releaseRepository = "file://$userHome/.m2/releases/"
+        snapshotRepository = "file://$userHome/Alpha_Build"
+        publishRepository = isRelease ? releaseRepository : snapshotRepository
+		sourcePlugin = project.hasProperty('sourcePlugin') ? project.property('sourcePlugin') : "java"
+    }
+}

@@ -1,0 +1,275 @@
+html {
+    /* background: #abacab;
+    text-align: center; */
+    /* 增加双色条纹 */
+    border-top: 5px solid navy;
+    padding-bottom: 50px;
+}
+body {
+    /* width: 800px;
+    margin: 0 auto;
+    text-align: left; */
+    border-top: 55px solid silver;
+    margin: 0;
+    padding: 0;
+}
+img.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+/* 轮廓布局 */
+div.wrapper {
+    width: 960px;
+    outline: 1px dashed red;
+    height: 200px;
+}
+.wrapper .left {
+    float: left;
+    width: 30%;
+    /* border-style: solid; */
+    margin-left: 3px;
+}
+.wrapper .middle {
+    float: left;
+    width: 33.33%;
+}
+.wrapper .right {
+    float: left;
+    width: 33.33%;
+}
+/* 居中块布局 */
+/* div.contain {
+    width: 800px;
+} */
+div.main {
+    width: 760px;
+    /* margin: 0 20px; */
+    /* 如果不知道具体的宽度，可以使用auto，自动居中 */
+    margin: 0 auto;
+    outline: dotted;
+    /* 文字居中 */
+    text-align: center;
+}
+/* 溢出遏制浮动 */
+div#main1 {
+    width: 800px;
+    border: 2px dashed gray;
+    background: #9AC;
+    /* 溢出，自动包裹浮动元素 */
+    overflow: auto;
+}
+#main1 .column {
+    outline: 1px dotted red;
+    float: left;
+    width: 28%;
+    padding: 0.1%;
+    margin: 0.1%;
+}
+/* 通过浮动遏制浮动 */
+div#main2 {
+    /* width: 800px; */
+    border: 2px dashed gray;
+    background: #9AC;
+    /* 浮动，自动包裹浮动元素 */
+    float: left;
+    width: 50%;
+}
+#main2 .column1 {
+    outline: 1px dotted red;
+    float: left;
+    width: 28%;
+    padding: 0.1%;
+    margin: 0.1%;
+}
+/* 清除浮动元素后紧邻的元素 */
+.footer {
+    /* 清除浮动 */
+    clear: left;
+}
+/* 如果不知道紧邻的元素，可以通过相邻兄弟选择器选择+通用选择器 */
+/* #main2+* {
+    clear: left;
+} */
+/* 通过元素浮动清除
+将自身和之后的所有元素置于浮动元素之下
+*/
+br.clear-float {
+    clear: both;
+    /* 如果有空行 */
+    font-size: 0;
+    height: 0;
+}
+/* 相邻浮动元素清除 */
+div#main3 {
+    width: 800px;
+    border: 2px dashed gray;
+    background: #9AC;
+    /* 溢出，自动包裹浮动元素 */
+    overflow: auto;
+}
+#main3 .column3 {
+    outline: 1px dotted red;
+    float: left;
+    width: 28%;
+    padding: 0.1%;
+    margin: 0.1%;
+}
+#main3 .column3+p {
+    clear: both;
+}
+/* 两栏布局 */
+div#main4 {
+    width: 800px;
+    border: 2px dashed gray;
+    background: #9AC;
+    /* 溢出，自动包裹浮动元素 */
+    overflow: auto;
+}
+#main4 .column4 {
+    outline: 1px dotted red;
+    float: left;
+    width: 49%;
+    padding: 0.1%;
+    margin: 0.1%;
+}
+/* 三栏布局 */
+div#main5 {
+    width: 800px;
+    border: 2px dashed gray;
+    /* background: #9AC; */
+    /* 溢出，自动包裹浮动元素 */
+    overflow: auto;
+}
+#main5 .column5 {
+    outline: 1px dotted red;
+    float: left;
+    width: 20%;
+    margin: 0 5%;
+}
+#main5 .two {
+    width: 30%;
+    /* 分隔符 */
+    border: 1px solid gray;
+    border-width: 0 1px;
+    margin: 0;
+    padding: 0 4%;
+}
+/* 伪造栏布局 */
+div#main6 {
+    width: 800px;
+    /* border: 2px dashed gray; */
+    /* background: #9AC; */
+    /* 溢出，自动包裹浮动元素 */
+    overflow: auto;
+}
+#main6 .contain6 {
+    overflow: auto;
+    background: url(../img/icon/owl.png) 0 0 repeat-y;
+    margin: 0 auto;
+}
+#main6 .column6 {
+    /* outline: 1px dotted red; */
+    float: right;
+    width: 200px;
+    margin: 0 5px;
+}
+/* 流式漂白布局 */
+div#main7 {
+    overflow: auto;
+    background: #decadc url(../img/split.png) 70% 0 repeat-y;
+}
+#main7 .column7 {
+    width: 20%;
+    margin: 0 5%;
+    float: left;
+}
+#main7 .contain7 {
+    background: url(../img/split.png) 25% 0 repeat-y;
+    overflow: auto;
+}
+.column7 two {
+    width: 30%;
+}
+/* 唯一布局 */
+#main8 {
+    overflow: auto;
+}
+.column8 {
+    float: left;
+    padding: 0 20px;
+    margin: 0 20px;
+}
+#main8 .two,#main8 .three {
+    width: 200px;
+}
+#main8 .one {
+    width: 300px;
+}
+/* 让第一栏在中间，第二栏在右边，第三栏在左边 */
+#main8 .one {
+    margin-left: 300px;
+}
+#main8 .three {
+    margin-left: -920px;
+}
+/* 负外边距同行 */
+/* li 同行 */
+#main9 ul.jump {
+    list-style: none;
+    line-height: 1;
+    width: 25em;
+    margin: 0 auto;
+    padding: 0.25em 1em;
+    border: 1px solid;
+}
+#main9 ul.jump li.next {
+    text-align: right;
+    margin-top: -1em;
+}
+/* 拉出边界 */
+#main9 {
+    border-top: 1px solid gray;
+}
+#main9 p {
+    width: 80%;
+    background: #FFF;
+    border: 1px solid gray;
+    margin: -0.67em auto 0;
+    text-align: center;
+}
+/* 定位 */
+#main10 .header {
+    /* 为后代元素创建定位上下文 */
+    position: relative;
+}
+#main10 .nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#main10 .header form {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+/* 固定页眉页脚 */
+.g-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: red;
+}
+/* 防止固定页头覆盖内容 */
+body {
+    padding-top: 100px;
+}
+/* 固定的页头，不会在pageUp和down计算范围内，所以每次翻页会有覆盖几行，解决办法，内容里用固定定位，内边距 */
+.contain .main {
+    /* position: fixed; */
+    top: 100px;
+    bottom: 0;
+    width: 100%;
+}

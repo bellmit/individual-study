@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 注意configuration中各个属性配置的顺序应为：
+    properties,settings,typeAliases,typeHandlers,objectFactory,objectWrapperFactory,reflectorFactory,plugins,environments,databaseIdProvider,mappers)-->
+    <!-- 自定义配置:可外部配置且可动态替换 -->
+    <properties resource="database.properties">
+        <property name="env" value="dev"/>
+    </properties>
+
+    <!-- 全局配置 -->
+    <settings>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- 二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!--是否开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!-- 执行器类型 -->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!-- 驼峰命名法 -->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <!-- 一级缓存作用域 -->
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!--打印sql日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!-- 类型别名 -->
+    <typeAliases>
+        <typeAlias type="cn.gyw.mybatis.model.Phone" alias="phone"/>
+        <typeAlias type="cn.gyw.mybatis.model.Consumer" alias="consumer"/>
+        <package name="cn.gyw.mybatis.model"/>
+    </typeAliases>
+
+    <!-- 类型处理器 -->
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="java.math.RoundingMode"/>
+    </typeHandlers>
+
+    <!-- 对象工厂
+     Mybatis 每次创建结果对象的时候，都会使用ObjectFactory来完成。
+     默认的对象工厂需要做的仅仅是实例化目标，要么通过默认构造器，要么通过参数映射存在的参数构造方法来实例化。
+     使用ObjectFactory可以覆盖默认对象工厂行为
+     -->
+    <objectFactory type="cn.gyw.mybatis.factory.CustomObjectFactory">
+        <property name="phonePrice" value="123"></property>
+    </objectFactory>
+
+    <!-- 插件
+    MyBatis 允许使用插件来拦截的方法调用包括：
+    1）Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
+    2）ParameterHandler (getParameterObject, setParameters)
+    3）ResultSetHandler (handleResultSets, handleOutputParameters)
+    4）StatementHandler (prepare, parameterize, batch, update, query)
+    -->
+    <plugins>
+        <plugin interceptor="cn.gyw.mybatis.plugins.PageHelperPlugin">
+            <property name="page" value="1"/>
+            <property name="limit" value="20"/>
+        </plugin>
+    </plugins>
+
+    <!-- 环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理方式：JDBC事务管理；MANAGED 容器管理-->
+            <transactionManager type="JDBC"/>
+            <!--内建的三种数据源格式
+            UNPOOLED:每次请求打开和关闭连接
+            POOLED：数据库连接池
+            JNDI：容器可以集中或在外部配置数据源，然后放置一个JNDI的上下文应用
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${driverUrl}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射器-->
+    <mappers>
+        <mapper resource="mapper/mysql/ConsumerMapper.xml"/>
+        <mapper resource="mapper/mysql/PhoneMapper.xml"/>
+        <!-- package -->
+        <!-- <package name=""/> -->
+    </mappers>
+
+</configuration>

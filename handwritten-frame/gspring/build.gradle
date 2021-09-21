@@ -1,0 +1,35 @@
+plugins {
+    id 'war'
+    id "org.gretty" version "3.0.3"
+}
+
+gretty {
+    httpPort = 8080
+    contextPath = '/'
+    // Bumped default Tomcat 9 version to 9.0.6
+    // Since version 3.0.0 Gretty no longer supports JDK7, Gradle <5.0, Tomcat 7.x or Tomcat 8.0.x.
+    servletContainer = 'tomcat9'
+
+    debugSuspend = false
+    // set this lead to runtime exception
+    managedClassReload      = false
+    recompileOnSourceChange = false
+}
+
+dependencies {
+	// provided
+	compileOnly sl4j_api
+    compileOnly javax_servlet_api
+
+    runtimeOnly logback_classic
+    runtimeOnly logback_core
+    runtimeOnly logback_access
+	
+    testImplementation junit_jupiter_api
+	testImplementation junit_jupiter_engine
+	testImplementation junit_platform_runner
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+    # 心跳时间(默认30s)
+    #lease-renewal-interval-in-seconds: 3
+    # 过期时间(默认90s)
+    #lease-expiration-duration-in-seconds: 3
+  server:
+    # 关闭自我保护
+    enable-self-preservation: false
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    # 表示注册中心是否向其他注册中心注册自己，单节点注册中心不需要，设置为false
+    register-with-eureka: false
+    # 表示注册中心是否主动去检索服务，并不需要检索服务，设置为false
+    fetch-registry: false

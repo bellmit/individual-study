@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS-事件学习</title>
+</head>
+<body>
+    <h2>JavaScript 学习</h2>
+    <div id="msg"></div>
+    <button type="button" id="btn1">点击事件</button>
+
+</body>
+<script>
+    // 加载事件
+    window.onload=function() {
+        var btn1 = document.getElementById("btn1");
+        /* 添加事件句柄，
+        PS：在为元素添加事件句柄或者删除元素事件句柄的过程中，不要将 event 参数设置为 onclick，而必须写成 click，去掉事件名称中的 on 即可
+        */
+       btn1.addEventListener("click",showFunc);
+    };
+
+    // 无参函数
+    function showFunc() {
+        document.getElementById("msg").innerHTML="点击事件";
+    }
+</script>
+</html>

@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+}
+// JVM 版本号要求
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// java编译的时候缺省状态下会因为中文字符而失败
+[compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+jar {
+	manifest {
+		attributes('Manifest-Version': '1.0.0',
+				   'Can-Redefine-Classes': true,
+				   'Can-Retransform-Classes': true,
+				   'Premain-Class': 'cn.gyw.glearn.javaagent.PreMainTraceAgent',
+				   'Agent-Class': 'cn.gyw.glearn.javaagent.MainRunAfterAgent'
+				   )
+	}
+}
+
+dependencies {
+	implementation platform_annotations
+	testImplementation junit
+}

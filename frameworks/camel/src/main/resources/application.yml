@@ -1,0 +1,32 @@
+# the port of tomcat
+server:
+  port: 8088
+  camel-url: /camel/*
+
+spring:
+  application:
+    name: camel-service
+
+# the name of camel
+camel:
+  springboot:
+    name: ScriptRoute
+  cloud:
+    ribbon:
+      properties[ServerListRefreshInterval]: 250
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url: 
+      defaultZone: http://localhost:8761/eureka
+
+route:
+  script:
+    rootPath: camel/src/main/resources/route/
+
+rest:
+  json:
+    script:
+      rootPath: file:camel/src/main/resources/script/

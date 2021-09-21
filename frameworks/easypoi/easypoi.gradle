@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation platform_common
+
+    implementation 'cn.afterturn:easypoi-base:4.4.0'
+    implementation 'cn.afterturn:easypoi-annotation:4.4.0'
+
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+    implementation "ch.qos.logback:logback-access:${logbackVersion}"
+
+    testImplementation 'junit:junit:4.12'
+}
+
+jar {
+    //详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+    archivesBaseName = 'easypoi'
+    archiveVersion = '1.0.0'
+    manifest { //配置jar文件的manifest
+        attributes(
+                "Manifest-Version": 1.0,
+                'Main-Class': 'cn.gyw.frameworks.easypoi.EasypoiApplication'
+        )
+    }
+    //打包依赖包
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}

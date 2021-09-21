@@ -1,0 +1,56 @@
+// 声明gardle脚本自身所需要使用的资源，包括依赖项、maven仓库地址、第三方插件等
+buildscript {
+
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+        springCloudVersion = 'Finchley.SR4'
+    }
+
+    repositories {
+        // maven 本地仓库
+        mavenLocal()
+        // 添加 Maven 仓库
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "cn.gyw.platform:mbg-gradle-plugin:1.0.0"
+    }
+
+//    jar {
+//        manifest.attributes provider: 'gradle'
+//    }
+}
+
+// 所有模块共享配置
+allprojects { Project project ->
+    apply plugin: 'idea'
+    group 'cn.gyw.backend'
+    version '1.0.0'
+	project.apply plugin:'eclipse'
+	if (project != rootProject) {
+		eclipse.project.name = project.path.replaceFirst(':', '').replaceAll(/[\\\/:]/, '-')
+	}
+}
+
+// 设定所有子模块共享的配置
+subprojects {
+    repositories {
+        // maven 本地仓库
+        mavenLocal()
+        // 添加 Maven 仓库
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/groups/htm'
+        }
+        mavenCentral()
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

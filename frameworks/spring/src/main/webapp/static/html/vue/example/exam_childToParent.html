@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>Vue JS</title>
+    <meta charset="UTF-8">
+    <!-- 页面不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="../../../css/common.css" rel="stylesheet" type="text/css" />
+    <script src="../../../scripts/common/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../../../scripts/common/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <h3>Vue JS 子父通信</h3>
+    <!-- 3. View -->
+    <div id="app">
+        <my-login></my-login>
+    </div>
+</body>
+<script>
+    $(function () {
+
+        Vue.component("my-login", {
+            template: `<ul v-if='isUserLogin'>
+                <li v-for='n in nums'>{{n}}</li>
+                <my-input @dataEvt='getData'></my-input>
+            </ul>`,
+            data: function () { // 必须为每个组件使用不同的data，所以需要返回
+                return {
+                    "nums": [1,2,3,4],
+                    "isUserLogin": true
+                };
+            },
+            methods: {
+                getData: function(data) {
+                    this.isUserLogin = data;
+                }
+            }
+        });
+
+        Vue.component("my-input", {
+            template: `<button @click='setData'>click</button>`,
+            data: function() {
+                return {}
+            },
+            methods: {
+                setData: function() {
+                    this.$emit('dataEvt', false);
+                }
+            }
+        });
+
+        // 1. 创建数据Model
+        var exampleData = {
+            flag: false,
+            msg:"aaaa"
+        };
+
+        // 2. 创建Vue实例（ViewModel）
+        var app = new Vue({
+            el: "#app", // el: vue 对象挂载的View 对象
+            data: exampleData, // data：Model 数据
+            filters: {
+                castCase: function(input, arg) {
+                    if (arg) {
+                        return input.toUpperCase();
+                    } else {
+                        return input.toLowerCase();
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</html>

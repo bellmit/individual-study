@@ -1,0 +1,8 @@
+dependencies {
+	implementation spring_core
+	implementation spring_context
+	implementation spring_context_support
+	implementation spring_beans
+	implementation spring_aspects
+	implementation aspectjweaver
+}

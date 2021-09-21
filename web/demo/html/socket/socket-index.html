@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>简单的聊天室</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            position: absolute;
+        }
+
+        iframe {
+            float: left;
+            width: 49%;
+            height: 800px;
+        }
+
+        #left {
+            border-right: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>聊天室</h2>
+    <div style="width: 100%;">
+        <iframe id="left" src="im_chat.html" frameborder="0"></iframe>
+        <iframe id="right" src="im_chat.html" frameborder="0"></iframe>
+    </div>
+</body>
+
+</html>

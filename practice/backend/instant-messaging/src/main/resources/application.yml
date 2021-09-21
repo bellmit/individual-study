@@ -1,0 +1,122 @@
+# 全局配置
+server:
+  servlet:
+    context-path: /im
+  port: 8083
+
+# spring 配置
+spring:
+  # 多环境配置
+  profiles:
+    active: local
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+      exclude: application.yml
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/c_system?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    dbcp2:
+      validation-query: select 1
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        show_sql: true
+    # redis配置
+    # REDIS (RedisProperties)
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: 123456
+    # 连接超时时间（毫秒）
+    timeout: 15000ms
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+  # RabbitMQ配置
+  # rabbitmq相关配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    # 2. Thymeleaf 引擎
+  # 启用缓存:建议生产开启
+  thymeleaf:
+    cache: false
+    # 建议模版是否存在
+    check-template-location: true
+    # Content-Type 值 （无效）
+    #spring.thymeleaf.content-type: text/htm
+    # 是否启用
+    enabled: true
+    # 模版编码
+    encoding: UTF-8
+    # 应该从解析中排除的视图名称列表（用逗号分隔）
+    excluded-view-names:
+    # 模版模式
+    mode: LEGACYHTML5
+    # 模版存放路径
+    prefix: classpath:/templates/
+    # 模版后缀
+    suffix: .htm
+
+# 日志管理
+# Spring Boot中默认配置了ERROR、WARN和INFO级别的日志输出到控制台。
+#debug: true
+# 文件输出
+logging:
+  config: classpath:log/logback.xml
+#logging.path: E:/Workspace_My/logs
+# 级别控制
+# 格式：logging.level.*: LEVEL
+# logging.level：日志级别控制前缀，*为包名或Logger名
+# LEVEL：选项TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+# 自定义输出格式
+#logging.pattern.console：定义输出到控制台的样式（不支持JDK Logger）
+#logging.pattern.file：定义输出到文件的样式（不支持JDK Logger）
+# api日志管理
+apiLog:
+  tableName: apilog
+  daysToKeep: 1
+  datasource:
+    driverClass: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/c_system?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+    user: root
+    password: root
+
+# 文件上传配置
+multipart:
+  # 最大支持文件大小 即单个文件大小
+  maxFileSize: 50Mb
+  # 最大支持请求大小 即一次性上传的总文件大小
+  maxRequestSize: 50Mb
+
+# 自定义属性
+test:
+  env: dev
+swagger:
+  enabled: true

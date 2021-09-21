@@ -1,0 +1,10 @@
+
+dependencies {
+	implementation platform_common
+	implementation zookeeper
+	implementation curator_framework
+	implementation curator_recipes
+	implementation zkclient
+	
+	testImplementation junit
+}

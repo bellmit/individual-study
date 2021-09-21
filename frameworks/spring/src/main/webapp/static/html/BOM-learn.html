@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BOM编程学习</title>
+</head>
+
+<body>
+    <div>
+        <p>window 对象</p>
+        <input type="button" value="open()" onclick="testOpen()" />
+        <input type="button" value="setInteval()" onclick="testInterval()" />
+        <input type="button" value="clearInteval()" onclick="testClearInterval()" />
+        <input type="button" value="setTimeout()" onclick="testTimeout()" />
+        <input type="button" value="clearTimeout()" onclick="testClearTimeout()" />
+        <input type="button" value="alert()" onclick="testAlert()" />
+        <input type="button" value="confirm()" onclick="testConfirm()" />
+        <input type="button" value="prompt()" onclick="testPrompt()" />
+    </div>
+    <div>
+        <p>location 对象</p>
+        <input type="button" value="跳转" onclick="testHref()" />
+        <input type="button" value="实现定时刷新" onclick="testRefresh()" />
+    </div>
+    <div>
+        <p>history 对象</p>
+        <a href="css-learn/css-selector-learn.html">Css 选择器</a>
+        <input type="button" value="前进" onclick="testForward()"/>
+    </div>
+    <div>
+        <p>screen 对象</p>
+        <div id="screen-msg"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    /*
+	 open(): 在一个窗口中打开页面
+	 
+	 setInterval(): 设置定时器（执行n次）
+	 setTimeout(): 设置定时器(只执行1次)
+	 clearInterval(): 清除定时器
+	 clearTimeout(): 清除定时器
+	 
+	 alert(): 提示框
+	 confirm(): 确认提示框
+	 propmt(): 输入提示框
+	 
+	 注意：
+	 	因为window对象使用非常频繁，所以当调用js中的window对象的方法时，可以省略对象名不写。
+	
+	*/
+    var taskId;
+    function testOpen() {
+		/*
+		参数一： 打开的页面
+		参数二：打开的方式。 _self: 本窗口  _blank: 新窗口（默认）
+		参数三： 设置窗口参数。比如窗口大小，是否显示任务栏
+		*/
+        window.open("BOM-learn.html", "_blank", "width=300px;height=300px;toolbar=0");
+    }
+
+    function testInterval() {
+
+		/*
+		定时器： 每隔n毫秒调用指定的任务（函数）
+		参数一：指定的任务（函数）
+		参数二：毫秒数
+		*/
+        taskId = window.setInterval("testOpen()", 3000);
+    }
+
+    function testClearInterval() {
+		/*清除任务
+		参数一：需要清除的任务ID
+		*/
+        window.clearInterval(taskId);
+    }
+
+    var toId;
+    function testTimeout() {
+        /*设置定时任务*/
+        toId = window.setTimeout("testOpen()", 3000);
+    }
+
+    function testClearTimeout() {
+        window.clearTimeout(toId);
+    }
+
+
+    function testAlert() {
+        window.alert("提示框");
+    }
+
+    function testConfirm() {
+		/*
+		返回值就是用户操作
+			true: 点击了确定
+			false： 点击了取消
+		*/
+        var flag = window.confirm("确认删除吗？一旦删除不能恢复，请慎重！");
+        if (flag) {
+            alert("确定删除，正在删除中....");
+        } else {
+            alert("取消了操作");
+        }
+    }
+
+    function testPrompt() {
+		/*
+		输入提示框
+		*/
+        var flag = window.prompt("请输入你的U顿密码");
+        if (flag) {
+            alert("密码正确，转账中...");
+        } else {
+            alert("取消了操作");
+        }
+    }
+
+    /*
+	href属性： 代表的是地址栏的URL，可以获取和设置URL。URL表示统一资源定位符
+	
+	reload方法： 刷新当前页面
+	
+	*/
+    function testHref() {
+        //alert(window.location.href);	
+		/*
+			通过修改location对象的href属性来实现页面的跳转
+		*/
+        window.location.href = "BOM-learn.html";
+    }
+
+    function testReload() {
+        //刷新当前页面
+        window.location.reload();
+    }
+
+    //function testRefresh(){
+    //定时刷新
+    window.setTimeout("testReload()", 1000);
+	//}
+
+    /*
+		forward(): 前进到下一页
+		back(): 后退上一页
+		go(): 跳转到某页（正整数：前进  负整数：后退）  1   -2
+	*/
+	function testForward(){
+		//window.history.forward();	
+		window.history.go(1);
+	}
+
+    function screenInfo() {
+        window.screen.availWidth;
+        window.screen.availHeight;
+        window.screen
+    }
+</script>
+
+</html>

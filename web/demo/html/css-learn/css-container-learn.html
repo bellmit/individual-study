@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Css 容器学习</title>
+    <!-- 外联样式表 -->
+    <!-- CSS 特定样式 -->
+    <link rel="stylesheet" type="text/css" href="css/container.css" />
+    <style type="text/css">
+        #user-login-demo {
+            /*宽度和高度*/
+            width: 450px;
+            height: 300px;
+            /*边框*/
+            border: 1px solid #000;
+            /*设置外边距*/
+            /*简写属性*/
+            margin: 150px 0 0 420px;
+            /*设置背景图片*/
+            background-image: url(../../img/icon/owl.png);
+            background-repeat: no-repeat;
+            background-position: top center;
+
+            /* 固定定位：相对浏览器的位置，不随滚动条移动 */
+            position: fixed;
+            top: 100px;
+            left: 250px;
+        }
+
+        #userName {
+            margin: 60px 0 0 100px;
+        }
+
+        #userPwd {
+            margin: 10px 0 0 100px;
+        }
+
+        #btn {
+            margin: 10px 0 0 150px;
+        }
+
+        #regBtn {
+            margin-left: 50px;
+        }
+
+        /*设置用户输入框的背景*/
+        #nameInput {
+            background-image: url(../../img/icon/head.png);
+            background-repeat: no-repeat;
+            /*设置左内边距*/
+            padding-left: 30px;
+        }
+
+        /*设置密码输入框的背景*/
+        #pwdInput {
+            background-image: url(../../img/icon/key.jpg);
+            background-repeat: no-repeat;
+            /*设置左内边距*/
+            padding-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <img class="log" src="../../img/icon/key.jpg" />
+    <h2>CSS布局</h2>
+    <div id="user-login-demo">
+        <form>
+            <div id="userName">
+                用户名：<input id="nameInput" type="text" name="userName" />
+            </div>
+            <div id="userPwd">
+                密&nbsp;&nbsp;码：<input id="pwdInput" type="password" name="userPwd" />
+            </div>
+            <div id="btn">
+                <input type="submit" value="登陆" /><input type="button" value="立即注册" id="regBtn" />
+            </div>
+        </form>
+    </div>
+    <div class="wrapper">
+        <p>轮廓代替边框</p>
+        <div class="left">
+            <ul>
+                <li>开始1</li>
+                <li>开始2</li>
+                <li>开始3</li>
+            </ul>
+        </div>
+        <div class="middle">
+            中间字符串
+        </div>
+        <div class="right">
+            右侧字符串
+        </div>
+    </div>
+    <hr />
+    <p>居中块状框</p>
+    <div class="contain">
+        <div class="main">
+            臣密言：臣以险衅，夙遭闵凶。生孩六月，慈父见背；行年四岁，舅夺母志。祖母刘悯臣孤弱，躬亲抚养。臣少多疾病，九岁不行，零丁孤苦，至于成立。既无叔伯，终鲜兄弟，门衰祚薄，晚有儿息。外无期功强近之亲，内无应门五尺之僮，茕茕孑立，形影相吊。而刘夙婴疾病，常在床蓐，臣侍汤药，未曾废离。
+            逮奉圣朝，沐浴清化。前太守臣逵察臣孝廉，后刺史臣荣举臣秀才。臣以供养无主，辞不赴命。诏书特下，拜臣郎中，寻蒙国恩，除臣洗马。猥以微贱，当侍东宫，非臣陨首所能上报。臣具以表闻，辞不就职。诏书切峻，责臣逋慢。郡县逼迫，催臣上道；州司临门，急于星火。臣欲奉诏奔驰，则刘病日笃；欲苟顺私情，则告诉不许：臣之进退，实为狼狈。
+        </div>
+    </div>
+    <hr />
+    <p>通过溢出抑制浮动</p>
+    <div id="main1">
+        <div class="column">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column">BBB</div>
+        <div class="column">CCC</div>
+    </div>
+    <hr />
+    <p>通过浮动遏制浮动</p>
+    <div id="main2">
+        <div class="column1">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column1">BBB</div>
+        <div class="column1">CCC</div>
+    </div>
+    <br class="clear-float" />
+    <div class="footer">
+        需要清除浮动的footer
+    </div>
+    <hr />
+    <p>相邻浮动清除</p>
+    <div id="main3">
+        <div class="column3">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column3">BBB</div>
+        <div class="column3">CCC</div>
+        <p>我不要和浮动元素一行</p>
+    </div>
+    <hr />
+    <p>两栏布局</p>
+    <div id="main4">
+        <div class="column4">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column4">BBB</div>
+    </div>
+    <div class="footer">
+        版权所有&guanyw
+    </div>
+    <hr />
+    <p>三栏布局</p>
+    <div id="main5">
+        <div class="column5 one">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column5 two">
+            BBB
+            王企鹅肉秋容
+            而还让
+            aweruo
+        </div>
+        <div class="column5 three">
+            CCC
+        </div>
+    </div>
+    <div class="footer">
+        版权所有&guanyw
+    </div>
+    <hr />
+    <p>伪造栏布局：创建等高栏</p>
+    <div id="main6">
+        <div class="contain6">
+            <div class="column6 one">
+                <p>AAA</p>
+                <p>AAA</p>
+            </div>
+            <div class="column6 two">
+                BBB
+                王企鹅肉秋容
+                而还让
+                aweruo
+            </div>
+            <div class="column6 three">
+                CCC
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        版权所有&guanyw
+    </div>
+    <hr />
+    <p>流式漂白布局：创建等高栏</p>
+    <div id="main7">
+        <div class="contain7">
+            <div class="column7 one">
+                <p>AAA</p>
+                <p>AAA</p>
+            </div>
+            <div class="column7 two">
+                BBB
+                王企鹅肉秋容
+                而还让
+                aweruo
+            </div>
+            <div class="column7 three">
+                CCC
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        版权所有&guanyw
+    </div>
+    <hr />
+    <p>唯一布局</p>
+    <div id="main8">
+        <div class="column8 one">
+            <p>AAA</p>
+            <p>AAA</p>
+        </div>
+        <div class="column8 two">
+            BBB
+        </div>
+        <div class="column8 three">
+            CCC
+        </div>
+    </div>
+    <hr />
+    <div id="main9">
+        <p>负外边距</p>
+        <ul class="jump">
+            <li class="prev"><a href="#">12313123123213</a></li>
+            <li class="next"><a href="#">232312323aaa</a></li>
+        </ul>
+    </div>
+    <hr />
+    <div id="main10">
+        <p>在特定的上下文中使用定位：页眉页脚</p>
+        <div class="header">
+            <a href="/">
+                <img src="../img/icon/printer-2.png" alt="logo" />
+            </a>
+            <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Product</a></li>
+            </ul>
+            <form method="GET" action="/">
+                <fieldset>
+                    <legend>Search</legend>
+                    <input type="text" name="terms" id="terms" />
+                    <input type="submit" value="Search" />
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

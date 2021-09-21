@@ -1,0 +1,7 @@
+dependencies {
+	implementation sharding_jdbc_core
+	implementation 'com.dangdang:sharding-jdbc-self-id-generator:1.4.2'
+
+	
+	testImplementation junit
+}

@@ -1,0 +1,5 @@
+dependencies {
+    implementation jedis
+    implementation fastjson
+    testImplementation junit
+}

@@ -1,0 +1,34 @@
+apply plugin: "java"
+
+dependencies {
+	implementation platform_common
+
+	implementation 'org.apache.httpcomponents:httpclient:4.5.3'
+	implementation 'org.apache.httpcomponents:httpmime:4.5.3'
+	implementation 'org.apache.commons:commons-pool2:2.5.0'
+	implementation 'commons-codec:commons-codec:1.11'
+	implementation 'org.aspectj:aspectjweaver:1.8.13'
+	implementation 'com.google.code.gson:gson:2.8.0' // json util gson
+	implementation 'org.apache.commons:commons-lang3:3.6'
+	implementation 'com.auth0:java-jwt:3.10.3' // java json web tokens
+	// api 依赖传递
+	compile springfox_swagger2
+	compile springfox_swagger_ui
+	implementation logstash_logback_encoder
+
+	//	implementation tk_mybatis_mapper
+
+	// 编译期依赖
+	// spring web support
+	compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	// mybatis-plus
+	compileOnly 'com.baomidou:mybatis-plus-boot-starter:3.0.5'
+	compileOnly mapper_spring_boot_starter
+	compileOnly spring_data_commons
+	compileOnly pagehelper
+
+	// test
+	testImplementation('org.springframework.boot:spring-boot-starter-test:2.0.4.RELEASE') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}

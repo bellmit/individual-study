@@ -1,0 +1,46 @@
+plugins {
+	id 'java'
+}
+
+// JVM 版本号要求
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// java编译的时候缺省状态下会因为中文字符而失败
+[compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+dependencies {
+
+	implementation commons_cli
+	implementation commons_beanutils
+	implementation commons_lang3
+	implementation commons_text
+	implementation commons_net
+	implementation commons_collections
+	
+	implementation jfreechart
+	implementation jcommon
+	implementation oshi
+	implementation joda_time
+	implementation dom4j
+	implementation jaxb_api
+	implementation poi
+	implementation poi_ooxml
+	implementation freemarker
+	implementation httpclient
+	implementation httpmime
+	implementation gson
+	implementation javax_mail_api
+	implementation mail
+	
+	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	
+	// logback log
+	implementation logback_classic
+	implementation logback_core
+	implementation logback_access
+
+	compileOnly javax_servlet_api
+
+	testImplementation junit
+}

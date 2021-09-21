@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Axios</title>
+</head>
+<body>
+    <h2>Axios</h2>
+    <div id="msg"></div>
+</body>
+<script src="../../common/js/jquery-3.3.1.js"></script>
+<script src="../../common/js/axios-0.21.1.js"></script>
+
+<script>
+    $(function() {
+        init();
+    });
+
+    function init() {
+        var cardData = {
+            "cardId": "6201234567890123"
+        }
+        console.log(JSON.stringify(cardData))
+    }
+</script>
+</html>

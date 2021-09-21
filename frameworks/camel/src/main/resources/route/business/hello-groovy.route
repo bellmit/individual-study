@@ -1,0 +1,6 @@
+from('direct:hello-groovy').routeId('hello-groovy')
+    .process { exchange ->
+        _log.info('hello-groovy')
+
+
+    }

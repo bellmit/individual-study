@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>Vue JS</title>
+    <meta charset="UTF-8">
+    <!-- 页面不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="../../../css/common.css" rel="stylesheet" type="text/css" />
+    <script src="../../../scripts/common/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../../../scripts/common/vue.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <h3>Vue JS 复合组件</h3>
+    <!-- 3. View -->
+    <div id="app">
+        <my-form></my-form>
+
+        <hr>
+        <!-- 1.练习
+        创建一个组件，渲染h1标签，要求：在挂载完成后，启动定时器修改，h1标签的透明度0-1
+        -->
+        <h4>练习一</h4>
+        <my-h1></my-h1>
+
+        <hr>
+        <!-- 2.练习
+        猜数字大小：组件包括一个input和一个p元素
+        组件准备挂载时，初始化一个中奖数
+        数小，p元素显示小于
+        数大，p元素显示大于
+        -->
+        <my-game></my-game>
+
+        <hr>
+        <my-cal></my-cal>
+    </div>
+</body>
+<script>
+    $(function () {
+        Vue.component("label-name", {
+            template: '<label>名称</label>'
+        });
+        Vue.component("input-name", {
+            template: "<input type='text' name='name'>"
+        });
+        Vue.component("label-pwd", {
+            template: '<label>密码</label>'
+        });
+        Vue.component("input-pwd", {
+            template: "<input type='password' name='pwd'>"
+        });
+        Vue.component("button-login", {
+            template: '<button>登录</button>'
+        });
+        Vue.component("button-register", {
+            template: '<button>注册</button>'
+        });
+        Vue.component("my-form", {
+            template: `<form>
+                <label-name></label-name>
+                <input-name></input-name>
+                <br />
+                <label-pwd></label-pwd>
+                <input-pwd></input-pwd>
+                <br />
+                <button-login></button-login>
+                <button-register></button-register>
+            </form>`
+        });
+        Vue.component("my-h1", {
+            data: function () {
+                return { opacityVal: 1 };
+            },
+            template: `<h1 v-bind:style="{opacity: opacityVal}">透明度</h1>`,
+            methods: {
+                updateOpacity: function () {
+                    var vm = this;
+                    setInterval(function () {
+                        vm.opacityVal += 0.1;
+                        if (vm.opacityVal > 1) {
+                            vm.opacityVal = 0;
+                        }
+                    }, 200);
+                }
+            },
+            mounted: function () {
+                console.log("挂载完成后");
+                this.updateOpacity();
+            }
+        });
+        Vue.component("my-game", {
+            data: function () {
+                return {
+                    "targetNum": 0,
+                    "inputNum": 0,
+                    "desc": ""
+                };
+            },
+            template: `<div>
+                <input type="text" v-model.lazy="inputNum" />
+                <p>{{desc}}</p>
+            </div>`,
+            mounted: function () {
+                console.log("挂载完成后");
+                this.targetNum = Math.floor(Math.random() * 20);
+            },
+            watch: {
+                inputNum: function() {
+                    if (this.inputNum < this.targetNum) {
+                        this.desc = "小于";
+                    } else if (this.inputNum > this.targetNum) {
+                        this.desc = "大于";
+                    } else {
+                        this.desc = "中奖啦...";
+                    }
+                }
+            }
+        });
+        Vue.component("my-cal", {
+            data: function () {
+                return {
+                    "num1": 0,
+                    "num2": 0,
+                    "opt": "",
+                    "result": ""
+                };
+            },
+            template: `<div>
+                <input type="text" v-model.lazy="num1" />
+                <input type="text" v-model.lazy="num2" />
+                <select v-model="opt">
+                    <option>+</option>
+                    <option>-</option>
+                    <option>*</option>
+                    <option>/</option>
+                </select>
+                <button @click="calc">计算</button>
+                <p>计算结果：{{result}}</p>
+            </div>`,
+            methods: {
+                calc: function() {
+                    console.log("operation:" + this.opt);
+                    if (this.opt == "+") {
+                        this.result = this.num1 + this.num2;
+                    }
+                    if (this.opt == "-") {
+                        this.result = this.num1 - this.num2;
+                    }
+                    if (this.opt == "*") {
+                        this.result = this.num1 * this.num2;
+                    }
+                    if (this.opt == "/") {
+                        this.result = this.num1 / this.num2;
+                    }
+                }
+            },
+            mounted: function () {
+                console.log("挂载完成后");
+                this.num1 = 0;
+                this.num2 = 0;
+            }
+        });
+
+        // 1. 创建数据Model
+        var exampleData = {
+            color: "#ff0000"
+        };
+
+        // 2. 创建Vue实例（ViewModel）
+        var app = new Vue({
+            el: "#app", // el: vue 对象挂载的View 对象
+            data: exampleData, // data：Model 数据
+            directives: {
+                changeBackgroundColor: {
+                    bind: function (el, bindings) {
+                        console.log("bind");
+                        var bgColor = bindings.value;
+                        el.style.backgroundColor = bgColor;
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</html>

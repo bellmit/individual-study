@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>超实用的javaScript代码段</title>
+    <!-- 外联层叠样式表 -->
+    <link rel="stylesheet" type="text/css" href="css/practical-js.css" />
+    <!-- common js -->
+    <script src="../../common/js/jquery-3.3.1.js"></script>
+    <!-- js -->
+    <!-- 获取字符串长度（区分中英文） -->
+    <script src="../../common/js/str-len.js"></script>
+    <script src="js/practical-js.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="input-area">
+            <fieldset>
+                <legend>限制输入</legend>
+                <label for="input-content">输入：</label><input type="text" id="input-content" />
+                <input type="text" disabled placeholder="禁止输入" />
+                <input type="text" disabled="disabled" placeholder="禁止输入" />
+                <input type="text" readonly placeholder="禁止输入" /><br />
+                <input type="text" id="banInputMethod" banInputMethod="1" placeholder="禁止中文输入法" /><br />
+                <input type="text" id="banCopyPaste" placeholder="禁止复制粘贴" /><br />
+                <input type="number" name="numberHTML5" placeholder="HTML5只能输入数字" />
+                <input type="text" id="banNumber" name="number" placeholder="javascript只能输入数字" />
+                <input type="text" id="chinessStr" placeholder="javascript只能输入中文" />
+            </fieldset>
+            <fieldset>
+                <legend>限制字符串长度</legend>
+                <label>通过“maxlength”限制：</label><input type="text" name="lnname" maxlength="6"
+                    placeholder="限制字符串长度" /><br />
+                <label>通过“JavaScript事件”限制：</label><input type="text" id="limitLength" data-length="6" data-model="Ch"
+                    name="remainingCharacters" placeholder="限制字符串长度" /><br />
+                <label>通过“JavaScript事件”限制(区分中英文)：</label><input type="text" id="remainingCharacters" data-length="6"
+                    data-model="Ch" name="remainingCharacters" placeholder="限制字符串长度" /><br />
+                <label>通过“JavaScript事件”实时提示可输入字符(区分中英文)(区分中英文)：</label><input type="text" id="remainingCharacters"
+                    data-length="6" data-model="Ch" name="remainingCharacters" placeholder="限制字符串长度" />
+            </fieldset>
+            <div>
+                <p>显示输入提示，获取焦点提示取消</p>
+                <input type="text" name="info" placeholder="HTML5 提示信息" />
+                <label>输入框提示（双元素单显示实现）</label>
+                <input id="hintInput" data-hint="这是提示信息" type="password" value="" />
+            </div>
+            <div>
+                <p>文本框的文字自动滚动效果</p>
+                <div id="rollContent" data-rwidth="100" data-rheight="100" class="rollContent">
+                    11111111111111111111<br>
+                    22222222222222222222<br>
+                    33333333333333333333<br>
+                    44444444444444444444<br>
+                    55555555555555555555
+                </div>
+            </div>
+            <div>
+                <p>密码强度实时验证</p>
+                <input id="passwordStrength" data-hint="请输入密码" type="password"><span id="showStrength"></span>
+            </div>
+            <div>
+                <p>回车提交</p>
+                <input type="text" id="enterSubmit" value="回车提交">
+            </div>
+            <div>
+                <p>自动选定TextArea内容</p>
+                <textarea id="autoSelected" rows="10" cols="50">
+                    默认限定的内容
+                </textarea>
+            </div>
+            <div>
+                <p>获取和失去焦点时改变样式</p>
+                <input type="text" value="修改样式" data-fClass="fborder" data-bClass="bborder" data-fCss='{"color":"red"}'
+                    data-bCss='{"color":"green"}' id="autoUpdateCss">
+            </div>
+            <fieldset>
+                <legend>常见的验证规则</legend>
+                <p><input type="text" value="姓名验证" data-reg="Chiness" data-smsg="通过√" data-emsg="请输入中文" id="regUser" data-tmsg="msgU"/><span id="msgU"></span></p>
+                <p><input type="text" value="邮箱验证" data-reg="email" data-smsg="通过√" data-emsg="请输入邮箱" id="regEmail" data-tmsg="msgE"/><span id="msgE"></span></p>
+                <p><input type="text" value="电话验证" data-reg="phone" data-smsg="通过√" data-emsg="请输入电话" id="regPhone" data-tmsg="msgP"/><span id="msgP"></span></p>
+                <p><input type="text" value="带小数位的数字验证" data-reg="decimalNumber" data-smsg="通过√" data-emsg="请输入小数数字" id="regNumber" data-tmsg="msgN"/><span id="msgN"></span></p>
+            </fieldset>
+            <div>
+                <p>对文本内容进行关键词过滤</p>
+                <textarea id="keyWordsFiltering" rows="10" cols="50">
+                    关键词过滤：你好，我是小王，非常喜欢JavaScript，希望和大家切磋交流。业余爱好：玩游戏，但是不使用外挂，游戏里面有很多美女，咱也不贪色，嘿嘿~~~
+                </textarea>
+            </div>
+            <div>
+                <p>TextArea 自适应文字行数</p>
+                <textarea id="autoRow" rows="1" cols="27" name="s1">
+                </textarea>
+            </div>
+            <div>
+                <p>动态添加下拉选项</p>
+                <input type="button" value="添加" id="addOptions" data-target="addOptions" />
+                <select id="addOption">
+                    <option value="">请选择</option>
+                    <option value="1">原有选择</option>
+                </select>
+            </div>
+            <div>
+                <p>下拉框二级联动效果</p>
+                <p>
+                    省级：
+                    <select id="provinces"></select>
+                </p>
+                <p>
+                    市级：
+                    <select id="citys"></select>
+                </p>
+            </div>
+        </div>
+        <div id="output">
+            <p id="msg"></p>
+        </div>
+        <hr />
+        <div class="content">
+            <ul>一、表单常用代码
+                <li name="onePointOne">1.1 去除字符串左右两边的空格</li>
+                <li name="onePointTwo">1.2 验证用户是否输入</li>
+                <li name="onePointThree">1.3 禁止输入</li>
+                <li name="onePointFour">1.4 关闭输入法</li>
+                <li name="onePointFive">1.5 禁止复制和粘贴</li>
+                <li name="onePointSix">1.6 限制只能输入数字</li>
+                <li name="onePointSeven">1.7 限制只能输入中文</li>
+                <li name="onePointEight">1.8 限制字符串长度</li>
+                <li name="onePointNine">1.9 限制字符串长度(区分中英文)</li>
+                <li name="onePointTen">1.10 实时提示可输入字符(区分中英文)</li>
+                <li name="onePointEleven">1.11 在输入框中显示提示信息</li>
+                <li name="onePointTwelve">1.12 文本框内容自动滚动</li>
+                <li name="onePointThirteen">1.13 密码强度实时验证</li>
+                <li name="onePointFourteen">1.14 回车提交表单</li>
+                <li name="onePointSixteen">1.16 禁止文本框的记忆功能（autocomplete属性）</li>
+                <li name="onePointSeventeen">1.17 自动选定文本内容</li>
+                <li name="onePointEighteen">1.18 获取和失去焦点时改变样式</li>
+                <li name="onePointNighteen">1.19 正则表达式</li>
+                <li name="onePointTwenty">1.20 对文本内容进行关键词过滤</li>
+                <li name="onePointTwentyOne">1.21 TextArea 自适应文字行数</li>
+                <li name="onePointTwentyTwo">1.22 动态添加下拉选项</li>
+                <li name="onePointTwentyThree">1.23 下拉框二级联动效果</li>
+
+            </ul>
+            <ul>二、图片控制常用代码
+                <li>
+                    1
+                </li>
+                <li>
+                    2
+                </li>
+            </ul>
+            <ul>三、内容展示常用代码</ul>
+            <ul>四、页面控制常用代码</ul>
+            <ul>五、日期处理常用代码</ul>
+            <ul>六、日期特效常用代码</ul>
+            <ul>七、移动开发常用代码</ul>
+            <ul>八、其他常用代码</ul>
+        </div>
+    </div>
+
+    <noscript>
+        此页面暂时不支持JavaScript
+    </noscript>
+</body>
+
+</html>

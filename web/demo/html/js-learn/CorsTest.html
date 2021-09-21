@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+
+<!--简单跨域-->
+<button class="am-btn am-btn-primary" onclick="getUsers(this)">
+    简单跨域: 获取用户列表
+</button>
+<p class="am-text-danger"></p>
+
+<!--非简单跨域-->
+<button class="am-btn am-btn-primary" onclick="addUser(this)">
+    非简单跨域: 添加用户(JSON请求)
+</button>
+<input type="text" placeholder="用户名">
+<p class="am-text-danger"></p>
+
+<!--检查是否登录-->
+<button class="am-btn am-btn-primary am-margin-right" onclick="checkLogin(this)">
+    登录校验
+</button>
+<p class="am-text-danger"></p>
+
+<!--登录-->
+<button class="am-btn am-btn-primary" onclick="login(this)">
+    登录
+</button>
+<input type="text" placeholder="用户名">
+<p class="am-text-danger"></p>
+
+</body>
+
+<script src="../../common/js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("p.hp").click(function () {
+            $(this).hide();
+        });
+
+        $("[type='button']").click(function () {
+            loadXMLDoc();
+        });
+
+        $("#btn1").click(function () {
+            getDataByJsonp();
+        });
+
+        $("#btn2").click(function () {
+            getResultByResp();
+        });
+
+        $("#btn3").click(function () {
+            getDataByProxy();
+        });
+
+    });
+
+    function getUsers(btn) {
+        var $btn = $(btn);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8080/gtools/api/users',
+            contentType: "application/json;charset=UTF-8"
+        }).then(
+            function (obj) {
+                $btn.next('p').html(JSON.stringify(obj));
+            },
+            function () {
+                $btn.next('p').html('error...');
+            }
+        )
+    }
+
+    function addUser(btn) {
+        var $btn = $(btn);
+        var name = $btn.next('input').val();
+        if (!name) {
+            $btn.next('input').next('p').html('用户名不能为空');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/gtools/api/users',
+            contentType: "application/json;charset=UTF-8",
+            data: name,
+            dataType: 'json'
+        }).then(
+            function (obj) {
+                $btn.next('input').next('p').html(JSON.stringify(obj));
+            },
+            function () {
+                $btn.next('input').next('p').html('error...');
+            }
+        )
+    }
+
+    function checkLogin(btn) {
+        var $btn = $(btn);
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8080/gtools/api/user/login',
+            contentType: "application/json;charset=UTF-8",
+            xhrFields: {
+                withCredentials: true
+            }
+        }).then(
+            function (obj) {
+                $btn.next('p').html(JSON.stringify(obj));
+            },
+            function () {
+                $btn.next('p').html('error...');
+            }
+        )
+    }
+
+    function login(btn) {
+        var $btn = $(btn);
+        var name = $btn.next('input').val();
+        if (!name) {
+            $btn.next('input').next('p').html('用户名不能为空');
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/gtools/api/user/login',
+            contentType: "application/json;charset=UTF-8",
+            data: name,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true // 携带跨域cookie
+            }
+        }).then(
+            function (obj) {
+                $btn.next('input').next('p').html(JSON.stringify(obj));
+            },
+            function () {
+                $btn.next('input').next('p').html('error...');
+            }
+        )
+    }
+
+    // 服务器端通过跨域拦截器 添加响应头
+    var xmlhttp;
+    function loadXMLDoc() {
+
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                alert(xmlhttp.responseText);
+                document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "http://localhost:8080/cors/hello/result", "true");
+        xmlhttp.send();
+    }
+
+    function getResultByResp() {
+        var formData = {
+            "name": "Test",
+            "age": 23
+        };
+        $.ajax({
+            //提交数据的类型 POST GET
+            type: "POST",
+            //提交的网址
+            url: "http://localhost:8080/cors/hello/oneResult",
+            //提交的数据
+            data: formData,
+            //返回数据的格式
+            //"xml", "html", "script", "json", "jsonp", "text".
+            datatype: "json",
+            //在请求之前调用的函数
+            beforeSend: function () {
+                alert("准备调用接口，执行验证...");
+            },
+            //成功返回之后调用的函数
+            success: function (data) {
+                alert("调用接口成功...");
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                alert(XMLHttpRequest.responseText);
+                alert(textStatus);
+                //HideLoading();
+            },
+            //调用出错执行的函数
+            error: function () {
+                //请求出错处理
+            }
+        });
+    }
+
+    // 通过Jsonp实现跨域请求(仅限于GET请求)
+    function getDataByJsonp() {
+        $.ajax({
+            url: "http://localhost:8080/cors/hello/jsonp",
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "callback",
+            jsonpCallback: "callback_success",
+            success: function (data) {
+                alert(data);
+                console.info(data.message);
+                console.log(data);
+            },
+            error: function () {
+                alert("服务器异常");
+            }
+        });
+    }
+
+    // 通过JQuery.Jsonp.js插件可以支持POST请求，但是也是jsonp格式
+
+    function getDataByProxy() {
+        $.ajax({
+            url: "jsp/Router.jsp?api=cors/hello/result",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+                console.info(data);
+            }
+        });
+    }
+
+</script>
+</html>

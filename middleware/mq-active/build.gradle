@@ -1,0 +1,20 @@
+ext {
+    activeMQVersion = '5.15.9'
+}
+
+dependencies {
+
+    implementation activemq_all
+    implementation activemq_pool
+
+    implementation spring_core
+    implementation spring_context
+	implementation spring_context_support
+    implementation spring_beans
+    implementation spring_jms
+	
+    // 解决：ClassNotFoundException: javax.jms.JMSContext
+    implementation javax_jms_api
+
+    implementation fastjson
+}

@@ -1,0 +1,69 @@
+def springBootVersion = '2.1.11.RELEASE'
+def springVersion = '5.1.2.RELEASE'
+
+// common jars
+sl4j_api='org.slf4j:slf4j-api:1.7.25'
+junit='junit:junit:4.12'
+
+commons_io='commons-io:commons-io:2.7'
+commons_lang3='org.apache.commons:commons-lang3:3.6'
+
+// json tools
+jackson_databind='com.fasterxml.jackson.core:jackson-databind:2.11.2'
+jackson_core='com.fasterxml.jackson.core:jackson-core:2.11.2'
+jackson_annotations='com.fasterxml.jackson.core:jackson-annotations:2.11.2'
+json_20210307='org.json:json:20210307'
+
+snakeyaml='org.yaml:snakeyaml:1.28'
+
+// ssh2 tools
+ganymed_ssh2='ch.ethz.ganymed:ganymed-ssh2:build210'
+trilead_ssh2='com.trilead:trilead-ssh2:1.0.0-build222'
+
+// spring
+spring_core="org.springframework:spring-core:${springVersion}"
+spring_context="org.springframework:spring-context:${springVersion}"
+spring_context_support="org.springframework:spring-context-support:${springVersion}"
+spring_beans="org.springframework:spring-beans:${springVersion}"
+spring_jdbc="org.springframework:spring-jdbc:${springVersion}"
+spring_tx="org.springframework:spring-tx:${springVersion}"
+spring_aspects="org.springframework:spring-aspects:${springVersion}"
+spring_web="org.springframework:spring-web:${springVersion}"
+aspectjweaver="org.aspectj:aspectjweaver:1.9.4"
+spring_webmvc="org.springframework:spring-webmvc:${springVersion}"
+spring_websocket="org.springframework:spring-websocket:${springVersion}"
+reactor_netty='io.projectreactor.netty:reactor-netty:0.8.14.RELEASE'
+spring_webflux="org.springframework:spring-webflux:${springVersion}"
+spring_test="org.springframework:spring-test:${springVersion}"
+spring_data_commons="org.springframework.data:spring-data-commons:2.5.0"
+
+// Spring boot
+spring_boot_starter="org.springframework.boot:spring-boot-starter:$springBootVersion"
+
+// swagger
+springfox_swagger2='io.springfox:springfox-swagger2:2.9.2'
+springfox_swagger_ui='io.springfox:springfox-swagger-ui:2.9.2'
+// mybatis
+mybatis='org.mybatis:mybatis:3.5.4'
+// 使用1.3.7避免和tkmybatis 冲突
+mybatis_generator_core='org.mybatis.generator:mybatis-generator-core:1.3.7'
+tk_mybatis_mapper='tk.mybatis:mapper:4.1.5'
+mapper_spring_boot_starter="tk.mybatis:mapper-spring-boot-starter:2.0.4"
+// db
+mysql_connector_java='mysql:mysql-connector-java:5.1.47'
+pagehelper='com.github.pagehelper:pagehelper:5.1.11'
+alibaba_druid='com.alibaba:druid:1.2.6'
+// other
+jsoup='org.jsoup:jsoup:1.11.3'
+selenium_java='org.seleniumhq.selenium:selenium-java:3.141.59'
+freemarker='org.freemarker:freemarker:2.3.23'
+// OCR
+//jai_imageio='com.sun.media:jai_imageio:1.1'
+//jai_imageio_core='com.github.jai-imageio:jai-imageio-core:1.3.1'
+swingx='org.swinglabs:swingx:1.6.1'
+// JNA
+jna='net.java.dev.jna:jna:5.6.0'
+jna_platform='net.java.dev.jna:jna-platform:5.6.0'
+// log
+slf4j_api="org.slf4j:slf4j-api:1.7.25"
+logstash_logback_encoder='net.logstash.logback:logstash-logback-encoder:6.6'

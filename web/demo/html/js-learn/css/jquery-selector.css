@@ -1,0 +1,68 @@
+/* 选择器放开 */
+/* div,span,p {
+    width: 140px;
+    height: 140px;
+    margin: 5px;
+    background: #aaa;
+    border: #000 1px solid;
+    float: left;
+    font-size: 17px;
+    font-family: Verdana;
+}
+div.mini {
+    width: 55px;
+    height: 55px;
+    background-color: #aaa;
+    font-size: 12px;
+} */
+div.hide {
+    display: none;
+}
+/* 清除浮动 */
+hr {
+    clear: both;
+}
+.highlight {
+    background-color: #FF3300;
+}
+div#tooltip {
+    outline: black solid;
+    width: 20%;
+    height: 20px;
+    position: absolute;
+}
+div.eventBubble div {
+    outline: red solid 1px;
+    padding: 20px 20px;
+}
+div.namespace div {
+    outline: red solid 1px;
+    padding: 20px 20px;
+}
+div.animate div {
+    outline: red solid 1px;
+    padding: 20px 20px;
+}
+div.animate #pannel {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #005000;
+    background: #96E555;
+    cursor: pointer;
+}
+div.v-content {
+    position: relative;
+}
+div.v-content-list li {
+    display: block;
+    width: 25%;
+    float: left;
+}
+div.highlight-tip .current {
+    background-color: #FF3300;
+}
+.focus {
+    border:1px solid #f00;
+    background: #fcc;
+}

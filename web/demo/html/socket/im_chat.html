@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单聊天室</title>
+    <link href="css/im-chat.css" rel="stylesheet" type="text/css" />
+
+    <script src="../../common/js/jquery-3.3.1.js" lang="javascript" type="text/javascript"></script>
+    <script src="../../common/js/json2.js" lang="javascript" type="text/javascript"></script>
+    <script src="js/im-chat.js" lang="javascript" type="text/javascript"></script>
+    <script src="../../common/js/sockjs.js" lang="javascript" type="text/javascript"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="top">
+            <div class="title">操作列表</div>
+            <div>
+                <p>当前用户：<input name="fromUserId" type="text" required placeholder="当前用户ID"/></p>
+                <p>目标用户：<input name="toUserId" type="text" required placeholder="目标用户ID"/></p>
+                <p>发送消息：<input name="msg" type="text" placeholder="请输入消息"/></p>
+                <p>当前角色：
+                <select id="role">
+                    <option value="CUSTOMER">客户</option>
+                    <option value="TELLER">客服</option>
+                </select>
+                </p>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <button id="connectWs">连接</button>
+                        <!-- <button id="login">登录</button> -->
+                        <button id="closeWs">登出</button>
+                    </li>
+                    <li>
+                        <button id="sendMsg">发送消息</button>
+                        <button id="broadcastMsg">广播消息</button>
+                    </li>
+                    <li>
+                        <button id="joinChannel">加入频道</button>
+                        <button id="leaveChannel">离开频道</button>
+                    </li>
+                    <li>
+                        <button id="acceptCall">接听</button>
+                        <button id="rejectCall">拒绝</button>
+                        <button id="sendPing">ping</button>
+                        <button id="thirdInvite">邀请第三方</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+        <div class="bottom">
+            <div class="title">消息列表</div>
+            <div id="msgDisplay" class="content" disabled></div>
+        </div>
+
+    </div>
+</body>
+</html>

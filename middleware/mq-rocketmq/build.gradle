@@ -1,0 +1,3 @@
+dependencies {
+    implementation rocketmq_client
+}

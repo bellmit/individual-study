@@ -1,0 +1,9 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+      transaction-id-prefix: kafka_tx. # 事务前缀
+    consumer:
+      enable-auto-commit: false # 关闭自动消费
+    listener:
+      ack-mode: manual # 手动ack

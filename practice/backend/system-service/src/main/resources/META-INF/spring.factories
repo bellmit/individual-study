@@ -1,0 +1,2 @@
+# SpringBoot autoconfig 配置原理， @Configuration 另一种配置方法
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=

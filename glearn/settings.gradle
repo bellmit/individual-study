@@ -1,0 +1,30 @@
+rootProject.name = 'glearn'
+
+include 'core-java'
+include 'third-part-jars'
+include 'algorithm'
+include 'design-pattern'
+// script language
+include 'script-groovy'
+include 'javaagent'
+
+// spi spi jar
+include ':spi:spi-api'
+project(':spi:spi-api').projectDir = new File(rootDir, 'spi/spi-api')
+include ':spi:spi-main'
+project(':spi:spi-main').projectDir = new File(rootDir, 'spi/spi-main')
+include ':spi:spi-api-impla'
+project(':spi:spi-api-impla').projectDir = new File(rootDir, 'spi/spi-api-impla')
+include ':spi:spi-api-implb'
+project(':spi:spi-api-implb').projectDir = new File(rootDir, 'spi/spi-api-implb')
+
+rootProject.children.each {project ->
+	if (project.name == 'spi') {
+		project.children.each { subProject ->
+			subProject.buildFileName = "${subProject.name}.gradle"
+			println "${subProject.name} -> ${subProject.buildFileName}"
+		}
+		return
+	}
+	project.buildFileName = "${project.name}.gradle"
+}

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title>VueJS 基础学习</title>
+    <meta charset="UTF-8">
+    <!-- 页面不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script src="../../scripts/common/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../../scripts/common/vue.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <h3>Vue JS：指令</h3>
+    <!-- 3. View -->
+    <ul>
+        <li name="d-vmodel">v-model
+            <div>
+                [{{inputValue}}]-[{{lazyValue}}]-[{{numValue}}]-[{{trimValue}}]<br>
+                <label>普通</label><input type="text" v-model="inputValue" /><br>
+                <label>懒加载(回车，onBlur 触发)</label><input type="text" v-model.lazy="lazyValue" /><br>
+                <label>纯数字</label><input type="text" v-model.number="numValue" /><br>
+                <label>去除空串</label><input type="text" v-model.trim="trimValue" /><br>
+            </div>
+        </li>
+        <li name="d-custom">自定义指令
+            <div>
+                count: {{count}}<br>
+                <button v-if="count < 6" v-change="count" @click.stop.prevent="countAdd">change</button>
+            </div>
+        </li>
+        <li name="filter">自定义过滤器
+            <div>
+                {{price}}<br>
+                过滤器处理后：{{price|myCurrency('￥')}}
+            </div>
+        </li>
+        <li name="component">简单组件
+            <div>
+                <my-comp1></my-comp1>
+            </div>
+        </li>
+        <li name="component2">复合组件
+            <div>
+                <my-article></my-article>
+            </div>
+        </li>
+        <li name="componentLife">组件生命周期
+            <div>
+                <button @click="isShow = !isShow">切换</button>
+                <my-comp2 v-if="isShow"></my-comp2>
+            </div>
+        </li>
+        <li name="componentWatch">组件监听
+            <div>
+                <my-comp3></my-comp3>
+            </div>
+        </li>
+        <li name="parentToChild">父子通信（父-》子）
+            <div>
+                <my-comp4></my-comp4>
+            </div>
+        </li>
+        <li name="childToParent">子父通信（子-》父）
+            <div>
+                <parent></parent>
+            </div>
+        </li>
+        <li name="compToComp">兄弟组件
+            <div>
+                <zhangsan></zhangsan>
+                <lisi></lisi>
+            </div>
+        </li>
+    </ul>
+
+</body>
+<script>
+
+    // 1. 创建数据Model
+    var exampleData = {};
+    // 2. 创建Vue实例（ViewModel）
+    var vm = {};
+
+    // 文档初始化
+    $(function () {
+        $("ul li").children("div").addClass("hidden");
+        $("ul li").click(function (event) {
+            event.stopPropagation(); // 阻止事件冒泡
+            event.preventDefault(); // 阻止事件默认行为
+            if (event.target == this) {
+                $(this).children("div").removeClass("hidden");
+                $(this).siblings().children("div").addClass("hidden");
+                $(this).children("div").attr("id", "app");
+                var liName = $(this).attr("name");
+                console.log("li name:" + liName);
+                initVue(liName);
+            } else {
+                console.log("do nothing...");
+            }
+
+        });
+    });
+
+    // 初始化Vue 对象
+    function initVue(type) {
+        switch (type) {
+            case "d-vmodel":
+                vmodeDirect();
+                break;
+            case "d-custom":
+                customDirect();
+                break;
+            case "filter":
+                customFilter();
+                break;
+            case "component":
+                customComponent();
+                break;
+            case "component2":
+                customComponent2();
+                break;
+            case "componentLife":
+                componentLife();
+                break;
+            case "componentWatch":
+                componentWatch();
+                break;
+            case "parentToChild":
+                parentToChild();
+                break;
+            case "childToParent":
+                childToParent();
+                break;
+            case "compToComp":
+                compToComp();
+                break;
+        }
+    }
+
+    var bus = new Vue(); // 1.公共Vue实例对象
+    function compToComp() {
+        Vue.component("zhangsan", {
+            template:`<h4>张三接受数据</h4>`,
+            mounted: function(){
+                bus.$on("customEvt", function(data) {
+                    console.log("接受数据：" + data);
+                })
+            }
+        });
+        Vue.component("lisi", {
+            template: `<div>
+                <h4>发送事件</h4>
+                <button @click="setData">发送数据</button>
+            </div>`,
+            methods: {
+                setData: function() {
+                    bus.$emit("customEvt", "张三，你好，我是李四...");
+                }
+            }
+        });
+
+        exampleData = {
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData
+        });
+    }
+
+    // 子父通信
+    function childToParent() {
+        Vue.component("parent", {
+            // 2.绑定自定义事件和处理函数
+            template: `<div>
+               <child @dataEvent="getData"></child>
+            </div>`,
+            data: function () { // 必须为每个组件使用不同的data，所以需要返回
+                return {
+                    myAddress: "",
+                    myPhone: ""
+                };
+            },
+            methods: {
+                getData: function (data) { // 1.定义接受子组件数据的函数
+                    console.log(data);
+                }
+            }
+        });
+
+        Vue.component("child", {
+            template: `<button @click="doEvent">发送消息</button>`,
+            data: function () {
+                return {};
+            },
+            methods: {
+                doEvent: function () {
+                    // 3.触发绑定的自定义事件，并传入参数
+                    this.$emit("dataEvent", "1111");
+                }
+            }
+        });
+
+        exampleData = {
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData
+        });
+    }
+
+    // 父子通信
+    function parentToChild() {
+
+        Vue.component("my-comp4", {
+            template: `<div>
+               父子通信：
+               {{myValue}}
+                <comp4-child v-bind:myValue="myValue"></comp4-child>
+            </div>`,
+            data: function () { // 必须为每个组件使用不同的data，所以需要返回
+                return {
+                    myValue: "aaaaaa"
+                };
+            }
+        });
+
+        Vue.component("comp4-child", {
+            props: ["myValue"], // 声明：父组件传递参数名
+            template: `<p>子组件：{{myValue}}</p>`,
+            data: function () {
+                return {}
+            }
+        });
+
+        exampleData = {
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData
+        });
+    }
+
+    // 组件监听
+    function componentWatch() {
+        Vue.component("my-comp3", {
+            template: `<div>
+               <input type='text' v-model='myAddress' />
+               <input type='text' v-model='myPhone' />
+               <br>
+                {{myAddress}}--{{myPhone}}
+            </div>`,
+            data: function () { // 必须为每个组件使用不同的data，所以需要返回
+                return {
+                    myAddress: "",
+                    myPhone: ""
+                };
+            },
+            watch: {
+                myAddress: function () {
+                    console.log("数据修改：" + this.myAddress);
+                },
+                myPhone: function () {
+                    console.log("数据修改：" + this.myPhone);
+                }
+            }
+        });
+
+        exampleData = {
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData
+        });
+    }
+
+    // 组件的生命周期
+    function componentLife() {
+        // 组件创建周期
+        Vue.component("my-comp2", {
+            template: `<div>
+                <button @click.stop='handleClick'>clickMe</button>
+                <h4>hello {{count}}</h4>
+            </div>`,
+            data: function () { // 必须为每个组件使用不同的data，所以需要返回
+                return { count: 0 };
+            },
+            methods: {
+                handleClick: function () {
+                    console.log("111");
+                    this.count++;
+                }
+            },
+            // 生命周期方法
+            beforeCreate: function () { console.log("1:创建前") },
+            created: function () { console.log("2:创建后") },
+            beforeMount: function () { console.log("3:挂载前") },
+            mounted: function () { console.log("4:挂载后") },
+            beforeUpdate: function () { console.log("5:更新前") },
+            updated: function () { console.log("6:更新后") },
+            beforeDestroy: function () { console.log("7:销毁前") },
+            destroyed: function () { console.log("8:销毁后") }
+        });
+
+        exampleData = {
+            isShow: true
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData,
+
+        });
+    }
+
+    // 复合组件
+    function customComponent2() {
+        // 复合组件 三部分组成： article [title/detail]
+        Vue.component("my-title", {
+            template: '<h4>副标题</h4>'
+        });
+        Vue.component("my-detail", {
+            template: '<p>详细内容</p>'
+        });
+        Vue.component("my-article", {
+            template: `<div>
+                <my-title></my-title>
+                <my-detail></my-detail>
+            </div>`
+        });
+
+        exampleData = {
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData,
+
+        });
+    }
+
+    // 自定义组件
+    function customComponent() {
+        Vue.component("my-comp1", {
+            template: '<div><h3>第一个模版</h3><h4>11111111111</h4></div>'
+        });
+
+        exampleData = {
+            "price": "999"
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData,
+
+        });
+    }
+
+    // 自定义过滤器
+    function customFilter() {
+        exampleData = {
+            "price": "999"
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData,
+            filters: { // 所有的过滤器定义在此处
+                myCurrency: function (myInput, arg1) {
+                    // arg1: '￥' 函数中的参数
+                    // myInput: |（过滤器）前面的值
+                    var result = arg1 + myInput;
+                    // 过滤结果
+                    return result;
+                }
+            }
+        })
+    }
+
+    // v-model 指令
+    function vmodeDirect() {
+        exampleData = {
+            "inputValue": "",
+            "lazyValue": "",
+            "numValue": "",
+            "trimValue": ""
+        };
+        vm = new Vue({
+            el: "#app",
+            data: exampleData
+        })
+    }
+
+    // 自定义指令
+    function customDirect() {
+        exampleData = {
+            "count": 0,
+            "input1": ""
+        };
+        vm = new Vue({
+            el: "#app", // el: vue 对象挂载的View 对象
+            data: exampleData, // data：Model 数据
+            methods: {
+            },
+            methods: {
+                countAdd: function () {
+                    this.count++;
+                }
+            },
+            /*
+            建议：
+            创建使用小驼峰
+            应用使用base-cable
+            */
+            directives: { // 保存自定义指令
+                change: { // 自定义指令change
+                    bind: function (el, bindings) { // 指令绑定到元素时执行（1次）
+                        console.log(el);
+                        console.log(bindings);
+                        console.log("指定元素绑定了。。。");
+                    },
+                    update: function (el, bindings) { // 如果调用指令，传参数，参数变化（多次）
+                        console.log(el);
+                        console.log(bindings);
+                        console.log("更新了...");
+                    },
+                    unbind: function (el, bindings) { // 解除绑定的操作（1次）
+                        console.log(el);
+                        console.log(bindings);
+                        console.log("元素卸载了")
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+
+</html>

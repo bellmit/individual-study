@@ -1,0 +1,46 @@
+/* 效果设置学习 */
+html {
+    /* background: #abacab;
+    text-align: center; */
+    /* 增加双色条纹 */
+    border-top: 5px solid navy;
+    padding-bottom: 50px;
+}
+body {
+    /* width: 800px;
+    margin: 0 auto;
+    text-align: left; */
+    border-top: 56px solid silver;
+    margin: 0;
+    padding: 0;
+}
+#loading {
+    display:none;
+    width:960px;
+    height:30px;
+    margin:0 auto;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+.wrapper {
+    width: 80%;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid black;
+    background-color:#AAA; 
+}
+.wrapper .column {
+    width: 25%;
+    float: left;
+    background: pink;
+    text-align: center;
+    border-bottom: 0.5px solid black;
+}
+.content {
+    clear: left;
+    /* div 设置滚动条 */
+    overflow-y: scroll;
+    height: 200px;
+}

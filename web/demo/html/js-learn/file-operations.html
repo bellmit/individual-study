@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>File Operations</title>
+</head>
+
+<body>
+  <h2>文件操作</h2>
+
+  <dl>
+    <dt>a标签下载</dt>
+    <dd>
+    <dt>
+      mp4 文件
+    </dt>
+    <dd>
+      <button id="btn">下载</button>
+    </dd>
+    </dd>
+  </dl>
+</body>
+<script src="../../common/js/jquery-3.3.1.js"></script>
+<script>
+  $(function () {
+    init();
+
+    bindEvents();
+  });
+
+  function init() {
+  }
+
+  function bindEvents() {
+    $("#btn").click(function () {
+      download();
+    });
+  }
+
+  function download() {
+    const getBlob = (url, cb) => {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          cb(xhr.response);
+          // _this.closeFullScreen(_this.openFullScreen());
+        }
+      };
+      xhr.send();
+    }
+
+    let url = "";
+    getBlob(url, (blob) => {
+      saveAs(blob, "111.mp4");
+    })
+  }
+
+  function saveAs(blob, filename) {
+    if (window.navigator.msSaveOrOpenBlob) {
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      var link = document.createElement('a');
+      var body = document.querySelector('body');
+
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+      // fix Firefox
+      link.style.display = 'none';
+      body.appendChild(link);
+
+      link.click();
+      body.removeChild(link);
+
+      window.URL.revokeObjectURL(link.href);
+    }
+  }
+</script>
+
+</html>

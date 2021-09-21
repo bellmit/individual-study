@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="../../common/js/jquery-3.3.1.js" lang="javascript" type="text/javascript"></script>
+  </head>
+  <body>
+    <div>
+      <textarea id="inputCookie" rows="8" cols="20" style="width: 80%;"></textarea>
+      <button id="btnGetCookie">获取Cookie</button>
+    </div>
+    <hr />
+    <input id="result" type="text" readonly style="width: 50%;"></div>
+  </body>
+  <script>
+    $(function() {
+      
+      $("#btnGetCookie").click(function() {
+        var cv = $("#inputCookie").val();
+        var result = cv.match(/pt_pin=.+?;/) + cv.match(/pt_key=.+?;/);
+        $("#result").val(result + "<br>");
+      });
+
+    });
+
+  </script>
+</html>

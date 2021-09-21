@@ -1,0 +1,23 @@
+plugins {
+	id 'java'
+}
+
+// JVM 版本号要求
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// java编译的时候缺省状态下会因为中文字符而失败
+[compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    implementation platform_annotations
+    implementation jol_core
+
+    // logback log
+	implementation sl4j_api
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+    implementation "ch.qos.logback:logback-access:${logbackVersion}"
+	
+	testImplementation junit
+}

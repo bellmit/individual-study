@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 页面不缓存 -->
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>基于WebSocket 的聊天室</title>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/chat-websocket.css" />
+
+    <script src="../../scripts/common/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../../scripts/common/vue.js" type="text/javascript"></script>
+    <script src="js/chat-websocket.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div>简单的聊天室应用</div>
+    <div id="chat">
+        <div>
+            <fieldset name="参数">
+                <label>当前用户：</label><input id="fromUserId" type="text" value="" />
+                <label>目标用户：</label><input id="toUserId" type="text" value="" />
+                <br />
+                <label>发送消息：</label><input id="msgContent" type="text" value="" />
+            </fieldset>
+        </div>
+        <div>
+            <button name="wsBtn" value="1">连接</button>
+            <button name="wsBtn" value="2">发送消息</button>
+            <button name="wsBtn" value="3">断开</button>
+        </div>
+
+        <hr>
+        <div>
+            <p>消息列表</p>
+            <div class="content"></div>
+        </div>
+    </div>
+</body>
+
+</html>

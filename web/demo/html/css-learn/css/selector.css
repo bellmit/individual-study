@@ -1,0 +1,113 @@
+/* 伪类 */
+/* 未访问的链接 */
+a:link {
+    color: red;
+}
+/* 访问过的链接 */
+a:visited {
+    color: green;
+}
+/* 鼠标悬停的元素 */
+a:hover {
+    background-color: blue;
+}
+/* 获取焦点的元素 */
+a:focus {
+    border-style: solid;
+    border-color: black;
+}
+/* 激活的元素 */
+a:active {
+    font-size: 1.5;
+}
+/* 第一个子元素 */
+ul:first-child {
+    border-style: solid;
+    border-width: 2px;
+}
+
+/* 伪元素 */
+li p::first-letter {
+    font-size: 250%;
+}
+/* 为目标创建样式 */
+*:target {
+    color: maroon;
+    background: #FFA;
+}
+/* 特殊性覆盖规则 */
+div p {
+    border-style: none;
+}
+/* 重要性 */
+div.img {
+    height: 40px;
+    background: url("../img/gif/5-121204193R0.gif") no-repeat !important;
+}
+div.img {
+    background: url("../img/gif/5-121204193932-50.gif");
+}
+/* 增加行高 */
+.footer {
+    font-size: 100%;
+    font-weight: normal;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    text-align: center;
+}
+.main>div {
+    border: 1px solid gray;
+}
+.main {
+    height: 800px;
+}
+.left {
+    float: left;
+    height: 100px;
+    width: 40%;
+}
+.right {
+    float: left;
+    height: 100px;
+    width: 60%;
+}
+/* ID 和 类公用 */
+.panel {
+    border: 1px solid silver;
+    background: #EEE top left no-repeat;
+    color: #333;
+    font: x-small small-caption;
+}
+#spring {
+    background-image: url(../img/spring.jpg);
+}
+#summer {
+    background-image: url(../img/summer.jpg);
+}
+#autumn {
+    background-image: url(../img/autumn.jpg);
+}
+#winter {
+    background-image: url(../img/winter.jpg);
+}
+/* 子代选择器 */
+ul>li {
+    list-style-type: upper-alpha;
+    border-color: red;
+    border-width: 3px;
+}
+ol>li::before {
+    content: "1009：";
+}
+/* 无单位行号 */
+.ol-list {
+    font: 15px;
+    line-height: 1em;
+}
+.ol-list>li {
+    font: 10px;
+}
+.ol-list>li>span {
+    font-size: 80%;
+}

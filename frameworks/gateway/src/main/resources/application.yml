@@ -1,0 +1,62 @@
+server:
+  port: 9001
+  use-forward-headers: true
+  #ssl:    
+    #enabled: true                         
+    #key-alias: tomcat                        
+    #key-store-password: password           
+    #key-store: classpath:keystore.p12
+    #key-store-type: PKCS12
+logging:
+  level: 
+    ROOT: INFO
+    org.springframework.security: INFO
+    org.springframework.gateway: INFO
+    org.springframework.cloud.gateway.filter.ratelimit: INFO
+logback:
+   log:
+     fileName: .\logs\api-gateway.log
+     fileNamePattern: .\logs\api-gateway.%d{yyyy-MM-dd}.%i.log
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: system
+        uri: http://localhost:8081
+        predicates:
+          - Path=/system/**
+      - id: rest
+        uri: http://localhost:8082
+        predicates:
+          - Path=/rest/**
+      - id: file
+        uri: http://localhost:8085
+        predicates:
+          - Path=/file/**
+      
+      - id: demo # 路由id，唯一
+        uri: https://www.baidu.com # 目标uri
+        predicates: # 路由条件
+          - Path=/demo
+            #Path=/foo/{segment}
+          - Query=smile
+            #Header=
+            #Cookie=
+            #Host=
+            #Method=GET
+            #RemoteAddr=192.168.1.1/24
+        filters: # 过滤器
+          - StripPrefix=1 # 过滤器StripPrefix，作用是去掉请求路径的最前面n个部分截取掉（/foo/test -> /test)
+          # - RewritePath: /foo/test, /sys/test
+          #- name: Hystrix # 熔断降级
+            #args:
+              #name: fallBackService
+              #fallBackUri: forward:/fallBack/demo
+          #- name: RequestRateLimiter # 限流过滤器，需要配置redis
+            #args:
+              #key-resolver: '#{@userKeyResolver}' # 用于限流的键的解析器的 Bean 对象的名字。 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
+              #redis-rate-limiter.replenishRate: 1 # 令牌桶每秒填充平均速率
+              #redis-rate-limiter.burstCapacity: 3 # 令牌桶总容量

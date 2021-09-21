@@ -1,0 +1,9 @@
+{
+    "BASE_API": "/api",
+    "FILE_SERVICE": "http://127.0.0.1:8085/file/",
+    "BASE_ADDR": "http://127.0.0.1:8100/",
+    "QRCODE_ADDR": "http://127.0.0.1:443/",
+    "IMG_URL":"http://127.0.0.1:120/",
+    "SURVEY_ADDR": "http://127.0.0.1:9004/",    
+    "REPORT_ADDR": "http://127.0.0.1:443/"
+}
