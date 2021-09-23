@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * 返回值封装
  */
-@ControllerAdvice(basePackages = {"cn.gyw.backend"})
+@ControllerAdvice(basePackages = {"cn.gyw"})
 public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(RestResponseAdvice.class);
@@ -34,6 +34,7 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
                 || controllerClass.isAnnotationPresent(ResponseBody.class)
                 || returnType.getMethodAnnotation(ResponseBody.class) != null
                 || controllerClass.equals(GlobalExceptionHandler.class);
+        LOGGER.debug("{} isSupported:{}", controllerClass.getName(), isSupported);
         return isSupported;
     }
 
@@ -47,6 +48,7 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
         }
         if (request instanceof ServletServerHttpRequest) {
             if (Objects.nonNull(resp) && !(resp instanceof BaseResponse)) {
+                LOGGER.debug("Handle response ...");
                 resp = DataResponse.success(body);
             }
         } else {

@@ -20,7 +20,7 @@ import java.util.Arrays;
 @EnableEurekaClient
 @EntityScan("cn.gyw.platform")
 @EnableJpaRepositories("cn.gyw.platform")
-@SpringBootApplication(scanBasePackages = {"cn.gyw.backend", "cn.gyw.platform"},
+@SpringBootApplication(scanBasePackages = {"cn.gyw.backend", "cn.gyw.components", "cn.gyw.platform"},
         exclude = {FreeMarkerAutoConfiguration.class})
 public class SystemApplication {
 

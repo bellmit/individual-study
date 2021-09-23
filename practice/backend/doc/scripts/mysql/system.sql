@@ -9,8 +9,8 @@ use `c_system`;
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(64) DEFAULT NULL,
-  `password` varchar(64) DEFAULT NULL,
+  `username` varchar(64) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(64) DEFAULT NULL COMMENT '密码',
   `icon` varchar(500) DEFAULT NULL COMMENT '头像',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
   `nick_name` varchar(200) DEFAULT NULL COMMENT '昵称',
@@ -146,8 +146,8 @@ INSERT INTO `integration_consume_setting` VALUES ('1', '100', '50', '100', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `sys_user_level_id` bigint(20) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `sys_user_level_id` bigint(20) DEFAULT NULL COMMENT '等级ID',
   `username` varchar(64) DEFAULT NULL COMMENT '用户名',
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
   `nickname` varchar(64) DEFAULT NULL COMMENT '昵称',
