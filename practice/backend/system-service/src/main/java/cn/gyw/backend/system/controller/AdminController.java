@@ -1,23 +1,26 @@
-package cn.gyw.community.system.controller;
+package cn.gyw.backend.system.controller;
 
-import cn.gyw.community.system.dto.AdminRoleRelationDto;
-import cn.gyw.community.system.dto.UserLoginParam;
-import cn.gyw.community.system.entity.Role;
-import cn.gyw.community.system.enums.SystemRespEnum;
-import cn.gyw.community.system.service.RoleService;
-import cn.gyw.community.web.enums.CommonRespEnum;
-import cn.gyw.community.web.model.BaseResponse;
-import cn.gyw.community.web.model.DataResponse;
+
+import cn.gyw.backend.system.dto.AdminRoleRelationDto;
+import cn.gyw.backend.system.dto.UserLoginParam;
+import cn.gyw.backend.system.entity.Admin;
+import cn.gyw.backend.system.entity.Role;
+import cn.gyw.backend.system.enums.SystemRespEnum;
+import cn.gyw.backend.system.service.AdminService;
+import cn.gyw.backend.system.service.RoleService;
+import cn.gyw.components.web.base.mgb.BaseController;
+import cn.gyw.components.web.enums.CommonRespEnum;
+import cn.gyw.components.web.model.BaseResponse;
+import cn.gyw.components.web.model.DataResponse;
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cn.gyw.community.system.entity.Admin;
+
 import cn.gyw.community.system.dto.AdminDto;
-import cn.gyw.community.system.service.AdminService;
-import cn.gyw.community.web.base.mgb.BaseController;
+
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -30,7 +33,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/admin")
-public class AdminController extends BaseController<Admin,AdminDto> {
+public class AdminController extends BaseController<Admin, AdminDto> {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -42,6 +45,7 @@ public class AdminController extends BaseController<Admin,AdminDto> {
 
     /**
      * 用户注册
+     *
      * @param adminDto
      * @return
      */
@@ -74,9 +78,9 @@ public class AdminController extends BaseController<Admin,AdminDto> {
         data.put("menus", roleService.getMenuList(umsAdmin.getId()));
         data.put("icon", umsAdmin.getIcon());
         List<Role> roleList = adminService.getRoleList(umsAdmin.getId());
-        if(CollUtil.isNotEmpty(roleList)){
+        if (CollUtil.isNotEmpty(roleList)) {
             List<String> roles = roleList.stream().map(Role::getName).collect(Collectors.toList());
-            data.put("roles",roles);
+            data.put("roles", roles);
         }
         return DataResponse.success(data);
     }

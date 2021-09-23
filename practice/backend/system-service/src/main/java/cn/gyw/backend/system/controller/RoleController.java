@@ -1,24 +1,23 @@
-package cn.gyw.community.system.controller;
+package cn.gyw.backend.system.controller;
 
-import cn.gyw.community.system.dto.RoleMenuRelationDto;
-import cn.gyw.community.system.dto.RoleResourceRelationDto;
-import cn.gyw.community.system.entity.Menu;
-import cn.gyw.community.system.entity.Resource;
-import cn.gyw.community.web.model.BaseResponse;
-import cn.gyw.community.web.model.DataResponse;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import cn.gyw.community.system.entity.Role;
+import cn.gyw.backend.system.dto.RoleMenuRelationDto;
+import cn.gyw.backend.system.dto.RoleResourceRelationDto;
+import cn.gyw.backend.system.entity.Menu;
+import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.entity.Role;
+import cn.gyw.backend.system.service.RoleService;
 import cn.gyw.community.system.dto.RoleDto;
-import cn.gyw.community.system.service.RoleService;
-import cn.gyw.community.web.base.mgb.BaseController;
+import cn.gyw.components.web.base.mgb.BaseController;
+import cn.gyw.components.web.model.BaseResponse;
+import cn.gyw.components.web.model.DataResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/role")
-public class RoleController extends BaseController<Role,RoleDto> {
+public class RoleController extends BaseController<Role, RoleDto> {
 
     @Autowired
     private RoleService roleService;

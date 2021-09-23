@@ -1,7 +1,7 @@
-package cn.gyw.community.system.dao;
+package cn.gyw.backend.system.dao;
 
-import cn.gyw.community.system.entity.Resource;
-import cn.gyw.community.web.base.mgb.BaseDao;
+import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.components.web.base.mgb.BaseDao;
 
 public interface ResourceMapper extends BaseDao<Resource> {
 }

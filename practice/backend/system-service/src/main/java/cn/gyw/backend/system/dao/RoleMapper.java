@@ -1,9 +1,9 @@
-package cn.gyw.community.system.dao;
+package cn.gyw.backend.system.dao;
 
-import cn.gyw.community.system.entity.Menu;
-import cn.gyw.community.system.entity.Resource;
-import cn.gyw.community.system.entity.Role;
-import cn.gyw.community.web.base.mgb.BaseDao;
+import cn.gyw.backend.system.entity.Menu;
+import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.entity.Role;
+import cn.gyw.components.web.base.mgb.BaseDao;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
