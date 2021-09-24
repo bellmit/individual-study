@@ -96,7 +96,7 @@
   </div>
 </template>
 <script>
-  import { roleApi } from '@/api/role';
+  import { sysRoleApi } from '@/api/role';
   import { formatDate } from '@/utils/date';
 
   const defaultListQuery = {
@@ -164,7 +164,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          roleApi.updateStatus(row.id, { status: row.status }).then(response => {
+          sysRoleApi.updateStatus(row.id, { status: row.status }).then(response => {
             this.$message({
               type: 'success',
               message: '修改成功!'
@@ -184,7 +184,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          roleApi.remove(row.id).then(response => {
+          sysRoleApi.remove(row.id).then(response => {
             this.$message({
               type: 'success',
               message: '删除成功!'
@@ -205,7 +205,7 @@
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            roleApi.patch(this.role.id, this.role).then(response => {
+            sysRoleApi.patch(this.role.id, this.role).then(response => {
               this.$message({
                 message: '修改成功！',
                 type: 'success'
@@ -214,7 +214,7 @@
               this.getList();
             })
           } else {
-            roleApi.offer(this.role).then(response => {
+            sysRoleApi.offer(this.role).then(response => {
               this.$message({
                 message: '添加成功！',
                 type: 'success'
@@ -233,7 +233,7 @@
       },
       getList() {
         this.listLoading = true;
-        roleApi.findByPage(this.listQuery).then(response => {
+        sysRoleApi.findByPage(this.listQuery).then(response => {
           this.listLoading = false;
           this.list = response.data.records;
           this.total = response.data.total;

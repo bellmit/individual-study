@@ -60,9 +60,9 @@ module.exports = {
         }
       },
       '/sys': {
-        // target: 'http://localhost:8081',
+        target: 'http://localhost:8081',
         // remote
-        target: 'http://192.168.1.181:8081',
+        // target: 'http://192.168.1.181:8081',
         secure: false,
         changeOrigin: true,
         pathRewrite: {

@@ -34,7 +34,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      adminApi.login({ username: username.trim(), password: password }).then(response => {
+      sysUserApi.login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         const tokenStr = data.tokenHead + data.token
         commit('SET_TOKEN', tokenStr)
@@ -49,7 +49,7 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      adminApi.getInfo(state.token).then(response => {
+      sysUserApi.getInfo(state.token).then(response => {
         const { data } = response
         if (!data) {
           reject('Verification failed, please Login again.')
@@ -72,7 +72,7 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      adminApi.logout(state.token).then(() => {
+      sysUserApi.logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_NAME', '')
         commit('SET_ROLES', [])

@@ -1,6 +1,7 @@
 const apiTypes = {
   // 系统管理模块
-  SYS_USER: '/sys/user',
+  SYS_USER: '/sys/admin',
+  SYS_ROLE: '/sys/role',
 
 }
 

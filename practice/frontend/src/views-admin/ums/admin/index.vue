@@ -153,7 +153,7 @@
 </template>
 <script>
   import {sysUserApi} from '@/api/sysUser';
-  import {roleApi} from '@/api/role';
+  import {sysRoleApi} from '@/api/role';
   import {formatDate} from '@/utils/date';
 
   const defaultListQuery = {
@@ -321,7 +321,8 @@
         });
       },
       getAllRoleList() {
-        roleApi.find().then(response => {
+        console.log(">>", sysRoleApi)
+        sysRoleApi.find().then(response => {
           this.allRoleList = response.data;
         });
       },

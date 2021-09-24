@@ -1,14 +1,15 @@
 <template>
   <div class="app-container">
-    
+    <el-table>
+      
+    </el-table>
   </div>
 </template>
 
 <script>
-  import {str2Date} from '@/utils/date';
- 
+
   export default {
-    name: 'Dashboard',
+    name: 'Plugin',
     data() {
       return {
       }

@@ -13,24 +13,35 @@ export const adminRouter = [
     }]
   },
   {
+    path: '/plugin',
+    component: AdminLayout,
+    redirect: 'plugin',
+    children: [{
+      path: 'plugin',
+      name: 'Plugin',
+      component: () => import('@/views-admin/dashboard/index'),
+      meta: { title: '插件管理', icon: 'menu', auth: true }
+    }]
+  },
+  {
     path: '/ums',
     component: AdminLayout,
-    redirect: '/ums/user',
+    redirect: '/ums/admin',
     name: 'ums',
     meta: { title: '权限', icon: 'setting' },
     children: [
       {
-        path: 'user',
-        name: 'user',
-        component: () => import('@/views-admin/ums/user/index'),
-        meta: { title: '用户列表', icon: 'setting' }
+        path: 'admin',
+        name: 'admin',
+        component: () => import('@/views-admin/ums/admin/index'),
+        meta: { title: '管理员', icon: 'setting' }
       },
-      // {
-      //   path: 'role',
-      //   name: 'role',
-      //   component: () => import('@/views-admin/ums/role/index'),
-      //   meta: { title: '角色列表', icon: 'setting' }
-      // },
+      {
+        path: 'role',
+        name: 'role',
+        component: () => import('@/views-admin/ums/role/index'),
+        meta: { title: '角色列表', icon: 'setting' }
+      },
       // {
       //   path: 'allocMenu',
       //   name: 'allocMenu',

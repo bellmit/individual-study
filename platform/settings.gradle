@@ -4,11 +4,8 @@ rootProject.name = 'platform'
 include 'annotations'
 // 通用类
 include 'common'
-
 // 配置工具类
 include 'configuration'
-// 网络爬虫
-include 'web-crawler'
 // MBG 源码修改
 include 'mbg-gradle-plugin'
 // 热插拔Spring 插件
