@@ -1,9 +1,13 @@
-package cn.gyw.platform.gorm.framework;
+package cn.gyw.platform.gorm;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +16,7 @@ import java.util.Map;
  * DAO
  * 模板模式
  */
-public abstract class BaseDaoSupport<T> {
+public abstract class BaseDaoSupport<T,ID> {
 
     // 实体操作
     private EntityOperation<T> op;
@@ -42,6 +46,33 @@ public abstract class BaseDaoSupport<T> {
         return new JdbcTemplate(this.dataSourceWrite);
     }
 
+    public BaseDaoSupport() {
+        try {
+            this.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void init() throws Exception {
+        Type genericInterfaces = this.getClass().getGenericSuperclass();
+        Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
+        Class<T> entityClass = (Class<T>) params[0];
+        Class<ID> idClass = (Class<ID>) params[1];
+        this.op = new EntityOperation<>(entityClass, getPKColumn());
+    }
+
+    public Serializable get(Serializable id) {
+        return null;
+    }
+
+    // protected abstract List<T> getAll();
+    //
+    // protected abstract byte[] getBlobColumn(ResultSet rs, int columnIndex);
+    // protected abstract String getClobColumn(ResultSet rs, int columnIndex);
+
     /**
      * 查询
      * @param queryRule
@@ -67,6 +98,7 @@ public abstract class BaseDaoSupport<T> {
      * @return
      */
     protected List<Map<String, Object>> selectBySql(String sql, Map<String, ?> param) {
+        // 装饰器模式
         return this.jdbcTemplateReadOnly().queryForList(sql, param);
     }
 
@@ -77,7 +109,16 @@ public abstract class BaseDaoSupport<T> {
     protected String remoteFirstAnd(String whereSql) {
         return null;
     }
+    //
+    // protected abstract boolean delete(Serializable entity);
+    // protected abstract int deleteAll(List<?> list);
+    // protected abstract void deleteByPK(Serializable id);
+    //
+    // protected abstract boolean exists(Serializable id);
 
-    // 获取主建
+    /**
+     * 获取主键的列名
+     * @return
+     */
     protected abstract String getPKColumn();
 }

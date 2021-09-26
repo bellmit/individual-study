@@ -16,7 +16,23 @@ ORM：Object Relation mapping
 # 做什么
 约定大于配置
 CRUD  
-1. select*(QueryRule queryRule)
-2. update*(T entity)
-3. insert*(T entity) entity ！= null
-4. delete*(T entity) entity 中id不为空，若id为空，其它必不为空
+1. List<?> Page<?> select*(QueryRule queryRule)
+2. int update*(T entity)
+3. returnId insert*(T entity) entity ！= null
+4. int delete*(T entity) entity 中id不为空，若id为空，其它必不为空
+
+# 测试数据
+```mysql
+CREATE database IF NOT exists `demo_2021` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+DROP TABLE IF EXISTS `person`;
+CREATE TABLE `person` (
+     `id` bigint(20) NOT NULL AUTO_INCREMENT,
+     `username` varchar(64) DEFAULT NULL COMMENT '用户名',
+     `age` int DEFAULT 0 COMMENT '年龄',
+     `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+     `status` int(1) DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
+     PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+```

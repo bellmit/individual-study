@@ -1,4 +1,4 @@
-package cn.gyw.platform.gorm.framework;
+package cn.gyw.platform.gorm;
 
 /**
  * 排序

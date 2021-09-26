@@ -1,6 +1,6 @@
 package cn.gyw.platform.gorm;
 
-import cn.gyw.platform.gorm.entity.Member;
+import cn.gyw.platform.gorm.entity.Person;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
@@ -19,7 +19,7 @@ public class JdbcTest {
      */
     @Test
     public void commonSelect() {
-        Member condition = new Member();
+        Person condition = new Person();
         condition.setAge(21);
 
         List<?> data = select(condition);
@@ -115,7 +115,7 @@ public class JdbcTest {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Class<?> entityClass = Member.class;
+        Class<?> entityClass = Person.class;
         try {
             String url = "jdbc:mysql://192.168.1.181:3306/demo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true";
             // 加载驱动类
@@ -135,7 +135,7 @@ public class JdbcTest {
 
             while (rs.next()) {
                 // 方式1：纯手工
-                Member m = packageMember(rs);
+                Person m = packageMember(rs);
                 list.add(m);
             }
         } catch (Exception e) {
@@ -160,11 +160,11 @@ public class JdbcTest {
      * @param row
      * @return
      */
-    private Member packageMember(ResultSet row) throws SQLException {
-        Member m = new Member();
+    private Person packageMember(ResultSet row) throws SQLException {
+        Person m = new Person();
         m.setId(row.getInt("id"));
-        m.setName(row.getString("name"));
-        m.setAddr(row.getString("addr"));
+        m.setUsername(row.getString("name"));
+        m.setEmail(row.getString("addr"));
         m.setAge(row.getInt("age"));
         return m;
     }

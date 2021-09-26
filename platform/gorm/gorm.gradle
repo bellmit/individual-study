@@ -7,6 +7,7 @@ dependencies {
     implementation spring_beans
     implementation spring_jdbc
 
+    implementation alibaba_druid
     implementation mysql_connector_java
     implementation persistence_api
 

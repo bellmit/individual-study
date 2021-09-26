@@ -1,5 +1,6 @@
-package cn.gyw.platform.gorm.framework;
+package cn.gyw.platform.gorm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,6 +8,8 @@ import java.util.List;
  * 将查询对象转换成SQL语句
  */
 public class QueryRuleSqlBuilder {
+
+    public static int CUR_INDEX;
 
     // 保存列名列表
     private List<String> propertyList;
@@ -20,6 +23,20 @@ public class QueryRuleSqlBuilder {
 
     public QueryRuleSqlBuilder(QueryRule queryRule) {
         // 解析操作类型
+        CUR_INDEX = 0;
+        this.propertyList = new ArrayList<>();
+        this.valueList = new ArrayList<>();
+        this.orderList = new ArrayList<>();
+        for (QueryRule.Rule rule : queryRule.getRuleList()) {
+            switch (rule.getType()) {
+                case QueryRule.BETWEEN:
+                    processBetween(rule);
+                    break;
+                case QueryRule.EQ:
+                    processEqual(rule);
+                    break;
+            }
+        }
 
         // 拼接where
         appendWhereSql();
@@ -38,12 +55,22 @@ public class QueryRuleSqlBuilder {
     private void appendWhereSql() {
     }
 
+    /**
+     * 处理between
+     * @param rule
+     */
     private void processBetween(QueryRule.Rule rule) {
-
-
+        if (rule.getValues() == null || rule.getValues().length < 2) {
+            return;
+        }
+        add(rule.getAndOr(), rule.getPropertyName(), "", "between", rule.getValues()[0], "and");
+        add(0, "", "", "", rule.getValues()[1], "");
     }
 
-    private void add(int andOr, String key, String split, String prefix, Object[] values, String suffix) {
+    private void processEqual(QueryRule.Rule rule) {
+    }
+
+    private void add(int andOr, String key, String split, String prefix, Object values, String suffix) {
 
     }
 

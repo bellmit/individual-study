@@ -1,4 +1,4 @@
-package cn.gyw.platform.gorm.framework;
+package cn.gyw.platform.gorm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +29,9 @@ public class EntityOperation<T> {
     public String allColumn = "*";
     public Field pkField;
 
-    public EntityOperation (Class<T> clazz, String pk) {
-        if (clazz.isAnnotationPresent(Entity.class)) {
-
+    public EntityOperation (Class<T> clazz, String pk) throws Exception {
+        if (!clazz.isAnnotationPresent(Entity.class)) {
+            throw new Exception(clazz.getName() + " 中没有Entity注解，无法ORM映射");
         }
         this.entityClass = clazz;
         Table table = entityClass.getAnnotation(Table.class);

@@ -1,4 +1,4 @@
-package cn.gyw.platform.gorm.framework;
+package cn.gyw.platform.gorm;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -30,8 +30,12 @@ public class ClassMappings {
         return clazz.isEnum() || SUPPORTED_SQL_OBJECTS.contains(clazz);
     }
 
-
     public static <T> Map<String, Method> findPublicGetters(Class<T> entityClass) {
+        Map<String, Method> map = new HashMap<>();
+        Method[] methods = entityClass.getMethods();
+        for (Method method : methods) {
+
+        }
         return null;
     }
 
@@ -42,4 +46,6 @@ public class ClassMappings {
     public static <T> Field[] findFields(Class<T> entityClass) {
         return null;
     }
+
+    private ClassMappings() {}
 }
