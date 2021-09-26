@@ -10,11 +10,9 @@ include 'configuration'
 include 'mbg-gradle-plugin'
 // 热插拔Spring 插件
 include 'spring-plugins'
-// 数据库自动创建工具
-include 'auto-db'
-// 测试框架
-include 'gtest'
-// 日志工具
-include 'logging-tools'
-include 'rpa'
+// 自实现ORM框架
+include 'gorm'
 
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+}

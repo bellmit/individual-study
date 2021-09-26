@@ -1,25 +1,6 @@
 def springBootVersion = '2.1.11.RELEASE'
 def springVersion = '5.1.2.RELEASE'
 
-// common jars
-sl4j_api='org.slf4j:slf4j-api:1.7.25'
-junit='junit:junit:4.12'
-
-commons_io='commons-io:commons-io:2.7'
-commons_lang3='org.apache.commons:commons-lang3:3.6'
-
-// json tools
-jackson_databind='com.fasterxml.jackson.core:jackson-databind:2.11.2'
-jackson_core='com.fasterxml.jackson.core:jackson-core:2.11.2'
-jackson_annotations='com.fasterxml.jackson.core:jackson-annotations:2.11.2'
-json_20210307='org.json:json:20210307'
-
-snakeyaml='org.yaml:snakeyaml:1.28'
-
-// ssh2 tools
-ganymed_ssh2='ch.ethz.ganymed:ganymed-ssh2:build210'
-trilead_ssh2='com.trilead:trilead-ssh2:1.0.0-build222'
-
 // spring
 spring_core="org.springframework:spring-core:${springVersion}"
 spring_context="org.springframework:spring-context:${springVersion}"
@@ -40,6 +21,22 @@ spring_data_commons="org.springframework.data:spring-data-commons:2.5.0"
 // Spring boot
 spring_boot_starter="org.springframework.boot:spring-boot-starter:$springBootVersion"
 
+// common jars
+sl4j_api='org.slf4j:slf4j-api:1.7.25'
+junit='junit:junit:4.12'
+junit_jupiter_api='org.junit.jupiter:junit-jupiter-api:5.7.1'
+junit_jupiter_engine='org.junit.jupiter:junit-jupiter-engine:5.7.1'
+junit_platform_runner='org.junit.platform:junit-platform-runner:1.7.1'
+commons_io='commons-io:commons-io:2.7'
+commons_lang3='org.apache.commons:commons-lang3:3.6'
+jackson_databind='com.fasterxml.jackson.core:jackson-databind:2.11.2'
+jackson_core='com.fasterxml.jackson.core:jackson-core:2.11.2'
+jackson_annotations='com.fasterxml.jackson.core:jackson-annotations:2.11.2'
+json_20210307='org.json:json:20210307'
+snakeyaml='org.yaml:snakeyaml:1.28'
+// ssh2 tools
+ganymed_ssh2='ch.ethz.ganymed:ganymed-ssh2:build210'
+trilead_ssh2='com.trilead:trilead-ssh2:1.0.0-build222'
 // swagger
 springfox_swagger2='io.springfox:springfox-swagger2:2.9.2'
 springfox_swagger_ui='io.springfox:springfox-swagger-ui:2.9.2'
@@ -67,3 +64,4 @@ jna_platform='net.java.dev.jna:jna-platform:5.6.0'
 // log
 slf4j_api="org.slf4j:slf4j-api:1.7.25"
 logstash_logback_encoder='net.logstash.logback:logstash-logback-encoder:6.6'
+persistence_api='javax.persistence:persistence-api:1.0'

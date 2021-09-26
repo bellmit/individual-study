@@ -36,6 +36,9 @@ subprojects {
     // 通用依赖
     dependencies {
         implementation slf4j_api
+        testImplementation junit_jupiter_api
+        testImplementation junit_jupiter_engine
+        testImplementation junit_platform_runner
     }
 
     publishing {
