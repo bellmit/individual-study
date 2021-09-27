@@ -7,21 +7,23 @@ import org.springframework.jdbc.core.RowMapper;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSetMetaData;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 实体操作封装
- *
+ * <p>
  * 结果集处理
  */
 public class EntityOperation<T> {
 
-    private Logger log = LoggerFactory.getLogger(EntityOperation.class);
+    private static final Logger log = LoggerFactory.getLogger(EntityOperation.class);
 
     // 泛型实体Class 对象
-    public Class<T> entityClass = null;
+    public Class<T> entityClass;
     public final Map<String, PropertyMapping> mappings;
     public final RowMapper<T> rowMapper;
 
@@ -29,7 +31,7 @@ public class EntityOperation<T> {
     public String allColumn = "*";
     public Field pkField;
 
-    public EntityOperation (Class<T> clazz, String pk) throws Exception {
+    public EntityOperation(Class<T> clazz, String pk) throws Exception {
         if (!clazz.isAnnotationPresent(Entity.class)) {
             throw new Exception(clazz.getName() + " 中没有Entity注解，无法ORM映射");
         }
@@ -50,11 +52,27 @@ public class EntityOperation<T> {
         this.rowMapper = createRowMapper();
     }
 
-    private Map<String, PropertyMapping> getPropertyMappings(Map<String, Method> getters, Map<String, Method> setters, Field[] fields) {
-        return null;
+    private Map<String, PropertyMapping> getPropertyMappings(Map<String, Method> getters, Map<String, Method> setters,
+                                                             Field[] fields) {
+        Map<String, PropertyMapping> propMappingMap = new HashMap<>();
+        String fieldName;
+        for (Field field : fields) {
+            fieldName = field.getName();
+            if (getters.containsKey(fieldName) && setters.containsKey(fieldName)) {
+                propMappingMap.put(fieldName,
+                        new PropertyMapping(getters.get(fieldName), setters.get(fieldName)));
+            }
+        }
+        return propMappingMap;
     }
 
     private void fillPkFieldAndAllColumn(String pk, Field[] fields) {
+        for (Field field : fields) {
+            if (pk.equals(field.getName())) {
+                pkField = field;
+                return;
+            }
+        }
     }
 
     private RowMapper<T> createRowMapper() {
@@ -64,7 +82,7 @@ public class EntityOperation<T> {
                 ResultSetMetaData meta = rs.getMetaData();
                 int columns = meta.getColumnCount();
                 String columnName;
-                for (int i = 1 ; i < columns ;i ++) {
+                for (int i = 1; i < columns; i++) {
                     Object value = rs.getObject(i);
                     columnName = meta.getColumnName(i);
                     fillBeanFieldValue(t, columnName, value);
@@ -77,10 +95,43 @@ public class EntityOperation<T> {
         };
     }
 
-    void fillBeanFieldValue(T entity, String columnName, Object value) {
-
+    void fillBeanFieldValue(T entity, String columnName, Object value)
+            throws InvocationTargetException, IllegalAccessException {
+        if (!this.mappings.containsKey(columnName)) {
+            log.warn("[{}] has no mapping!", columnName);
+            return;
+        }
+        PropertyMapping propMapping = this.mappings.get(columnName);
+        Method setter = propMapping.getSetter();
+        setter.invoke(entity, value);
     }
 
-    private class PropertyMapping {
+    private static class PropertyMapping {
+        private Method getter;
+        private Method setter;
+
+        public PropertyMapping() {
+        }
+
+        public PropertyMapping(Method getter, Method setter) {
+            this.getter = getter;
+            this.setter = setter;
+        }
+
+        public Method getGetter() {
+            return getter;
+        }
+
+        public void setGetter(Method getter) {
+            this.getter = getter;
+        }
+
+        public Method getSetter() {
+            return setter;
+        }
+
+        public void setSetter(Method setter) {
+            this.setter = setter;
+        }
     }
 }

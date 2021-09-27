@@ -35,6 +35,8 @@ public class QueryRuleSqlBuilder {
                 case QueryRule.EQ:
                     processEqual(rule);
                     break;
+                default:
+                    throw new RuntimeException("不支持的规则类型：" + rule.getType());
             }
         }
 

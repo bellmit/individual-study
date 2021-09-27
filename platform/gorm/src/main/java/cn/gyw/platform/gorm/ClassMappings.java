@@ -13,6 +13,9 @@ public class ClassMappings {
 
     private static final Set<Class<?>> SUPPORTED_SQL_OBJECTS = new HashSet<>();
 
+    public static final String PREFIX_METHOD_GET = "get";
+    public static final String PREFIX_METHOD_SET = "set";
+
     static {
         // 支持自动类型转换的类
         Class<?>[] classes = {
@@ -31,20 +34,33 @@ public class ClassMappings {
     }
 
     public static <T> Map<String, Method> findPublicGetters(Class<T> entityClass) {
-        Map<String, Method> map = new HashMap<>();
-        Method[] methods = entityClass.getMethods();
-        for (Method method : methods) {
-
-        }
-        return null;
+        return findMethods(entityClass, PREFIX_METHOD_GET);
     }
 
     public static <T> Map<String, Method> findPublicSetters(Class<T> entityClass) {
-        return null;
+        return findMethods(entityClass, PREFIX_METHOD_SET);
+    }
+
+    private static <T> Map<String, Method> findMethods(Class<T> entityClass, String methodPrefix) {
+        Map<String, Method> map = new HashMap<>();
+        Method[] methods = entityClass.getDeclaredMethods();
+        for (Method method : methods) {
+            if (method.getName().startsWith(methodPrefix)) {
+                map.put(trimFieldName(method.getName(), methodPrefix), method);
+            }
+        }
+        return map;
+    }
+
+    private static String trimFieldName(String methodName, String methodPrefix) {
+        methodName = methodName.replace(methodPrefix, "");
+        char[] chars = methodName.toCharArray();
+        chars[0] = Character.toLowerCase(chars[0]);
+        return String.valueOf(chars);
     }
 
     public static <T> Field[] findFields(Class<T> entityClass) {
-        return null;
+        return entityClass.getDeclaredFields();
     }
 
     private ClassMappings() {}

@@ -80,7 +80,7 @@ public abstract class BaseDaoSupport<T,ID> {
      */
     protected List<T> select(QueryRule queryRule) {
         QueryRuleSqlBuilder sqlBuilder = new QueryRuleSqlBuilder(queryRule);
-        String ws = remoteFirstAnd(sqlBuilder.getWhereSql());
+        String ws = removeFirstAnd(sqlBuilder.getWhereSql());
         String whereSql = "".equals(ws) ? "" : (" where " + ws);
         String sql = "select " + "*" + " from " + getTableName() + whereSql;
         Object[] values = sqlBuilder.getValues();
@@ -106,8 +106,11 @@ public abstract class BaseDaoSupport<T,ID> {
         return this.op.tableName;
     }
 
-    protected String remoteFirstAnd(String whereSql) {
-        return null;
+    protected String removeFirstAnd(String whereSql) {
+        if (whereSql.trim().startsWith("and")) {
+            whereSql = whereSql.replaceFirst("^\\sand", "");
+        }
+        return whereSql;
     }
     //
     // protected abstract boolean delete(Serializable entity);
