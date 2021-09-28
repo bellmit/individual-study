@@ -24,6 +24,7 @@ CRUD
 # 测试数据
 ```mysql
 CREATE database IF NOT exists `demo_2021` CHARACTER SET utf8 COLLATE utf8_general_ci;
+use demo_2021;
 
 DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (

@@ -102,13 +102,19 @@ public abstract class BaseDaoSupport<T,ID> {
         return this.jdbcTemplateReadOnly().queryForList(sql, param);
     }
 
+    protected ID insert(Serializable entity) {
+        String sql = "INSERT INTO " + getTableName();
+        this.jdbcTemplateWrite().update();
+
+    }
+
     protected String getTableName() {
         return this.op.tableName;
     }
 
     protected String removeFirstAnd(String whereSql) {
         if (whereSql.trim().startsWith("and")) {
-            whereSql = whereSql.replaceFirst("^\\sand", "");
+            whereSql = whereSql.replaceFirst("^\\s*and", "");
         }
         return whereSql;
     }

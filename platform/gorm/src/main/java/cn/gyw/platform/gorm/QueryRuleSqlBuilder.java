@@ -70,12 +70,11 @@ public class QueryRuleSqlBuilder {
     }
 
     private void processEqual(QueryRule.Rule rule) {
+        if (rule.getValues() == null || rule.getValues().length != 1) {
+            return;
+        }
+        add(rule.getAndOr(), rule.getPropertyName(), "", "and", rule.getValues()[0], "");
     }
-
-    private void add(int andOr, String key, String split, String prefix, Object values, String suffix) {
-
-    }
-
 
     public String getWhereSql() {
         return whereSql;
@@ -99,5 +98,12 @@ public class QueryRuleSqlBuilder {
 
     public List<Object> getOrderList() {
         return orderList;
+    }
+
+    private void add(int andOr, String key, String split, String prefix, Object values, String suffix) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefix).append(key).append(split).append(values).append(suffix);
+        System.out.println(builder.toString());
+        whereSql += builder.toString();
     }
 }

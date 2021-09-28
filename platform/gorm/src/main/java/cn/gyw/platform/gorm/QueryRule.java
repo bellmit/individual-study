@@ -37,7 +37,9 @@ public final class QueryRule implements Serializable {
     }
 
     public void andEqual(String propertyName, String value) {
-
+        Rule rule = new Rule(EQ, propertyName);
+        rule.setValues(new Object[]{value});
+        ruleList.add(rule);
     }
 
     public List<Rule> getRuleList() {
