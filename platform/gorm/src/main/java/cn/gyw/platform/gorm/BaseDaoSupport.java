@@ -1,6 +1,8 @@
 package cn.gyw.platform.gorm;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
@@ -102,10 +104,23 @@ public abstract class BaseDaoSupport<T,ID> {
         return this.jdbcTemplateReadOnly().queryForList(sql, param);
     }
 
-    protected ID insert(Serializable entity) {
+    protected <T extends Serializable> int insert(T entity) {
         String sql = "INSERT INTO " + getTableName();
-        this.jdbcTemplateWrite().update();
+        if (entity != null) {
+            StringBuilder builder = new StringBuilder(" values ");
+        }
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        // this.jdbcTemplateWrite().update();
+        return keyHolder.getKey().intValue();
+    }
 
+    /**
+     * 原生sql 插入
+     * @param sql
+     * @return
+     */
+    protected boolean insertBySql(String sql) {
+        return this.jdbcTemplateWrite().update(sql) > 0;
     }
 
     protected String getTableName() {

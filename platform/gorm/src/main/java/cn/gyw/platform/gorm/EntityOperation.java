@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -57,11 +58,19 @@ public class EntityOperation<T> {
         Map<String, PropertyMapping> propMappingMap = new HashMap<>();
         String fieldName;
         for (Field field : fields) {
-            fieldName = field.getName();
-            if (getters.containsKey(fieldName) && setters.containsKey(fieldName)) {
-                propMappingMap.put(fieldName,
-                        new PropertyMapping(getters.get(fieldName), setters.get(fieldName)));
+            if (field.isAnnotationPresent(Transient.class)) {
+                continue;
             }
+            fieldName = field.getName();
+            if (fieldName.startsWith("is")) {
+                fieldName = fieldName.substring(2);
+            }
+            fieldName = Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
+            if (!getters.containsKey(fieldName) || !setters.containsKey(fieldName)) {
+                continue;
+            }
+            propMappingMap.put(fieldName,
+                    new PropertyMapping(getters.get(fieldName), setters.get(fieldName), field));
         }
         return propMappingMap;
     }
@@ -109,13 +118,15 @@ public class EntityOperation<T> {
     private static class PropertyMapping {
         private Method getter;
         private Method setter;
+        private Field field;
 
         public PropertyMapping() {
         }
 
-        public PropertyMapping(Method getter, Method setter) {
+        public PropertyMapping(Method getter, Method setter, Field field) {
             this.getter = getter;
             this.setter = setter;
+            this.field = field;
         }
 
         public Method getGetter() {

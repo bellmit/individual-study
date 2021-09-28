@@ -10,6 +10,7 @@ dependencies {
     implementation alibaba_druid
     implementation mysql_connector_java
     implementation persistence_api
+    implementation commons_lang3
 
     testImplementation spring_test
 }

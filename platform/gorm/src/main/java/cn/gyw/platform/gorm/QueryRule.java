@@ -36,9 +36,40 @@ public final class QueryRule implements Serializable {
         return new QueryRule();
     }
 
-    public void andEqual(String propertyName, String value) {
+    public void andEqual(String propertyName, Object value) {
         Rule rule = new Rule(EQ, propertyName);
         rule.setValues(new Object[]{value});
+        ruleList.add(rule);
+    }
+
+    public void andGreaterEqual(String propertyName, Object value) {
+
+    }
+
+    public void andLessEqual(String propertyName, Object value) {
+
+    }
+
+    public void andNotEqual(String propertyName, Object value) {
+
+    }
+
+    public void andIsEmpty(String propertyName) {
+
+    }
+
+    public void andIsNotEmpty(String propertyName) {
+
+    }
+
+    public void andLike(String propertyName, Object value) {
+
+    }
+
+    public void orEqual(String propertyName, Object value) {
+        Rule rule = new Rule(EQ, propertyName);
+        rule.setValues(new Object[]{value});
+        rule.setAndOr(OR);
         ruleList.add(rule);
     }
 
