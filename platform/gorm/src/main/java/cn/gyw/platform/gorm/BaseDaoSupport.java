@@ -1,6 +1,7 @@
 package cn.gyw.platform.gorm;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.StringUtils;
@@ -9,9 +10,13 @@ import javax.sql.DataSource;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 数据操作的顶层模板类
@@ -104,14 +109,26 @@ public abstract class BaseDaoSupport<T,ID> {
         return this.jdbcTemplateReadOnly().queryForList(sql, param);
     }
 
-    protected <T extends Serializable> int insert(T entity) {
+    protected <T extends Serializable> boolean insert(T entity) {
         String sql = "INSERT INTO " + getTableName();
-        if (entity != null) {
-            StringBuilder builder = new StringBuilder(" values ");
+        if (entity == null) {
+            throw new RuntimeException("[entity] must not null");
         }
+        StringBuilder sb = new StringBuilder(sql);
+        List<Object> values = new ArrayList<>();
+        this.op.mappings.entrySet().forEach(entry -> {
+            try {
+                Object value = entry.getValue().getGetter().invoke(entity);
+                if (Objects.nonNull(value)) {
+                    sb.append("?").append(",");
+                    values.add(value);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        // this.jdbcTemplateWrite().update();
-        return keyHolder.getKey().intValue();
+        return this.jdbcTemplateWrite().update(sql, new Object[] {}) > 0;
     }
 
     /**

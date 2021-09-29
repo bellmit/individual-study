@@ -115,7 +115,7 @@ public class EntityOperation<T> {
         setter.invoke(entity, value);
     }
 
-    private static class PropertyMapping {
+    public static class PropertyMapping {
         private Method getter;
         private Method setter;
         private Field field;
