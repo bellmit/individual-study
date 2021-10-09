@@ -1,11 +1,10 @@
 package cn.gyw.corejava.jdk;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.IntSummaryStatistics;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,7 +17,6 @@ public class Jdk8UsageTest {
 
     /**
      * 创建流的方式
-     * 1.
      */
     @Test
     @Ignore
@@ -59,6 +57,11 @@ public class Jdk8UsageTest {
     @Test
     public void middleState() {
         Arrays.asList(1, 2, 20, 23, 24, 25, 40).stream()
+                .peek((item) -> {
+                    System.out.println("peek 当前数据：" + item);
+                })
+                .distinct() // 去重
+                .limit(100) // 限制大小
                 .filter(item -> item >= 20) // 过滤操作
                 .filter(item -> item < 40)
                 .map(data -> data + 2).collect(Collectors.toList())
@@ -67,22 +70,50 @@ public class Jdk8UsageTest {
 
     /**
      * flatMap api
+     * 二维映射，flatMap()操作为每个输入值生成任意数量（零个或多个）的输出值
      */
     @Test
     public void flatMapTest() {
-        Arrays.asList("章三 1234", "王五 2345").stream()
-                .flatMap(item -> Stream.of(item.split(" ")))
+        List<String> fun1 = Arrays.asList("one", "two", "three");
+        List<String> fun2 = Arrays.asList("four", "five", "six");
+        List<List<String>> nestedList = Arrays.asList(fun1, fun2);
+
+        // 遍历
+        nestedList.stream().map(x -> x.stream().map(String::toUpperCase))
+                .forEach(x -> x.forEach(System.out::println));
+        // 用flatMap 替换，相当于把两个Stream 合并成一个Stream
+        System.out.println("=====>>");
+        nestedList.stream().flatMap(x -> x.stream().map(String::toUpperCase))
                 .forEach(System.out::println);
     }
 
     /**
      * 终端状态
      * reduce 合并操作
+     * <p>
+     * BinaryOperator<T>是一个函数式接口【2】，代表一个在两个操作数上执行的操作，生成一个和操作数类型相同的结果
      */
     @Test
     public void reduceTest() {
-        int result = Arrays.asList(1, 2, 3, 4).stream().reduce((t, n) -> t + n).get();
-        System.out.println(">>" + result);
+        int result = 0;
+        // 1. Optional<T> reduce(BinaryOperator<T> accumulator)
+        result = Arrays.asList(1, 2, 3, 4).stream().reduce((num1, num2) -> num1 + num2).get();
+        Assert.assertEquals(10, result);
+
+        // 2. T reduce(T identity,  BinaryOperator<T> accumulator)
+        // 自动处理stream为空的情况 && 自定义初始值
+        List<Integer> list = new ArrayList<>();
+        result = list.stream().reduce(10, (num1, num2) -> num1 + num2);
+        Assert.assertEquals(10, result);
+        result = Stream.of(1, 2).reduce(10, (num1, num2) -> num1 + num2);
+        Assert.assertEquals(13, result);
+
+        /* 3.
+        <U> U reduce (U identity,
+              BiFunction<U,? super [T],U> accumulator,
+              BinaryOperator<U> combiner)
+         */
+
     }
 
     /**
@@ -92,7 +123,8 @@ public class Jdk8UsageTest {
     @Test
     public void collectTest() {
         int ret = 0;
-        Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.reducing((i, j) -> i + j));
+        ret = Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.reducing((i, j) -> i + j)).get();
+
         Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.toList());
         ret = Arrays.asList(1, 2, 3, 4).stream().collect(Collectors.maxBy((t1, t2) -> {
             if (t1 > t2) {
@@ -109,7 +141,7 @@ public class Jdk8UsageTest {
 
     /**
      * 数值统计
-     *
+     * <p>
      * IntStream
      * DoubleStream
      * LongStream
