@@ -9,6 +9,8 @@ import cnLocale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
 import '@/styles/index.scss' // global css
 
+// v4 版本全部组件引入 也可以按需引入
+import echarts from 'echarts'
 import VCharts from 'v-charts'
 
 import App from './App'
@@ -43,6 +45,7 @@ Vue.use(VCharts)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.BASE_APIS = null
+Vue.prototype.$echarts = echarts
 
 function getServerConfig() {
   return new Promise((resolve, reject) => {

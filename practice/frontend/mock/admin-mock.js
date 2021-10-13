@@ -33,9 +33,8 @@ const users = {
 }
 
 export default [
-  // user login
   {
-    url: '/user/login',
+    url: '/admin/login',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -78,7 +77,7 @@ export default [
 
   // get user info
   {
-    url: '/user/\.*',
+    url: '/admin/\.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -99,9 +98,8 @@ export default [
     }
   },
 
-  // user logout
   {
-    url: '/user/logout',
+    url: '/admin/logout',
     type: 'post',
     response: _ => {
       return {

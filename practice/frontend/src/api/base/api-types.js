@@ -6,6 +6,6 @@ const apiTypes = {
 }
 
 // mock user api
-// apiTypes.SYS_USER = '/dev/user'
+apiTypes.SYS_USER = '/admin'
 
 export default apiTypes;
