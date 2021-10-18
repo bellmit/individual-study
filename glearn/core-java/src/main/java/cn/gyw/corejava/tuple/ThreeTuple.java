@@ -7,6 +7,7 @@ public class ThreeTuple <A,B,C> extends TwoTuple<A,B> {
         this.third = third;
     }
 
+    @Override
     public String toString(){
         return "type1:"+first+">type2:"+second+">type3:"+third;
     }

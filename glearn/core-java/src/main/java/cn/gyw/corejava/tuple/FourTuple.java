@@ -7,6 +7,7 @@ public class FourTuple<A,B,C,D> extends ThreeTuple<A,B,C> {
         this.fourth = fourth;
     }
 
+    @Override
     public String toString(){
         return "type1:"+first+">type2:"+second+">type3:"+third +">type4:"+fourth;
     }

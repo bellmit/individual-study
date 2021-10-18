@@ -12,6 +12,7 @@ public class CollectionsTest {
 	@Test
 	public void list() {
 		ArrayList<Object> list1 = new ArrayList<>();
+		list1.get(0);
 		list1.add(null);
 	}
 

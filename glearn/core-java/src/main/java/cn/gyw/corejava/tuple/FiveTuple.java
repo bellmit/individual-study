@@ -7,6 +7,7 @@ public class FiveTuple<A,B,C,D,E> extends FourTuple<A, B, C, D> {
         this.fifth = fifth;
     }
 
+    @Override
     public String toString(){
         return "type1:"+first+">type2:"+second+">type3:"+third
                 +">type4:"+fourth + ">type5:"+fifth;

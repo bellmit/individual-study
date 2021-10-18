@@ -4,8 +4,18 @@ package cn.gyw.corejava.util;
  * 系统工具类
  */
 public class SystemUtil {
-	
-	public static void printProperties() {
+
+    /**
+     * 打印分割线
+     */
+    public static void printCutOffRule() {
+        System.out.println("----------------分割线-------------------");
+    }
+
+    /**
+     * 打印系统参数
+     */
+    public static void printProperties() {
 		System.getProperties().entrySet().stream().forEach(entry -> {
 			System.out.println(entry.getKey() + " >> " + entry.getValue());
 		});
