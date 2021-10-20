@@ -1,5 +1,12 @@
 package cn.gyw.components.web.base;
 
+import cn.gyw.components.web.base.mgb.IBaseService;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.WebRequest;
+
+import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -9,25 +16,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.gyw.components.web.base.mgb.IBaseService;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.WebRequest;
-
-import javax.annotation.PostConstruct;
-
-public abstract class AbstractController<VO> {
+public abstract class AbstractController<T> {
 
     protected static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static final String VO_SUFFIX = "Vo";
-
     protected String entityClassFullName;
     protected String entityClassSimpleName;
-    protected Class<?> entityClass;
+    protected Class<T> entityClass;
 
-    protected IBaseService<?> baseService;
+    protected IBaseService<T> baseService;
 
     protected Map<String, Object> fillVariablesMapWithIncomingRequestParameters(WebRequest webRequest) {
         return this.fillVariablesMapWithIncomingRequestParameters(webRequest.getParameterMap());
@@ -61,8 +58,7 @@ public abstract class AbstractController<VO> {
     public void init() throws IllegalAccessException {
         Type genericInterfaces = this.getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
-        Class<VO> voClass = (Class<VO>) params[0];
-        entityClass = voClass;
+        entityClass = (Class<T>) params[2];
         entityClassFullName = entityClass.getName();
         entityClassSimpleName = entityClass.getSimpleName();
         StringBuilder serviceBuilder = new StringBuilder();
@@ -70,6 +66,6 @@ public abstract class AbstractController<VO> {
                 .append(entityClassSimpleName.substring(1)).append("Service");
         log.info("base service name:{}", serviceBuilder.toString());
         // forceAccess: 访问非public 属性
-        baseService = (IBaseService<VO>) FieldUtils.readField(this, serviceBuilder.toString(), true);
+        baseService = (IBaseService<T>) FieldUtils.readField(this, serviceBuilder.toString(), true);
     }
 }

@@ -1,0 +1,10 @@
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/c_system?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+    dbcp2:
+      validation-query: select 1

@@ -1,9 +1,8 @@
 package cn.gyw.backend.resource;
 
-import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  * @description 资源服务
@@ -14,7 +13,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class ResourceApplication {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder().main(ResourceApplication.class)
-                .bannerMode(Banner.Mode.OFF).properties("config.properties").run(args);
+        try {
+            // new SpringApplicationBuilder().main(ResourceApplication.class)
+            //         .bannerMode(Banner.Mode.OFF).properties("config.properties").run(args);
+            SpringApplication.run(ResourceApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

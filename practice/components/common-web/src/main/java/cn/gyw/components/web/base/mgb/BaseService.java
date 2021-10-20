@@ -1,22 +1,20 @@
 package cn.gyw.components.web.base.mgb;
 
+import cn.gyw.components.web.utils.BeanMapUtil;
+import cn.gyw.components.web.utils.CommonUtil;
+import com.github.pagehelper.PageHelper;
+import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tk.mybatis.mapper.entity.Example;
+
+import javax.annotation.PostConstruct;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.github.pagehelper.PageHelper;
-
-import cn.gyw.components.web.utils.BeanMapUtil;
-import tk.mybatis.mapper.entity.Example;
 
 public abstract class BaseService<T> implements IBaseService<T> {
 
@@ -85,7 +83,7 @@ public abstract class BaseService<T> implements IBaseService<T> {
                 String val = entry.getValue() == null ? "" : entry.getValue().toString();
                 if (StringUtils.isNotBlank(val) && key.startsWith(KEY_KEYWORD)) {
                     String propName = key.replaceFirst("^" + KEY_KEYWORD, "");
-                    propName = toFirstLower(propName);
+                    propName = CommonUtil.toFirstLower(propName);
                     criteria.andLike(propName, "%" + entry.getValue() + "%");
                 }
             });
@@ -114,14 +112,5 @@ public abstract class BaseService<T> implements IBaseService<T> {
     @Override
     public T selectOne(T record) {
         return baseDao.selectOne(record);
-    }
-
-    private String toFirstLower(String name) {
-        char[] chars = name.toCharArray();
-        if (chars[0] > 96) { // 小写字母开头
-            return name;
-        }
-        chars[0] += 32;
-        return new String(chars);
     }
 }

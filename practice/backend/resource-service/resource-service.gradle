@@ -10,9 +10,21 @@ dependencies {
     implementation project(':components:common-web')
 
     // 公共模块依赖
-    implementation platform_configuration
     implementation platform_common
 
     implementation spring_boot_starter
     implementation spring_boot_starter_web
+
+    // DB
+    implementation mysql_connector_java
+    implementation(mapper_spring_boot_starter) {
+        exclude group: 'javax.persistence', module: 'persistence-api'
+    }
+    implementation pagehelper_spring_boot_starter
+    implementation pagehelper
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+    implementation(javax_persistence) { force = true }
+    implementation persistence_api
+
+
 }
