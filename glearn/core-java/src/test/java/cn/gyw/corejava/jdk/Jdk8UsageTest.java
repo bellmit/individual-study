@@ -183,7 +183,38 @@ public class Jdk8UsageTest {
         /*
         多条件分组
          */
-        Map<String, Map<FruitsType, List<Fruits>>> ret4 = fruitsList.stream().collect(Collectors.groupingBy(fruits -> fruits.type, Collectors.groupingBy(fr -> fr.desc)));
+        Map<Object, Map<Object, List<Fruits>>> ret4 = fruitsList.stream()
+                .collect(Collectors.groupingBy(fruits -> fruits.type, Collectors.groupingBy(fr -> fr.desc)));
+        System.out.println("ret4 = " + ret4);
+
+        /*
+        分组结果进行Reduce 操作
+         */
+        Map<FruitsType, Double> avgPrice = fruitsList.stream()
+                .collect(Collectors.groupingBy(Fruits::getType, Collectors.averagingInt(f -> f.price)));
+        System.out.println("avgPrice = " + avgPrice);
+
+        /*
+        分组求和
+         */
+        Map<FruitsType, Double> sumPrice = fruitsList.stream()
+                .collect(Collectors.groupingBy(fruits -> fruits.getType(), Collectors.averagingInt(f -> f.price)));
+        System.out.println("sumPrice = " + sumPrice);
+
+        /*
+        最高的价格
+         */
+        Map<FruitsType, Optional<Fruits>> maxPrice = fruitsList.stream()
+                .collect(Collectors.groupingBy(fruits -> fruits.getType(), Collectors.maxBy(Comparator.comparingInt(Fruits::getPrice))));
+        System.out.println("maxPrice = " + maxPrice);
+
+        /*
+        获取分组结果统计数据
+        Stream专门提供了计算分组结果统计值的接口，统计值包括：最大值、最小值、平均值、总数、总和五个指标
+         */
+        Map<FruitsType, IntSummaryStatistics> summaryStatistics = fruitsList.stream()
+                .collect(Collectors.groupingBy(Fruits::getType, Collectors.summarizingInt(Fruits::getPrice)));
+        System.out.println("summaryStatistics = " + summaryStatistics);
     }
 
     /**
@@ -215,6 +246,30 @@ public class Jdk8UsageTest {
         public Fruits(String desc, FruitsType type, int price) {
             this.desc = desc;
             this.type = type;
+            this.price = price;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public FruitsType getType() {
+            return type;
+        }
+
+        public void setType(FruitsType type) {
+            this.type = type;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
             this.price = price;
         }
 
