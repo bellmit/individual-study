@@ -11,6 +11,8 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.0' // json util gson
 	implementation 'org.apache.commons:commons-lang3:3.6'
 	implementation 'com.auth0:java-jwt:3.10.3' // java json web tokens
+	implementation commons_collections4
+	implementation commons_beanutils
 	// api 依赖传递
 	compile springfox_swagger2
 	compile springfox_swagger_ui

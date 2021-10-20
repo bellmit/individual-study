@@ -1,4 +1,4 @@
-package cn.gyw.components.web.condition;
+package cn.gyw.components.web.config.condition;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;

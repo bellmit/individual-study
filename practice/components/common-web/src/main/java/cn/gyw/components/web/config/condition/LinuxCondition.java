@@ -1,4 +1,4 @@
-package cn.gyw.components.web.condition;
+package cn.gyw.components.web.config.condition;
 
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

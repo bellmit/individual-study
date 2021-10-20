@@ -2,8 +2,8 @@ package cn.gyw.backend.fileserver.config;
 
 import java.util.Properties;
 
-import cn.gyw.components.web.condition.LinuxCondition;
-import cn.gyw.components.web.condition.WindowsCondition;
+import cn.gyw.components.web.config.condition.LinuxCondition;
+import cn.gyw.components.web.config.condition.WindowsCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;

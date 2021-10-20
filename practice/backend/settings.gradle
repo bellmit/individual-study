@@ -21,6 +21,7 @@ include 'system-service' // 系统管理服务
 include 'instant-messaging' // 及时通信服务
 include 'file-service' // 文件服务
 include 'search-service' // 搜索服务
+include 'resource-service' // 资源服务
 
 rootProject.children.each {project ->
 	
@@ -33,3 +34,5 @@ rootProject.children.each {project ->
 	}
 	project.buildFileName = "${project.name}.gradle"
 }
+include 'resource-service'
+

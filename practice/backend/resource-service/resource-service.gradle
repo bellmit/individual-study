@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+apply plugin: 'cn.gyw.platform.plugin.mbg'
+
+dependencies {
+    implementation project(':components:common-web')
+
+    // 公共模块依赖
+    implementation platform_configuration
+    implementation platform_common
+
+    implementation spring_boot_starter
+    implementation spring_boot_starter_web
+}

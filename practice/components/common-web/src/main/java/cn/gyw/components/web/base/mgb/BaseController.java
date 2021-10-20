@@ -9,8 +9,12 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import cn.gyw.components.web.enums.CommonRespEnum;
+import cn.gyw.components.web.model.BaseRequest;
+import cn.gyw.components.web.model.BaseResponse;
 import cn.gyw.components.web.model.PageData;
 import cn.gyw.components.web.utils.PageHelperUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,26 +27,18 @@ import cn.gyw.components.web.base.AbstractController;
 
 /**
  * 通用Controller
- * 
- * @param <T>
- * @param <DTO>
+ *
  */
-public abstract class BaseController<T, DTO> extends AbstractController {
+public abstract class BaseController<Q extends BaseRequest<T>, P extends BaseResponse, VO> extends AbstractController<VO> {
 
-	protected static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-	protected String entityClassFullName;
-	protected String entityClassSimpleName;
-	protected Class<T> entityClass;
-
-	private IBaseService<T> baseService;
-
+	@ApiParam(name = "")
+	@ApiOperation(value = "查询", notes = "基本查询")
 	@GetMapping
-	public List<T> query(DTO dto) {
-		log.debug("query params:{}", dto);
+	public List<VO> query(Q request) {
+		log.debug("query() request:{}", request);
 		try {
 			T condition = entityClass.newInstance();
-			BeanUtils.copyProperties(dto, condition);
+			BeanUtils.copyProperties(request.getData(), condition);
 			log.debug("query condition bean :{}", condition);
 			List<T> data = baseService.query(condition);
 			return data;
@@ -100,25 +96,6 @@ public abstract class BaseController<T, DTO> extends AbstractController {
 	public int delete(@PathVariable Object id) throws IllegalAccessException, InstantiationException {
 		log.info("delete by id：{}", id);
 		return baseService.remove(id);
-	}
-
-	/**
-	 * 初始化方法
-	 */
-	@PostConstruct
-	@SuppressWarnings("unchecked")
-	public void init() throws IllegalAccessException {
-		Type genericInterfaces = this.getClass().getGenericSuperclass();
-		Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
-		entityClass = (Class<T>) params[0];
-		entityClassFullName = entityClass.getName();
-		entityClassSimpleName = entityClass.getSimpleName();
-		StringBuilder serviceBuilder = new StringBuilder();
-		serviceBuilder.append(entityClassSimpleName.substring(0, 1).toLowerCase())
-				.append(entityClassSimpleName.substring(1)).append("Service");
-		log.info("base service name:{}", serviceBuilder.toString());
-		// forceAccess: 访问非public 属性
-		baseService = (IBaseService<T>) FieldUtils.readField(this, serviceBuilder.toString(), true);
 	}
 
 }
