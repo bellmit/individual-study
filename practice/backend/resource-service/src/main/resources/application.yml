@@ -1,10 +1,14 @@
+server:
+  port: 8082
 
 spring:
   profiles:
     active: local
-  datasource:
-    url: jdbc:mysql://localhost:3306/c_system?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
-    username: root
+
+# 爬虫库资源
+crawler:
+  ds:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_crawler?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+    userName: root
     password: root
-    dbcp2:
-      validation-query: select 1

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @createdTime 2021/10/20 15:13
  */
 @Api(value = "房屋信息Controller", tags = {"房屋信息接口"})
-@RestController
+@RestController("/house_info")
 public class HouseInfoController
         extends BaseController<HouseInfoRequest, HouseInfoResponse, HouseInfo, HouseInfoDto> {
 

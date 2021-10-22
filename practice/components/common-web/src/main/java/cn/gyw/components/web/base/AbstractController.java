@@ -1,12 +1,9 @@
 package cn.gyw.components.web.base;
 
-import cn.gyw.components.web.base.mgb.IBaseService;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -23,8 +20,7 @@ public abstract class AbstractController<T> {
     protected String entityClassFullName;
     protected String entityClassSimpleName;
     protected Class<T> entityClass;
-
-    protected IBaseService<T> baseService;
+    protected String serviceClassSimpleName;
 
     protected Map<String, Object> fillVariablesMapWithIncomingRequestParameters(WebRequest webRequest) {
         return this.fillVariablesMapWithIncomingRequestParameters(webRequest.getParameterMap());
@@ -53,19 +49,17 @@ public abstract class AbstractController<T> {
     /**
      * 初始化方法
      */
-    @PostConstruct
-    @SuppressWarnings("unchecked")
     public void init() throws IllegalAccessException {
         Type genericInterfaces = this.getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
         entityClass = (Class<T>) params[2];
         entityClassFullName = entityClass.getName();
         entityClassSimpleName = entityClass.getSimpleName();
+
         StringBuilder serviceBuilder = new StringBuilder();
         serviceBuilder.append(entityClassSimpleName.substring(0, 1).toLowerCase())
                 .append(entityClassSimpleName.substring(1)).append("Service");
         log.info("base service name:{}", serviceBuilder.toString());
-        // forceAccess: 访问非public 属性
-        baseService = (IBaseService<T>) FieldUtils.readField(this, serviceBuilder.toString(), true);
+        serviceClassSimpleName = serviceBuilder.toString();
     }
 }

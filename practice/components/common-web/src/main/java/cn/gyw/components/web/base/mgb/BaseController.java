@@ -8,11 +8,13 @@ import cn.gyw.components.web.model.PageData;
 import cn.gyw.components.web.utils.PageHelperUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,8 @@ import java.util.Map;
  * 通用Controller
  */
 public abstract class BaseController<Q extends BaseRequest<DTO>, P extends BaseResponse, T, DTO> extends AbstractController<T> {
+
+    private IBaseService<T> baseService;
 
     @ApiParam(name = "")
     @ApiOperation(value = "查询", notes = "基本查询")
@@ -89,4 +93,12 @@ public abstract class BaseController<Q extends BaseRequest<DTO>, P extends BaseR
         return baseService.remove(id);
     }
 
+    @PostConstruct
+    @SuppressWarnings("unchecked")
+    @Override
+    public void init() throws IllegalAccessException {
+        super.init();
+        // forceAccess: 访问非public 属性
+        baseService = (IBaseService<T>) FieldUtils.readField(this, serviceClassSimpleName, true);
+    }
 }
