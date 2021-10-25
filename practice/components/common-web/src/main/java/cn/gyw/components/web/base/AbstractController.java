@@ -52,14 +52,15 @@ public abstract class AbstractController<T> {
     public void init() throws IllegalAccessException {
         Type genericInterfaces = this.getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
-        entityClass = (Class<T>) params[2];
+        entityClass = (Class<T>) params[1];
         entityClassFullName = entityClass.getName();
         entityClassSimpleName = entityClass.getSimpleName();
 
         StringBuilder serviceBuilder = new StringBuilder();
         serviceBuilder.append(entityClassSimpleName.substring(0, 1).toLowerCase())
                 .append(entityClassSimpleName.substring(1)).append("Service");
-        log.info("base service name:{}", serviceBuilder.toString());
+        log.info("base service name:{}, entityClass:{}, entityClassFullName:{}, entityClassSimpleName:{}", serviceBuilder,
+                entityClass, entityClassFullName, entityClassSimpleName);
         serviceClassSimpleName = serviceBuilder.toString();
     }
 }

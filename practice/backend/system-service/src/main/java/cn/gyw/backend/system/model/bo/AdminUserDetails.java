@@ -1,7 +1,7 @@
-package cn.gyw.backend.system.bo;
+package cn.gyw.backend.system.model.bo;
 
-import cn.gyw.backend.system.entity.Admin;
-import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.model.entity.Admin;
+import cn.gyw.backend.system.model.entity.Resource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

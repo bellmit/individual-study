@@ -8,7 +8,8 @@ import cn.gyw.corejava.util.DataGenerator;
 import cn.gyw.corejava.util.SystemUtil;
 import org.junit.Assert;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,6 +17,9 @@ import java.util.stream.Stream;
 
 /**
  * JDK8 Stream 流的测试类
+ *
+ * 参考：
+ * 1. https://www.jianshu.com/p/7eaa0969b424
  */
 public class StreamAPITest extends AbstractTest {
 
@@ -373,11 +377,38 @@ public class StreamAPITest extends AbstractTest {
         // 对分组后的Map<FruitsType, List<Fruits>>，继续操作
         int size = fruitsList.stream().collect(Collectors.collectingAndThen(Collectors.groupingBy(f -> f.getType()),
                 fruitsTypeListMap -> fruitsTypeListMap.size()));
+        Assertions.assertEquals(2, size);
     }
 
-    // Collectors.collectingAndThen()
-    // Collectors.mapping()
-    // Collectors.partitioningBy()
+    /**
+     * 映射关系
+     */
+    @Test
+    public void testMapping() {
+        /*
+        mapping(Function<? super T, ? extends U> mapper, Collector<? super U, A, R> downstream)
+         */
+        String result1 =
+                fruitsDataList.stream().collect(Collectors.mapping(f -> f.getDesc(), Collectors.joining(",", "[", "]")));
+        System.out.println("result1 = " + result1);
+
+        String result2 = fruitsDataList.stream().map(f -> f.getDesc()).collect(Collectors.joining(",", "[", "]"));
+        System.out.println("result2 = " + result2);
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testPartitioningBy() {
+        Map<Boolean, List<Fruits>> result1 =
+                fruitsDataList.stream().collect(Collectors.partitioningBy(fruits -> fruits.getPrice() > 10));
+        System.out.println("result1 = " + result1);
+
+        Map<Boolean, Long> result2 =
+                fruitsDataList.stream().collect(Collectors.partitioningBy(fruits -> fruits.getPrice() > 10, Collectors.counting()));
+        System.out.println("result2 = " + result2);
+    }
 
     private List<Fruits> fruitsDataList = Arrays.asList(
             new Fruits("苹果1", FruitsType.APPLE, 10),

@@ -1,4 +1,4 @@
-package cn.gyw.backend.system.entity;
+package cn.gyw.backend.system.model.entity;
 
 import javax.persistence.*;
 

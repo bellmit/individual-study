@@ -1,6 +1,6 @@
 package cn.gyw.backend.system.service;
 
-import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.model.entity.Resource;
 import cn.gyw.backend.system.dao.ResourceMapper;
 import cn.gyw.components.web.base.mgb.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;

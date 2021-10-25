@@ -1,5 +1,6 @@
 package cn.gyw.backend.resource.houseinfo.dao.po;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -34,6 +35,7 @@ public class HouseInfo {
     // 房屋类型：1->新房；2->二手房；
     private Short houseType;
     // 用途：0->购房；1->租房
+    @Column(name = "`usage`")
     private Short usage;
     // 数据来源：0->WEB
     private Short originType;

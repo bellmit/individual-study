@@ -1,4 +1,4 @@
-package cn.gyw.backend.system.dto;
+package cn.gyw.backend.system.model.dto;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,7 +1,7 @@
 package cn.gyw.backend.system.service.interfaces;
 
-import cn.gyw.backend.system.entity.Admin;
-import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.model.entity.Admin;
+import cn.gyw.backend.system.model.entity.Resource;
 
 import java.util.List;
 

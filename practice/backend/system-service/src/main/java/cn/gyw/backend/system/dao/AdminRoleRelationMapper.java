@@ -1,8 +1,8 @@
 package cn.gyw.backend.system.dao;
 
-import cn.gyw.backend.system.entity.AdminRoleRelation;
-import cn.gyw.backend.system.entity.Resource;
-import cn.gyw.backend.system.entity.Role;
+import cn.gyw.backend.system.model.entity.AdminRoleRelation;
+import cn.gyw.backend.system.model.entity.Resource;
+import cn.gyw.backend.system.model.entity.Role;
 import cn.gyw.components.web.base.mgb.BaseDao;
 import org.apache.ibatis.annotations.Param;
 

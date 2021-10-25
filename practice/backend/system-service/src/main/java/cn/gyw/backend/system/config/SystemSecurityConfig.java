@@ -1,6 +1,6 @@
 package cn.gyw.backend.system.config;
 
-import cn.gyw.backend.system.entity.Resource;
+import cn.gyw.backend.system.model.entity.Resource;
 import cn.gyw.backend.system.service.AdminService;
 import cn.gyw.backend.system.service.ResourceService;
 import cn.gyw.components.security.component.DynamicSecurityService;

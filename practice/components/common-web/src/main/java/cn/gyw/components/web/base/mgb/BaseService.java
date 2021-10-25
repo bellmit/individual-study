@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class BaseService<T> implements IBaseService<T> {
 
@@ -56,7 +57,7 @@ public abstract class BaseService<T> implements IBaseService<T> {
     public List<T> query(T record) {
         Example example = new Example(entityClass);
         example.createCriteria().andEqualTo(record);
-        return baseDao.selectByExample(example);
+        return Optional.ofNullable(baseDao.selectByExample(example)).orElse(Collections.emptyList());
     }
 
     @Override

@@ -1,12 +1,12 @@
 package cn.gyw.backend.system.service;
 
-import cn.gyw.backend.system.bo.AdminUserDetails;
+import cn.gyw.backend.system.model.bo.AdminUserDetails;
 import cn.gyw.backend.system.dao.AdminLoginLogMapper;
 import cn.gyw.backend.system.dao.AdminMapper;
 import cn.gyw.backend.system.dao.AdminRoleRelationMapper;
-import cn.gyw.backend.system.entity.*;
+import cn.gyw.backend.system.model.dto.AdminDto;
+import cn.gyw.backend.system.model.entity.*;
 import cn.gyw.backend.system.enums.SystemRespEnum;
-import cn.gyw.community.system.dto.AdminDto;
 import cn.gyw.components.security.util.JwtTokenUtil;
 import cn.gyw.components.web.base.mgb.BaseService;
 import cn.gyw.components.web.utils.RequestUtil;

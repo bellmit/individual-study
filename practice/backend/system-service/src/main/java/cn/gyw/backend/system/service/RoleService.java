@@ -3,7 +3,7 @@ package cn.gyw.backend.system.service;
 import cn.gyw.backend.system.dao.RoleMapper;
 import cn.gyw.backend.system.dao.RoleMenuRelationMapper;
 import cn.gyw.backend.system.dao.RoleResourceRelationMapper;
-import cn.gyw.backend.system.entity.*;
+import cn.gyw.backend.system.model.entity.*;
 import cn.gyw.backend.system.service.interfaces.IAdminCacheService;
 import cn.gyw.components.web.base.mgb.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;

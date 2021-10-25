@@ -1,12 +1,13 @@
 package cn.gyw.backend.system.controller;
 
-import cn.gyw.backend.system.dto.RoleMenuRelationDto;
-import cn.gyw.backend.system.dto.RoleResourceRelationDto;
-import cn.gyw.backend.system.entity.Menu;
-import cn.gyw.backend.system.entity.Resource;
-import cn.gyw.backend.system.entity.Role;
+import cn.gyw.backend.system.model.bo.RoleRequest;
+import cn.gyw.backend.system.model.dto.RoleDto;
+import cn.gyw.backend.system.model.dto.RoleMenuRelationDto;
+import cn.gyw.backend.system.model.dto.RoleResourceRelationDto;
+import cn.gyw.backend.system.model.entity.Menu;
+import cn.gyw.backend.system.model.entity.Resource;
+import cn.gyw.backend.system.model.entity.Role;
 import cn.gyw.backend.system.service.RoleService;
-import cn.gyw.community.system.dto.RoleDto;
 import cn.gyw.components.web.base.mgb.BaseController;
 import cn.gyw.components.web.model.BaseResponse;
 import cn.gyw.components.web.model.DataResponse;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/role")
-public class RoleController extends BaseController<Role, RoleDto> {
+public class RoleController extends BaseController<RoleRequest, Role, RoleDto> {
 
     @Autowired
     private RoleService roleService;

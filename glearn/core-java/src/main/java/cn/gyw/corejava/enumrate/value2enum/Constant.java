@@ -45,18 +45,18 @@ public class Constant {
 	/**
 	 * 加载所有枚举对象数据
 	 *
-	 * @param isFouceCheck
+	 * @param isForceCheck
 	 *            是否强制校验枚举是否实现了EnumMessage接口,若为false则没有实现接口的枚举类也会被加载
 	 */
-	private static Map<Class, Map<Object, EnumMessage>> initialEnumMap(boolean isFouceCheck) {
+	private static Map<Class, Map<Object, EnumMessage>> initialEnumMap(boolean isForceCheck) {
 		Map<Class, Map<Object, EnumMessage>> ENUM_MAP = new HashMap<>();
 		try {
-			for (String classname : ENUM_OBJECT_PATH) {
+			for (String className : ENUM_OBJECT_PATH) {
 				Class<?> cls = null;
-				cls = Class.forName(classname);
+				cls = Class.forName(className);
 				Class<?>[] iter = cls.getInterfaces();
 				boolean flag = false;
-				if (isFouceCheck) {
+				if (isForceCheck) {
 					for (Class cz : iter) {
 						if (cz.getName().equals(ENUM_MESSAGE_PATH)) {
 							flag = true;
@@ -64,7 +64,7 @@ public class Constant {
 						}
 					}
 				}
-				if (flag == isFouceCheck) {
+				if (flag == isForceCheck) {
 					SINGLE_ENUM_MAP = new HashMap<>();
 					initialSingleEnumMap(cls);
 					ENUM_MAP.put(cls, SINGLE_ENUM_MAP);
@@ -82,7 +82,7 @@ public class Constant {
 	 */
 	private static void initialSingleEnumMap(Class<?> cls) throws Exception {
 		Method method = cls.getMethod("values");
-		EnumMessage inter[] = (EnumMessage[]) method.invoke(null, null);
+		EnumMessage inter[] = (EnumMessage[]) method.invoke(cls.newInstance());
 		for (EnumMessage enumMessage : inter) {
 			SINGLE_ENUM_MAP.put(enumMessage.getValue(), enumMessage);
 		}

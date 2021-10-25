@@ -1,9 +1,9 @@
-package cn.gyw.backend.system.entity;
+package cn.gyw.backend.system.model.entity;
 
 import javax.persistence.*;
 
-@Table(name = "role_menu_relation")
-public class RoleMenuRelation {
+@Table(name = "role_resource_relation")
+public class RoleResourceRelation {
     @Id
     private Long id;
 
@@ -14,10 +14,10 @@ public class RoleMenuRelation {
     private Long roleId;
 
     /**
-     * 菜单ID
+     * 资源ID
      */
-    @Column(name = "menu_id")
-    private Long menuId;
+    @Column(name = "resource_id")
+    private Long resourceId;
 
     /**
      * @return id
@@ -52,20 +52,20 @@ public class RoleMenuRelation {
     }
 
     /**
-     * 获取菜单ID
+     * 获取资源ID
      *
-     * @return menu_id - 菜单ID
+     * @return resource_id - 资源ID
      */
-    public Long getMenuId() {
-        return menuId;
+    public Long getResourceId() {
+        return resourceId;
     }
 
     /**
-     * 设置菜单ID
+     * 设置资源ID
      *
-     * @param menuId 菜单ID
+     * @param resourceId 资源ID
      */
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
+    public void setResourceId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 }

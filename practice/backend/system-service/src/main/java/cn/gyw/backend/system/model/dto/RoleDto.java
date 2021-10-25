@@ -1,4 +1,4 @@
-package cn.gyw.community.system.dto;
+package cn.gyw.backend.system.model.dto;
 
 import java.util.Date;
 import java.util.List;

@@ -1,11 +1,12 @@
 package cn.gyw.backend.system.controller;
 
-
-import cn.gyw.backend.system.dto.AdminRoleRelationDto;
-import cn.gyw.backend.system.dto.UserLoginParam;
-import cn.gyw.backend.system.entity.Admin;
-import cn.gyw.backend.system.entity.Role;
 import cn.gyw.backend.system.enums.SystemRespEnum;
+import cn.gyw.backend.system.model.bo.AdminRequest;
+import cn.gyw.backend.system.model.dto.AdminDto;
+import cn.gyw.backend.system.model.dto.AdminRoleRelationDto;
+import cn.gyw.backend.system.model.dto.UserLoginParam;
+import cn.gyw.backend.system.model.entity.Admin;
+import cn.gyw.backend.system.model.entity.Role;
 import cn.gyw.backend.system.service.AdminService;
 import cn.gyw.backend.system.service.RoleService;
 import cn.gyw.components.web.base.mgb.BaseController;
@@ -13,14 +14,10 @@ import cn.gyw.components.web.enums.CommonRespEnum;
 import cn.gyw.components.web.model.BaseResponse;
 import cn.gyw.components.web.model.DataResponse;
 import cn.hutool.core.collection.CollUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
-import cn.gyw.community.system.dto.AdminDto;
-
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -33,7 +30,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/admin")
-public class AdminController extends BaseController<Admin, AdminDto> {
+public class AdminController extends BaseController<AdminRequest, Admin, AdminDto> {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;

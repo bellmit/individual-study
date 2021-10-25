@@ -71,7 +71,7 @@ mbg {
     }
     xml {
         mapperPackage = "cn.gyw.backend.system.dao"
-        modelPackage = "cn.gyw.backend.system.entity"
+        modelPackage = "cn.gyw.backend.system.model.entity"
         mapperMapper = "cn.gyw.components.web.base.mgb.BaseDao"
         xmlPackage = "mappers"
         tableName = "role"
@@ -80,8 +80,8 @@ mbg {
     }
     ftl {
         restControllerStyle = true
-        entityPackage = "cn.gyw.backend.system.entity"
-        entityDtoPackage = "cn.gyw.backend.system.dto"
+        entityPackage = "cn.gyw.backend.system.model.entity"
+        entityDtoPackage = "cn.gyw.backend.system.model.dto"
         superServiceClass = "cn.gyw.components.web.base.mgb.BaseService"
         servicePackage = "cn.gyw.backend.system.service"
         superControllerClass = "cn.gyw.components.web.base.mgb.BaseController"

@@ -1,4 +1,4 @@
-package cn.gyw.community.system.dto;
+package cn.gyw.backend.system.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

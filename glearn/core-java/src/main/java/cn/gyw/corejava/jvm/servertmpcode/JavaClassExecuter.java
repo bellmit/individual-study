@@ -23,7 +23,7 @@ public class JavaClassExecuter {
         Class clazz = loader.loadByte(modiBytes);
         try {
             Method method = clazz.getMethod("mail", new Class[] {String[].class});
-            method.invoke(null, new String[] {null});
+            method.invoke(clazz.newInstance());
         } catch (Throwable e) {
             e.printStackTrace(HackSystem.out);
         }
