@@ -1,5 +1,6 @@
 package cn.gyw.corejava.collections;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -45,4 +46,14 @@ public class MapUsageTest {
         System.out.println("computeIfPresent<<" + map);
     }
 
+    /**
+     * 测试方法 getOrDefault
+     */
+    @Test
+    public void testGetOrDefault() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", null);
+
+        System.out.println(map.getOrDefault("1", 999));
+    }
 }
