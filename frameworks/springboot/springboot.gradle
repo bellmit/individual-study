@@ -3,42 +3,46 @@ plugins {
 	id 'org.springframework.boot'
 }
 
-dependencies {
-    implementation spring_boot_starter
-    implementation spring_boot_starter_web
-	implementation spring_boot_starter_webflux
-    implementation spring_boot_starter_jdbc
-    implementation spring_boot_starter_redis
-    implementation commons_pool2
-	
-    // 打包时使用provide
-//    providedRuntime spring_boot_starter_tomcat
-    // 本地运行，否则异常：
-    implementation spring_boot_starter_tomcat
-    // 热部署工具
-    implementation spring_boot_devtools
-    // 系统监控
-    implementation spring_boot_starter_actuator
+ext {
+	// spring boot 版本
+	springBootVersion = '2.1.11.RELEASE'
+}
 
-	// GraphQL Java Engine itself is only concerned with executing queries. It doesn’t deal with any HTTP or JSON related topics.
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	// Web容器包：本地运行用
+	implementation "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+	// 打包时使用provide
+//	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+	// 热部署工具
+	implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+	// 系统监控
+	implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
+
 //	implementation graphql_java
-	// adapter which takes care of exposing our API via Spring Boot over HTTP.
 //	implementation graphql_java_spring_boot_starter_webmvc
 	// 可视化调试工具 graphiql
 	implementation graphiql_spring_boot_starter
 	implementation springfox_swagger2
 	implementation springfox_swagger_ui
-	
-	implementation guava
+
+	implementation commons_pool2
 	implementation commons_lang3
+	implementation commons_io
+	implementation guava
 	implementation mysql_connector_java
 	implementation freemarker
-	implementation commons_io
-	// jackson
 	implementation jackson_databind
 	implementation jackson_core
 	implementation jackson_annotations
 
+	// 测试类
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: "org.junit.vintage", module: "junit-vintage-engine"
     }
