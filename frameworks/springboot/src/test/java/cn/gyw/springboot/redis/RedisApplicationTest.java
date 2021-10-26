@@ -1,7 +1,9 @@
 package cn.gyw.springboot.redis;
 
-import java.util.Set;
-
+import cn.gyw.springboot.DemoBootApplication;
+import cn.gyw.springboot.redis.model.IPerson;
+import cn.gyw.springboot.redis.model.PersonAdapter;
+import cn.gyw.springboot.redis.model.PersonFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import cn.gyw.springboot.redis.model.IPerson;
-import cn.gyw.springboot.redis.model.PersonAdapter;
-import cn.gyw.springboot.redis.model.PersonFactory;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = RedisApplication.class)
+@SpringBootTest(classes = DemoBootApplication.class)
 public class RedisApplicationTest {
 
 	private static final String PREFIX = "TEST:";

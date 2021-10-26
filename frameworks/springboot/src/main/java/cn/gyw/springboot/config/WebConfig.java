@@ -4,20 +4,36 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import cn.gyw.springboot.intercept.LogInterceptor;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "cn.gyw.springboot.controller")
+@ComponentScan(basePackages = "cn.gyw.springboot.webmvc")
 public class WebConfig implements WebMvcConfigurer {
+
+    /**
+     * 内容协商配置
+     * @param configurer
+     */
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        /* 是否通过请求Url的扩展名来决定media type */
+        configurer.favorPathExtension(true)
+                /* 不检查Accept请求头 */
+                .ignoreAcceptHeader(true)
+                .parameterName("mediaType")
+                /* 设置默认的media_type */
+                .defaultContentType(MediaType.APPLICATION_JSON_UTF8)
+                /* 请求以.html结尾的会被当成MediaType.TEXT_HTML*/
+                .mediaType("html", MediaType.TEXT_HTML)
+                /* 请求以.json结尾的会被当成MediaType.APPLICATION_JSON*/
+                .mediaType("json", MediaType.APPLICATION_JSON);
+    }
 
     /**
      * Spring Boot<=1.3 无需定义，Spring Boot自动定义
@@ -33,6 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * 添加拦截器
+     *
      * @param registry
      */
     @Override
@@ -42,9 +59,10 @@ public class WebConfig implements WebMvcConfigurer {
                 // swagger 相关接口
                 .excludePathPatterns("/swagger*/**", "/webjars/**", "/v2/**");
     }
-    
+
     /**
      * 异步支持
+     *
      * @param configurer
      */
     @Override
@@ -64,7 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
         taskExecutor.setKeepAliveSeconds(120);
         return taskExecutor;
     }
-    
+
     /**
      * 配置静态资源
      */

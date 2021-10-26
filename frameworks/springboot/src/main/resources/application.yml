@@ -42,3 +42,6 @@ management:
 service:
   host:
     name: ${ser.host}
+
+logging:
+  config: classpath:logback-spring.xml
