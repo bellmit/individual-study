@@ -42,5 +42,11 @@ dependencies {
 
 	compileOnly javax_servlet_api
 
-	testImplementation junit
+	testImplementation junit_jupiter_api
+	testImplementation junit_jupiter_engine
+	testImplementation junit_platform_runner
+}
+
+test {
+	useJUnitPlatform()
 }
