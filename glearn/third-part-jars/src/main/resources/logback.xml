@@ -7,11 +7,12 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
     <!--
     用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default
     -->
-    <contextName>HibernateLearn</contextName>
+    <contextName>third-part-jars</contextName>
     <!--
     用来定义变量值,使用方法：${}
     -->
     <property name="LOG_HOME" value="../logs/"/>
+    <property name="APP_NAME" value="third-part-jars"/>
     <!--
     获取时间戳字符串
     key: 标识此<timestamp> 的名字；
@@ -37,7 +38,7 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- FileAppender类：把日志添加到文件 -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <!-- 被写入的文件目录，相对或者绝对目录 -->
-        <file>${LOG_HOME}hibernate_study.log</file>
+        <file>${LOG_HOME}third-part-jars.log</file>
         <!-- 是否追加 -->
         <append>true</append>
         <!-- 日志格式化 -->
@@ -51,7 +52,7 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- RollingFileAppender类：把日志添加到滚动记录文件 -->
     <appender name="RFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 被写入的文件目录，相对或者绝对目录 -->
-        <file>${LOG_HOME}hibernate_study-rf.log</file>
+        <file>${LOG_HOME}third-part-jars-rf.log</file>
         <!-- 是否追加 -->
         <append>true</append>
         <!-- 当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名

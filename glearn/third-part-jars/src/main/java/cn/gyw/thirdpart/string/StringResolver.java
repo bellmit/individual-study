@@ -1,6 +1,12 @@
 package cn.gyw.thirdpart.string;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * TODO
@@ -8,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2021/10/29 13:27
  */
 public class StringResolver {
+
+    private static final Logger log = LoggerFactory.getLogger(StringResolver.class);
 
     /*
     Mac系统换行符："\r"
@@ -19,12 +27,26 @@ public class StringResolver {
     // public static final String PATTERN_LINE_SEPARATOR = "\\R";
 
     /**
-     * 去除收尾空格 和 换行符
+     * 去除首尾空格 和 换行符
      *
-     * @return 首尾无空格 && 无换行符的字符串
+     * @param obj 目标对象
+     * @param props 字段名
      */
-    public static String trimAndRmLineSeparator(String source) {
-        return trim(removeLineSeparator(source));
+    public static void trimAndRemoveLineSeparator(Object obj, String... props) {
+        Class<?> clazz = obj.getClass();
+        for (String prop : props) {
+            Field field = FieldUtils.getField(clazz, prop, true);
+            try {
+                Object value = field.get(obj);
+                if (Objects.isNull(value)) {
+                    continue;
+                }
+                field.set(obj, trim(removeLineSeparator(value.toString())));
+            } catch (IllegalAccessException e) {
+                // 处理失败，不影响现有流程，继续下一个
+                log.warn("[{}] 去除首尾空格 && 换行符异常", prop);
+            }
+        }
     }
 
     /**
