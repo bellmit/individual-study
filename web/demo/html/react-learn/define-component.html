@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="../../common/js/react.development.js"></script>
+  <script src="../../common/js/react-dom.development.js"></script>
+  <script src="../../common/js/babel.min.js"></script>
+</head>
+
+<body>
+  <p>class ComponentName extends React.Component creates a component class, which implements a render method to return
+    an component instance of the class.
+
+    Before v16.0, React use React.createClass() to create a component class. It has been deprecated
+    Components would have attributes, and you can use this.props.[attribute] to access them, just like this.props.name
+    of
+    <HelloMessage name="John" /> is John.
+    Please remember the first letter of the component's name must be capitalized, otherwise React will throw an error.
+    For instance, HelloMessage as a component's name is OK, but helloMessage is not allowed. And a React component
+    should only have one top child node.
+  </p>
+  <div id="example"></div>
+  <script type="text/babel">
+
+    // wrong
+    // class HelloMessage1 extends React.Component {
+    //   render() {
+    //     return <h1>
+    //   Hello {this.props.name}
+    // </h1><p>
+    //   some text
+    // </p>;
+    //   }
+    // }
+
+    // correct
+    class HelloMessage2 extends React.Component {
+      render() {
+        return <div>
+          <h1>Hello {this.props.name}</h1>
+          <p>some text</p>
+        </div>;
+      }
+    }
+
+    class HelloMessage extends React.Component {
+      render() {
+        return <h1>Hello {this.props.name}</h1>;
+      }
+    }
+
+    ReactDOM.render(
+      <HelloMessage name="John" />,
+      document.getElementById('example')
+    );
+
+  </script>
+</body>
+
+</html>

@@ -81,19 +81,18 @@ docker pull centos:7.2
 通过docker images 可以查看本地镜像  
 docker images  
 //启动容器命令 docker run options containsID argument  
-#options参数说明  
-#-i：表示以“交互模式”运行容器  
-#-t：表示容器启动后会进入其命令行  
-#-v：表示需要将本地哪个目录挂载到容器中，格式：-v <宿主机目录>:<容器目录>  
-#--name: 指定容器的名称，如果未指定容器名称则会随机生成一个名称  
+- options参数说明  
+  - -i：表示以“交互模式”运行容器  
+  - -t：表示容器启动后会进入其命令行  
+  - -v：表示需要将本地哪个目录挂载到容器中，格式：-v <宿主机目录>:<容器目录>  
+  - --name: 指定容器的名称，如果未指定容器名称则会随机生成一个名称  
 docker run --name Glearn -itv /home/root/softwares/:/mnt/software/ 0d120b6ccaa8 /bin/bash  
-#启动容器  
+### 启动容器  
 docker start Glearn  
-#登录容器  
+### 登录容器  
 docker attach Glearn  
 
-安装jdk8  
-#安装wget库  
+### 安装wget库  
 sudo yum install wget  
 #进入usr/local/src目录下  
 cd /usr/local/src  
@@ -130,7 +129,20 @@ sudo docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5
 docker container ls  
 docker本地连接mysql客户端  
 docker exec -it mysql bash  
-mysql -uroot -p123456  
+mysql -uroot -proot  
+
+### 数据和配置外置
+1. 进入容器
+docker exec -it mysql5.7 /bin/bash
+2. 查看配置
+cat /etc/mysql/my.cnf
+3. 在容器外创建同名文件
+4. 停止mysql 并删除容器
+docker stop mysql5.7 && docker rm mysql5.7
+5. 在本地创建挂载目录
+mkdir -p /opt/mysql/data
+6. 重新创建容器
+docker run --name mysql5.7 --restart always --privileged=true -p 4306:3306 -v /opt/mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf -v /opt/mysql/data:/var/lib/mysql -e MYSQL_USER="fengwei" -e MYSQL_PASSWORD="pwd123" -e MYSQL_ROOT_PASSWORD="rootpwd123" -d mysql:5.7
 
 ## Docker 搭建 redis 服务
 docker pull redis  

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="../../common/js/react.development.js"></script>
+  <script src="../../common/js/react-dom.development.js"></script>
+  <script src="../../common/js/babel.min.js"></script>
+</head>
+
+<body>
+  Sometimes you need to reference a DOM node in a component. React gives you the ref attribute to attach a DOM node to
+  instance created by React.createRef().
+  Please be mindful that you could do that only after this component has been mounted into the DOM, otherwise you get null.
+  <div id="example"></div>
+  <script type="text/babel">
+
+    class MyComponent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.myTextInput = React.createRef();
+        this.handleClick = this.handleClick.bind(this)
+      }
+      handleClick() {
+        this.myTextInput.current.focus();
+      }
+      render() {
+        return (
+          <div>
+            <input type="text" ref={this.myTextInput} />
+            <input type="button" value="Focus the text input" onClick={this.handleClick} />
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('example')
+    );
+
+  </script>
+</body>
+
+</html>
