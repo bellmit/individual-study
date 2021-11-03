@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="../../common/js/react.development.js"></script>
+  <script src="../../common/js/react-dom.development.js"></script>
+  <script src="../../common/js/babel.min.js"></script>
+</head>
+
+<body>
+  React thinks of component as state machines, and uses this.state to hold component's state, this.setState() to update this.state and re-render the component.
+  You could use component attributes to register event handlers, just like onClick, onKeyDown, onCopy, etc.
+  
+  <div id="example"></div>
+  <script type="text/babel">
+
+    class LikeButton extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          liked: false
+        }
+        this.handleClick = this.handleClick.bind(this)
+      }
+      handleClick(event) {
+        this.setState({ liked: !this.state.liked });
+      }
+      render() {
+        var text = this.state.liked ? 'like' : 'haven\'t liked';
+        return (
+          <p onClick={this.handleClick}>
+            You {text} this. Click to toggle.
+          </p>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <LikeButton />,
+      document.getElementById('example')
+    );
+
+  </script>
+</body>
+
+</html>
