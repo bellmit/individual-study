@@ -2,6 +2,8 @@ package cn.gyw.spring.scheduler.scheduler;
 
 import cn.gyw.spring.scheduler.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.CronTask;
@@ -21,13 +23,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 设置调度器
  * Created by guanyw on 2018/7/30.
  */
-//@Configuration
+@EnableScheduling
+@Configuration
 public class MySpringTaskScheduler implements SchedulingConfigurer {
 
 	//维护一个自增长的任务id
 	private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 
 	//调度器
+	@Autowired
 	private ThreadPoolTaskScheduler taskScheduler;
 
 	//维护一个CronTask和ScheduledFuture的map
@@ -42,7 +46,7 @@ public class MySpringTaskScheduler implements SchedulingConfigurer {
 	 */
 	@Override
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskScheduler = createThreadPoolTaskScheduler();
+		// taskScheduler = createThreadPoolTaskScheduler();
 		System.out.println("taskScheduler 初始化为：" + taskScheduler);
 		taskRegistrar.setTaskScheduler(taskScheduler);
 		cronTaskScheduledFutureMap = new HashMap<>();
@@ -76,23 +80,21 @@ public class MySpringTaskScheduler implements SchedulingConfigurer {
 		return taskList;
 	}
 
-	@Autowired
-	public ThreadPoolTaskScheduler createThreadPoolTaskScheduler() {
-		//创建一个线程池调度器
-		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-		//设置线程池容量
-		scheduler.setPoolSize(20);
-		//线程名前缀
-		scheduler.setThreadNamePrefix("task-");
-		//等待时长
-		scheduler.setAwaitTerminationSeconds(60);
-		//当调度器shutdown被调用时等待当前被调度的任务完成
-		scheduler.setWaitForTasksToCompleteOnShutdown(true);
-		//设置当任务被取消的同时从当前调度器移除的策略
-		scheduler.setRemoveOnCancelPolicy(true);
-		System.out.println("初始化完成........");
-		return scheduler;
-	}
+	// public ThreadPoolTaskScheduler createThreadPoolTaskScheduler() {
+	// 	//创建一个线程池调度器
+	// 	ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+	// 	//设置线程池容量
+	// 	scheduler.setPoolSize(20);
+	// 	//线程名前缀
+	// 	scheduler.setThreadNamePrefix("task-");
+	// 	//等待时长
+	// 	scheduler.setAwaitTerminationSeconds(60);
+	// 	//当调度器shutdown被调用时等待当前被调度的任务完成
+	// 	scheduler.setWaitForTasksToCompleteOnShutdown(true);
+	// 	//设置当任务被取消的同时从当前调度器移除的策略
+	// 	scheduler.setRemoveOnCancelPolicy(true);
+	// 	return scheduler;
+	// }
 
 	//以传入任务的triggerName作为唯一标识编辑已经存在的任务
 	public void editTask(Task task) {

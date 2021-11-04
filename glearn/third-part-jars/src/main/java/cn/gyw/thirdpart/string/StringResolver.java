@@ -1,11 +1,14 @@
 package cn.gyw.thirdpart.string;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,22 +32,30 @@ public class StringResolver {
     /**
      * 去除首尾空格 和 换行符
      *
-     * @param obj 目标对象
+     * @param obj   目标对象
      * @param props 字段名
      */
     public static void trimAndRemoveLineSeparator(Object obj, String... props) {
+        List<String> propList = Arrays.asList(props);
+        if (obj == null || CollectionUtils.isEmpty(propList)) {
+            return;
+        }
         Class<?> clazz = obj.getClass();
-        for (String prop : props) {
-            Field field = FieldUtils.getField(clazz, prop, true);
+        for (String prop : propList) {
             try {
+                Field field = FieldUtils.getField(clazz, prop, true);
+                if (Objects.isNull(field)) {
+                    log.error("No such field: " + prop);
+                    continue;
+                }
                 Object value = field.get(obj);
                 if (Objects.isNull(value)) {
                     continue;
                 }
                 field.set(obj, trim(removeLineSeparator(value.toString())));
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 // 处理失败，不影响现有流程，继续下一个
-                log.warn("[{}] 去除首尾空格 && 换行符异常", prop);
+                log.error("[" + prop + "] 去除首尾空格 && 换行符异常", e);
             }
         }
     }

@@ -1,10 +1,18 @@
 package cn.gyw.corejava.base;
 
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 
-import org.junit.Test;
 
 public class BaseDataTypeTest {
+
+	@Test
+	public void testBigDecimal() {
+		BigDecimal v1 = BigDecimal.ZERO;
+
+		System.out.println(v1.compareTo(null));
+	}
 
 	/**
 	 * 浮点数计算问题

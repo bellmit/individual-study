@@ -25,6 +25,47 @@ class DateValidatorTest {
     private static final Logger log = LoggerFactory.getLogger(DateValidatorTest.class);
 
     /**
+     * 空数组校验
+     */
+    @Test
+    void verifyNullArray() {
+        Request request = new Request();
+        request.setDateStr("");
+        DateValidator.validate(request, "dateStr");
+        request.setDateStr(null);
+        DateValidator.validate(request, "dateStr");
+        // 数组字段 == null
+        Optional.ofNullable(request.getOtherObjs()).ifPresent(otherObjs ->
+                Stream.of(request.getOtherObjs()).forEach(otherObj ->
+                        DateValidator.validate(otherObj, "otherDate")));
+        // 空数组
+        OtherObj[] otherObjArray1 = new OtherObj[0];
+        request.setOtherObjs(otherObjArray1);
+        Optional.ofNullable(request.getOtherObjs()).ifPresent(otherObjs ->
+                Stream.of(request.getOtherObjs()).forEach(otherObj ->
+                        DateValidator.validate(otherObj, "otherDate")));
+
+        // 数组有值，格式正确
+        OtherObj otherObj1 = new OtherObj();
+        otherObj1.setOtherDate("20211103");
+        OtherObj[] otherObjArray2 = new OtherObj[]{otherObj1};
+        request.setOtherObjs(otherObjArray2);
+        Optional.ofNullable(request.getOtherObjs()).ifPresent(otherObjs ->
+                Stream.of(request.getOtherObjs()).forEach(otherObj ->
+                        DateValidator.validate(otherObj, "otherDate")));
+        // 数组有值，格式不正确
+        OtherObj otherObj2 = new OtherObj();
+        otherObj2.setOtherDate("2021113");
+        OtherObj otherObj3 = new OtherObj();
+        otherObj3.setOtherDate("20211103");
+        OtherObj[] otherObjArray3 = new OtherObj[]{otherObj2, otherObj3};
+        request.setOtherObjs(otherObjArray3);
+        Optional.ofNullable(request.getOtherObjs()).ifPresent(otherObjs ->
+                Stream.of(request.getOtherObjs()).forEach(otherObj ->
+                        DateValidator.validate(otherObj, "otherDate")));
+    }
+
+    /**
      * 验证长度
      */
     @Test
@@ -129,6 +170,8 @@ class DateValidatorTest {
 
         List<InnerObj> innerObjList;
 
+        OtherObj[] otherObjs;
+
         public String getDateStr() {
             return dateStr;
         }
@@ -153,18 +196,29 @@ class DateValidatorTest {
             this.innerObjList = innerObjList;
         }
 
+
+        public OtherObj[] getOtherObjs() {
+            return otherObjs;
+        }
+
+        public void setOtherObjs(OtherObj[] otherObjs) {
+            this.otherObjs = otherObjs;
+        }
+
         @Override
         public String toString() {
             return "Request{" +
                     "dateStr='" + dateStr + '\'' +
                     ", innerObj=" + innerObj +
-                    ", innerObjList=" + Arrays.toString(innerObjList.toArray()) +
+                    ", innerObjList=" + innerObjList +
+                    ", otherObjs=" + Arrays.toString(otherObjs) +
                     '}';
         }
     }
 
     public class InnerObj {
         String innerDate;
+
 
         public String getInnerDate() {
             return innerDate;
@@ -178,6 +232,25 @@ class DateValidatorTest {
         public String toString() {
             return "InnerObj{" +
                     "innerDate='" + innerDate + '\'' +
+                    '}';
+        }
+    }
+
+    public class OtherObj {
+        String otherDate;
+
+        public String getOtherDate() {
+            return otherDate;
+        }
+
+        public void setOtherDate(String otherDate) {
+            this.otherDate = otherDate;
+        }
+
+        @Override
+        public String toString() {
+            return "OtherObj{" +
+                    "otherDate='" + otherDate + '\'' +
                     '}';
         }
     }

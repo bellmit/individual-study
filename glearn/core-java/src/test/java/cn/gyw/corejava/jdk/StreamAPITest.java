@@ -250,7 +250,7 @@ public class StreamAPITest extends AbstractTest {
     @Test
     public void listToMap() {
         // key 唯一，java.lang.IllegalStateException: Duplicate key Fruits
-        // Map<FruitsType, Fruits> result1 = fruitsDataList.stream().collect(Collectors.toMap(f -> f.getType(), v -> v));
+        Map<FruitsType, Fruits> result1 = fruitsDataList.stream().collect(Collectors.toMap(f -> f.getType(), v -> v));
 
         // key 不唯一
         Map<FruitsType, List<Fruits>> result2 = fruitsDataList.stream().collect(Collectors.toMap(f -> f.getType(), v -> new ArrayList<>(),

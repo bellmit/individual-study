@@ -17,6 +17,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class StringResolverTest {
 
     /**
+     * 异常情况，不可影响程勋执行
+     */
+    @Test
+    void testException() {
+        Request request = new Request();
+        request.setAddr("1111");
+
+        StringResolver.trimAndRemoveLineSeparator(request, "addr2", "addr3");
+
+        request.setAddr(null);
+        StringResolver.trimAndRemoveLineSeparator(request, "addr");
+        System.out.println(">>> method end :" + request);
+    }
+
+    /**
      * 首尾空格空格
      */
     @Test
@@ -126,7 +141,7 @@ class StringResolverTest {
 
         System.out.println(">>" + request);
     }
-    public class Request {
+    class Request {
         String addr;
         InnerObj innerObj;
         List<InnerObj> innerObjList;
@@ -160,7 +175,7 @@ class StringResolverTest {
             return "Request{" +
                     "addr='" + addr + '\'' +
                     ", innerObj=" + innerObj +
-                    ", innerObjList=" + Arrays.toString(innerObjList.toArray()) +
+                    ", innerObjList=" + (innerObjList == null ? "null" : Arrays.toString(innerObjList.toArray())) +
                     '}';
         }
     }
