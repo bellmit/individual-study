@@ -3,12 +3,13 @@ server:
 
 spring:
   profiles:
-    active: local
+    active: dev
 
 # 爬虫库资源
 crawler:
   ds:
+    host: localhost
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_crawler?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://${crawler.ds.host}:3306/db_crawler?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
     userName: root
     password: root
