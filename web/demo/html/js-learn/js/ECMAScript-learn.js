@@ -8,7 +8,7 @@
     // 内置对象
     // innerObject();
     // 自定义对象
-    customObject();
+    // customObject();
 
     // 定时器
     bindTimer();
@@ -89,39 +89,47 @@ function customObject() {
   person.say();
 
   /*
-	定义对象方式二： 无参数的构造函数
-	//定义对象
-	function Person(){
-	}
-	//创建对象
-	var p = new Person();
-	//追加属性
-	p.name = "狗剩";
-	p.age = 14;
-	//追加方法
-	p.say = function(){
+  定义对象方式二： 无参数的构造函数
+  //定义对象
+  function Person(){
+  }
+  //创建对象
+  var p = new Person();
+  //追加属性
+  p.name = "狗剩";
+  p.age = 14;
+  //追加方法
+  p.say = function(){
+    alert("狗剩的函数");	
 		alert("狗剩的函数");	
-	}
-	*/
+    alert("狗剩的函数");	
+		alert("狗剩的函数");	
+    alert("狗剩的函数");	
+  }
+  */
 
 
-	/*
-	定义对象的方式三：使用Object对象。 Object对象可以作为任意对象的模板
-	//创建对象
-	var p = new Object();
-	//追加属性
-	p.name = "狗蛋";
-	p.age = 16;
-	//追加方法
-	p.say = function(){
+  /*
+  定义对象的方式三：使用Object对象。 Object对象可以作为任意对象的模板
+  //创建对象
+  var p = new Object();
+  //追加属性
+  p.name = "狗蛋";
+  p.age = 16;
+  //追加方法
+  p.say = function(){
+    alert("狗蛋的函数");	
 		alert("狗蛋的函数");	
-	}
-	*/
+    alert("狗蛋的函数");	
+		alert("狗蛋的函数");	
+    alert("狗蛋的函数");	
+  }
+  */
 
 
-	/*
-	定义对象方式四：使用字面量的形式创建对象。 json语言（了解）
-	*/
+  /*
+  定义对象方式四：使用字面量的形式创建对象。 json语言（了解）
+  */
   //创建人对象
   var p = {
     //定义属性（属性名：属性值）

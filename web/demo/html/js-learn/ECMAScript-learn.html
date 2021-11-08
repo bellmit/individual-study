@@ -4,7 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <title>ECMAScript学习</title>
+    <script type="text/javascript">
+        function add(param1, param2) { }
+    </script>
     <script src="js/ECMAScript-learn.js"></script>
+    <!-- 重载add 方法 -->
+    <!-- <script type="text/javascript">
+        function add(param) {
+            console.log("param:", param)
+        }
+    </script> -->
+    <script type="text/javascript">
+        function add(param1, param2) {
+            console.log("param1:, param2:", param1, param2)
+        }
+    </script>
+    <script type="text/javascript">
+        add(1)
+        if(undefined) {
+            console.log("if (undifind) = true");
+        } else {
+            console.log("if (undifind) = false");
+        }
+
+        if(null) {
+            console.log("if (null) = true");
+        } else {
+            console.log("if (null) = false");
+        }
+
+        if("") {
+            console.log("if (空字符串) = true");
+        } else {
+            console.log("if (空字符串) = false");
+        }
+    </script>
     <script src="../../common/js/DateUtil.js" type="text/javascript"></script>
 </head>
 

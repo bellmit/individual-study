@@ -1,9 +1,9 @@
 package cn.gyw.thirdpart;
 
-import org.junit.Test;
 
 import cn.gyw.thirdpart.model.Person;
 import cn.gyw.thirdpart.utils.ClassUtil;
+import org.junit.jupiter.api.Test;
 
 public class ClassUtilTest {
 
