@@ -1,0 +1,1 @@
+org.springframework.boot.env.EnvironmentPostProcessor=cn.gyw.components.web.config.LocalConfigLoader

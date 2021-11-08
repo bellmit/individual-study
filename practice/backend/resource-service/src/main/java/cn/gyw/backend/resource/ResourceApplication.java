@@ -1,7 +1,8 @@
 package cn.gyw.backend.resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,8 @@ import org.springframework.core.env.Environment;
         exclude = {FreeMarkerAutoConfiguration.class})
 public class ResourceApplication {
 
+    private static final Logger log = LoggerFactory.getLogger(ResourceApplication.class);
+
     public static void main(String[] args) {
         try {
             // new SpringApplicationBuilder().main(ResourceApplication.class)
@@ -28,13 +31,10 @@ public class ResourceApplication {
     }
 
     @Bean
-    public ApplicationRunner applicationRunner(@Autowired Environment environment,
-                                               @Value("${crawler.ds.host}") String dsUrl,
-                                               @Value("${crawler.ds.password}") String pwd) {
+    public ApplicationRunner applicationRunner(@Autowired Environment environment) {
         return args -> {
-            System.out.println("env.local.name :" + environment.getProperty("env.local.name"));
-            System.out.println("dsUrl:" + dsUrl);
-            System.out.println("pwd:" + pwd);
+            String port = environment.getProperty("server.port");
+            log.info("Swagger ui:{}", "http://localhost:" + port + "/swagger-ui.html");
         };
     }
 }
