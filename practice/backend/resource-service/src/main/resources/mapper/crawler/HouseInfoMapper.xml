@@ -2,4 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper">
 
+    <sql id="Base_Column_List">
+        province,city,village_name,price,rooms,area,address,district,sale,detail_url,
+        house_type,`usage`,origin_type
+    </sql>
+
+    <insert id="batchInsert" parameterType="arraylist">
+        insert into house_info (<include refid="Base_Column_List"/>)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.province},
+            #{item.city},
+            #{item.villageName},
+            #{item.price},
+            #{item.rooms},
+            #{item.area},
+            #{item.address},
+            #{item.district},
+            #{item.sale},
+            #{item.detailUrl},
+            #{item.houseType},
+            #{item.usage},
+            #{item.originType})
+        </foreach>
+        on duplicate key update modified_time = now()
+    </insert>
+
 </mapper>

@@ -9,6 +9,8 @@ crawler:
     url: jdbc:mysql://%s:3306/db_crawler?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
     userName: root
     password: root
+  csv:
+    fileDir: D:/ftx_new_house_20211108.csv
 
 local:
   file: /config-center/local.properties
