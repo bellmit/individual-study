@@ -1,6 +1,5 @@
 package cn.gyw.backend.resource;
 
-import cn.gyw.backend.resource.houseinfo.ext.HouseInfoCsvReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,10 @@ public class ResourceApplication {
     }
 
     @Bean
-    public ApplicationRunner applicationRunner(@Autowired Environment environment,
-                                               @Autowired HouseInfoCsvReader reader) {
+    public ApplicationRunner applicationRunner(@Autowired Environment environment) {
         return args -> {
             String port = environment.getProperty("server.port");
             log.info("Swagger ui:{}", "http://localhost:" + port + "/swagger-ui.html");
-            reader.readAndSaveDB();
         };
     }
 }

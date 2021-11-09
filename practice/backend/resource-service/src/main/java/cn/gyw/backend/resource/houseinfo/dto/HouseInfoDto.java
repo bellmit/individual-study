@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 public class HouseInfoDto extends ToStringObject {
 
     private Long id;
+    // 爬取日期
+    private String crawlDate;
     // 省份
     private String province;
     // 城市
@@ -32,11 +34,11 @@ public class HouseInfoDto extends ToStringObject {
     // 详情页面url
     private String detailUrl;
     // 房屋类型：1->新房；2->二手房；
-    private Short houseType;
+    private String houseType;
     // 用途：0->购房；1->租房
-    private Short usage;
+    private String usage;
     // 数据来源：0->WEB
-    private Short originType;
+    private String originType;
     // 创建时间
     private LocalDateTime createdTime;
 
@@ -46,6 +48,14 @@ public class HouseInfoDto extends ToStringObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCrawlDate() {
+        return crawlDate;
+    }
+
+    public void setCrawlDate(String crawlDate) {
+        this.crawlDate = crawlDate;
     }
 
     public String getProvince() {
@@ -128,27 +138,27 @@ public class HouseInfoDto extends ToStringObject {
         this.detailUrl = detailUrl;
     }
 
-    public Short getHouseType() {
+    public String getHouseType() {
         return houseType;
     }
 
-    public void setHouseType(Short houseType) {
+    public void setHouseType(String houseType) {
         this.houseType = houseType;
     }
 
-    public Short getUsage() {
+    public String getUsage() {
         return usage;
     }
 
-    public void setUsage(Short usage) {
+    public void setUsage(String usage) {
         this.usage = usage;
     }
 
-    public Short getOriginType() {
+    public String getOriginType() {
         return originType;
     }
 
-    public void setOriginType(Short originType) {
+    public void setOriginType(String originType) {
         this.originType = originType;
     }
 

@@ -2,16 +2,19 @@ package cn.gyw.backend.resource.houseinfo.dao.po;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * @Description 服务信息
+ * @Description 房屋信息
  * @createdTime 2021/9/30 15:17
  */
 @Table(name = "house_info")
 public class HouseInfo {
 
     private Long id;
+    // 爬取日期
+    private LocalDate crawlDate;
     // 省份
     private String province;
     // 城市
@@ -33,12 +36,12 @@ public class HouseInfo {
     // 详情页面url
     private String detailUrl;
     // 房屋类型：1->新房；2->二手房；
-    private Short houseType;
+    private Integer houseType;
     // 用途：0->购房；1->租房
     @Column(name = "`usage`")
-    private Short usage;
+    private Integer usage;
     // 数据来源：0->WEB
-    private Short originType;
+    private Integer originType;
     // 创建时间
     private LocalDateTime createdTime;
     // 修改时间
@@ -50,6 +53,14 @@ public class HouseInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getCrawlDate() {
+        return crawlDate;
+    }
+
+    public void setCrawlDate(LocalDate crawlDate) {
+        this.crawlDate = crawlDate;
     }
 
     public String getProvince() {
@@ -132,27 +143,27 @@ public class HouseInfo {
         this.detailUrl = detailUrl;
     }
 
-    public Short getHouseType() {
+    public Integer getHouseType() {
         return houseType;
     }
 
-    public void setHouseType(Short houseType) {
+    public void setHouseType(Integer houseType) {
         this.houseType = houseType;
     }
 
-    public Short getUsage() {
+    public Integer getUsage() {
         return usage;
     }
 
-    public void setUsage(Short usage) {
+    public void setUsage(Integer usage) {
         this.usage = usage;
     }
 
-    public Short getOriginType() {
+    public Integer getOriginType() {
         return originType;
     }
 
-    public void setOriginType(Short originType) {
+    public void setOriginType(Integer originType) {
         this.originType = originType;
     }
 

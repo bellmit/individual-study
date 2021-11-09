@@ -1,12 +1,14 @@
 package cn.gyw.backend.resource.houseinfo.ext;
 
+import cn.gyw.backend.resource.enums.OriginTypeEnum;
 import cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper;
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.dto.HouseInfoDto;
 import cn.gyw.components.web.utils.DateUtil;
 import com.opencsv.CSVReader;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -14,15 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +42,8 @@ import java.util.stream.Collectors;
 public class HouseInfoCsvReader {
 
     private static final Logger log = LoggerFactory.getLogger(HouseInfoCsvReader.class);
+
+    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     // CSV 数据文件存储目录
     @Value("${crawler.csv.fileDir}")
@@ -66,6 +72,14 @@ public class HouseInfoCsvReader {
         List<HouseInfo> houseInfoList = dataList.stream().map(houseInfoDto -> {
             HouseInfo houseInfo = new HouseInfo();
             BeanUtils.copyProperties(houseInfoDto, houseInfo);
+            // 爬取日期
+            if (StringUtils.isNotEmpty(houseInfoDto.getCrawlDate())) {
+                houseInfo.setCrawlDate(LocalDate.parse(houseInfoDto.getCrawlDate(), dateFormatter));
+            }
+            // 数据来源
+            houseInfo.setOriginType(OriginTypeEnum.getCode(houseInfoDto.getOriginType()));
+            houseInfo.setHouseType(1);
+            houseInfo.setUsage(1);
             return houseInfo;
         }).collect(Collectors.toList());
         houseInfoMapper.batchInsert(houseInfoList);
@@ -79,6 +93,7 @@ public class HouseInfoCsvReader {
             String[] cnHeaders = csvReader.readNext();
             String[] enHeaders = csvReader.readNext();
             if (Objects.isNull(cnHeaders) || Objects.isNull(enHeaders)) {
+                log.error("Csv file headers is null, check data content!");
                 return Collections.emptyList();
             }
             List<HouseInfoDto> houseInfoDtoList = new ArrayList<>();
@@ -103,13 +118,13 @@ public class HouseInfoCsvReader {
 
     private HouseInfoDto buildHouseInfoDto(String[] enHeaders, String[] data) {
         HouseInfoDto houseInfoDto = new HouseInfoDto();
+        // 文件数据
         for (int i = 0, len = enHeaders.length; i < len; i++) {
             String prop = enHeaders[i];
             try {
-                Field field = FieldUtils.getField(HouseInfoDto.class, prop, true);
-                field.set(houseInfoDto, );
-                FieldUtils.writeDeclaredField(houseInfoDto, prop, data[i]);
-            } catch (IllegalAccessException e) {
+                PropertyDescriptor pd = PropertyUtils.getPropertyDescriptor(houseInfoDto, prop);
+                pd.getWriteMethod().invoke(houseInfoDto, data[i]);
+            } catch (Exception e) {
                 log.error("write filed error [" + prop + "] , error :", e);
             }
         }

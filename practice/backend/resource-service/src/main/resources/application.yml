@@ -10,7 +10,7 @@ crawler:
     userName: root
     password: root
   csv:
-    fileDir: D:/ftx_new_house_20211108.csv
+    fileDir: /root/data
 
 local:
   file: /config-center/local.properties
