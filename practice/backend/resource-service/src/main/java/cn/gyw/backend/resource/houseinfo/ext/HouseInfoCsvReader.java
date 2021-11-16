@@ -53,19 +53,24 @@ public class HouseInfoCsvReader {
 
     public boolean readAndSaveDB() {
         // 1. 获取前一天的数据文件
-        File file = findYesterdayCsvFile(csvStorageDir);
-        if (Objects.isNull(file)) {
+        List<File> fileList = findYesterdayCsvFile(csvStorageDir);
+        if (CollectionUtils.isEmpty(fileList)) {
             log.error("数据文件不存在...");
             return false;
         }
-        // 2. 读取前一天的数据(不读当天的)
-        List<HouseInfoDto> dataList = readCsvData(file);
-        if (CollectionUtils.isEmpty(dataList)) {
-            log.error("文件数据不存在或读取失败！");
-            return false;
+        boolean isSuccess = false;
+        for (File file : fileList) {
+            // 2. 读取前一天的数据(不读当天的)
+            List<HouseInfoDto> dataList = readCsvData(file);
+            if (CollectionUtils.isEmpty(dataList)) {
+                log.error("文件数据不存在或读取失败！");
+                return false;
+            }
+            // 3. 存储到关系型数据库
+            isSuccess = saveDB(dataList);
+            log.info("存储文件[{}],结果：{}", file.getName(), isSuccess);
         }
-        // 3. 存储到关系型数据库
-        return saveDB(dataList);
+        return isSuccess;
     }
 
     private boolean saveDB(List<HouseInfoDto> dataList) {
@@ -132,23 +137,19 @@ public class HouseInfoCsvReader {
     }
 
 
-    private File findYesterdayCsvFile(String csvStorageDir) {
+    private List<File> findYesterdayCsvFile(String csvStorageDir) {
         String dayOfYesterday = DateUtil.getDateOfYesterday();
         Path storageDir = Paths.get(Paths.get(csvStorageDir).toUri());
         try {
-            Path filePath = Files.walk(storageDir).peek(path -> System.out.println(path.toString()))
+            return Files.walk(storageDir).peek(path -> log.debug("访问文件path :{}", path.toString()))
                     .filter(path -> {
                         String fileName = path.getFileName().toString();
                         return fileName.endsWith(".csv") && fileName.contains(dayOfYesterday);
-                    })
-                    .findFirst().orElse(null);
-            if (Objects.nonNull(filePath)) {
-                return filePath.toFile();
-            }
+                    }).map(Path::toFile).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     @Autowired
