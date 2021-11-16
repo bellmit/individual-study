@@ -3,7 +3,8 @@
 <mapper namespace="cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper">
 
     <sql id="Base_Column_List">
-        province,city,village_name,price,rooms,area,address,district,sale,detail_url,
+        crawl_date
+        ,province,city,village_name,price,rooms,area,address,district,sale,detail_url,
         house_type,`usage`,origin_type
     </sql>
 
@@ -11,7 +12,8 @@
         insert into house_info (<include refid="Base_Column_List"/>)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.province},
+            (#{item.crawlDate},
+            #{item.province},
             #{item.city},
             #{item.villageName},
             #{item.price},
@@ -28,4 +30,7 @@
         on duplicate key update modified_time = now()
     </insert>
 
+    <select id="queryMaxCrawlDate" resultType="java.time.LocalDate">
+        select max(crawl_date) from house_info
+    </select>
 </mapper>

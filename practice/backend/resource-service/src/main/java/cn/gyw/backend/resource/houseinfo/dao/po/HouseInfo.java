@@ -1,5 +1,7 @@
 package cn.gyw.backend.resource.houseinfo.dao.po;
 
+import cn.gyw.platform.common.model.ToStringObject;
+
 import javax.persistence.Column;
 import javax.persistence.Table;
 import java.time.LocalDate;

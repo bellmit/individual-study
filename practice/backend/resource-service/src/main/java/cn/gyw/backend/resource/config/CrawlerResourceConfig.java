@@ -76,6 +76,7 @@ public class CrawlerResourceConfig {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setDriverClassName(crawlerDriverClass);
         dataSource.setJdbcUrl(String.format(crawlerUrl, host));
+        log.debug("jdbcUrl:{}", String.format(crawlerUrl, host));
         dataSource.setUsername(crawlerUserName);
         dataSource.setPassword(password);
         return dataSource;

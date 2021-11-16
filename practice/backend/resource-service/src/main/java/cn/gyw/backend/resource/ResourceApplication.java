@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 /**
- * @description 资源服务
- * @createdTime 2021/10/20 15:00
+ * 资源服务
+ *
+ * @date 2021/10/20 15:00
  */
 @SpringBootApplication(scanBasePackages = {"cn.gyw.backend", "cn.gyw.components", "cn.gyw.platform"},
         exclude = {FreeMarkerAutoConfiguration.class})
@@ -22,8 +23,6 @@ public class ResourceApplication {
 
     public static void main(String[] args) {
         try {
-            // new SpringApplicationBuilder().main(ResourceApplication.class)
-            //         .bannerMode(Banner.Mode.OFF).properties("config.properties").run(args);
             SpringApplication.run(ResourceApplication.class, args);
         } catch (Exception e) {
             e.printStackTrace();

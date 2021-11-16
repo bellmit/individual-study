@@ -116,6 +116,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(value = Exception.class)
 	public BaseResponse handleException(Exception e) {
+		LOGGER.error("Runtime exception :", e);
 		if (ENV_PROD.equals(profile)) {
 			// 生产环境异常处理
 		}

@@ -6,9 +6,20 @@ import cn.gyw.components.web.base.mgb.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
-public class HouseInfoServiceImpl extends BaseService<HouseInfo> {
+public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements HouseInfoService {
+
+    private HouseInfoMapper houseInfoMapper;
 
     @Autowired
-    private HouseInfoMapper houseInfoMapper;
+    public void setHouseInfoMapper(HouseInfoMapper houseInfoMapper) {
+        this.houseInfoMapper = houseInfoMapper;
+    }
+
+    @Override
+    public LocalDate findMaxCrawlDate() {
+        return houseInfoMapper.queryMaxCrawlDate();
+    }
 }
