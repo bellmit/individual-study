@@ -1,9 +1,8 @@
 package cn.gyw.backend.resource.houseinfo.dao.po;
 
-import cn.gyw.platform.common.model.ToStringObject;
-
 import javax.persistence.Column;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -24,7 +23,9 @@ public class HouseInfo {
     // 小区的名字
     private String villageName;
     // 价格
-    private String price;
+    private BigDecimal price;
+    // 价格单位
+    private String priceUnit;
     // 几居。列表
     private String rooms;
     // 面积
@@ -89,12 +90,20 @@ public class HouseInfo {
         this.villageName = villageName;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getPriceUnit() {
+        return priceUnit;
+    }
+
+    public void setPriceUnit(String priceUnit) {
+        this.priceUnit = priceUnit;
     }
 
     public String getRooms() {

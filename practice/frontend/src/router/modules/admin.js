@@ -24,6 +24,17 @@ export const adminRouter = [
     }]
   },
   {
+    path: '/res',
+    component: AdminLayout,
+    redirect: 'house_info',
+    children: [{
+      path: 'house_info',
+      name: 'houseInfo',
+      component: () => import('@/views-admin/res/house-info/index'),
+      meta: { title: '新房管理', icon: 'menu', auth: true }
+    }]
+  },
+  {
     path: '/ums',
     component: AdminLayout,
     redirect: '/ums/admin',

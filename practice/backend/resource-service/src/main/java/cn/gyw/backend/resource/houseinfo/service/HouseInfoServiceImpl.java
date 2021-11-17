@@ -37,6 +37,8 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
             if (StringUtils.isNotEmpty(houseInfoDto.getCrawlDate())) {
                 houseInfo.setCrawlDate(LocalDate.parse(houseInfoDto.getCrawlDate(), dateFormatter));
             }
+            // 价格处理
+            // TODO： 正则表达式获取金额
             // 数据来源
             houseInfo.setOriginType(OriginTypeEnum.getCode(houseInfoDto.getOriginType()));
             houseInfo.setHouseType(1);

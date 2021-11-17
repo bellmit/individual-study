@@ -69,6 +69,14 @@ module.exports = {
           ['^/sys']: ''
         }
       },
+      '/res': {
+        target: 'http://localhost:8082',
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^/res']: ''
+        }
+      },
       '/chat-info': {
         target: 'http://localhost:8083/im',
         secure: false,

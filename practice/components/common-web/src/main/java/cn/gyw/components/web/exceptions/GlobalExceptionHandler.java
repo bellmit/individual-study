@@ -82,7 +82,7 @@ public class GlobalExceptionHandler {
 			ConversionNotSupportedException.class, MissingServletRequestPartException.class,
 			AsyncRequestTimeoutException.class })
 	public BaseResponse handleServletException(Exception e) {
-		LOGGER.debug("Current profiles active :{}", profile);
+		LOGGER.error("Servlet exception :", e);
 		if (ENV_PROD.equals(profile)) {
 			// 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
 			BaseException baseException = new BaseException(CommonRespEnum.SERVER_ERROR);

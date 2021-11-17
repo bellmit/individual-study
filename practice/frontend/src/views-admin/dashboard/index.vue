@@ -1,5 +1,9 @@
 <template>
   <div class="app-container">
+    <dl>
+      <dt>1.同一天同一个区不同小区价格从高到底排名</dt>
+      <dt>2.不同小区最高价格，最低价格柱状图</dt>
+    </dl>
     <el-row>
       <p>柱状图</p>
       <div id="myChart" :style="{ width: '500px', height: '500px' }" />
