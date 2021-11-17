@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.sql.DataSource;
 
@@ -24,7 +23,8 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = {CrawlerResourceConfig.PACKAGE_HOUSE_INFO}, sqlSessionFactoryRef = "crawlerSqlSessionFactory")
+// basePackages 所有的接口，都会创建mapper代理，导致*Service也被代理，数量少可以使用@Mapper注解代替@MapperScan
+// @MapperScan(basePackages = {CrawlerResourceConfig.PACKAGE_HOUSE_INFO}, sqlSessionFactoryRef = "crawlerSqlSessionFactory")
 public class CrawlerResourceConfig {
 
     private static final Logger log = LoggerFactory.getLogger(CrawlerResourceConfig.class);
