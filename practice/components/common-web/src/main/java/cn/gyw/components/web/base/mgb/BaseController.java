@@ -5,6 +5,8 @@ import cn.gyw.components.web.enums.CommonRespEnum;
 import cn.gyw.components.web.model.BaseRequest;
 import cn.gyw.components.web.model.PageData;
 import cn.gyw.components.web.utils.PageHelperUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
@@ -23,8 +25,8 @@ public abstract class BaseController<Q extends BaseRequest<DTO>, T, DTO> extends
 
     private IBaseService<T> baseService;
 
-    // @ApiParam(name = "")
-    // @ApiOperation(value = "查询", notes = "基本查询")
+    @ApiParam(name = "请求参数")
+    @ApiOperation(value = "查询", notes = "基本查询")
     @GetMapping
     public List<T> query(Q request) throws Exception {
         log.debug("query() request:{}", request);

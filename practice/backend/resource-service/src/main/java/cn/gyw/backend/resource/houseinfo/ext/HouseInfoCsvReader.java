@@ -1,17 +1,14 @@
 package cn.gyw.backend.resource.houseinfo.ext;
 
-import cn.gyw.backend.resource.enums.OriginTypeEnum;
-import cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper;
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
-import cn.gyw.backend.resource.houseinfo.dto.HouseInfoDto;
+import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
+import cn.gyw.backend.resource.houseinfo.service.HouseInfoService;
 import cn.gyw.components.web.utils.DateUtil;
 import com.opencsv.CSVReader;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,7 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,13 +39,11 @@ public class HouseInfoCsvReader {
 
     private static final Logger log = LoggerFactory.getLogger(HouseInfoCsvReader.class);
 
-    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
     // CSV 数据文件存储目录
     @Value("${crawler.csv.fileDir}")
     private String csvStorageDir;
 
-    private HouseInfoMapper houseInfoMapper;
+    private HouseInfoService houseInfoService;
 
     public boolean readAndSaveDB() {
         // 1. 获取前一天的数据文件
@@ -74,21 +68,7 @@ public class HouseInfoCsvReader {
     }
 
     private boolean saveDB(List<HouseInfoDto> dataList) {
-        List<HouseInfo> houseInfoList = dataList.stream().map(houseInfoDto -> {
-            HouseInfo houseInfo = new HouseInfo();
-            BeanUtils.copyProperties(houseInfoDto, houseInfo);
-            // 爬取日期
-            if (StringUtils.isNotEmpty(houseInfoDto.getCrawlDate())) {
-                houseInfo.setCrawlDate(LocalDate.parse(houseInfoDto.getCrawlDate(), dateFormatter));
-            }
-            // 数据来源
-            houseInfo.setOriginType(OriginTypeEnum.getCode(houseInfoDto.getOriginType()));
-            houseInfo.setHouseType(1);
-            houseInfo.setUsage(1);
-            return houseInfo;
-        }).collect(Collectors.toList());
-        houseInfoMapper.batchInsert(houseInfoList);
-        return true;
+        return houseInfoService.batchInsert(dataList);
     }
 
     private List<HouseInfoDto> readCsvData(File file) {
@@ -138,13 +118,21 @@ public class HouseInfoCsvReader {
 
 
     private List<File> findYesterdayCsvFile(String csvStorageDir) {
-        String dayOfYesterday = DateUtil.getDateOfYesterday();
+        LocalDate dayOfYesterday = DateUtil.getDateOfYesterday();
+        String yesterdayDateStr = DateUtil.formatDate(dayOfYesterday);
+        HouseInfo condition = new HouseInfo();
+        condition.setCrawlDate(dayOfYesterday);
+        int count = houseInfoService.count(condition);
+        if (count > 0) {
+            log.info("日期[{}]数据已经入库，count:{}，无需再次入库！", yesterdayDateStr, count);
+            return Collections.emptyList();
+        }
         Path storageDir = Paths.get(Paths.get(csvStorageDir).toUri());
         try {
             return Files.walk(storageDir).peek(path -> log.debug("访问文件path :{}", path.toString()))
                     .filter(path -> {
                         String fileName = path.getFileName().toString();
-                        return fileName.endsWith(".csv") && fileName.contains(dayOfYesterday);
+                        return fileName.endsWith(".csv") && fileName.contains(yesterdayDateStr);
                     }).map(Path::toFile).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -153,7 +141,7 @@ public class HouseInfoCsvReader {
     }
 
     @Autowired
-    public void setHouseInfoMapper(HouseInfoMapper houseInfoMapper) {
-        this.houseInfoMapper = houseInfoMapper;
+    public void setHouseInfoService(HouseInfoService houseInfoService) {
+        this.houseInfoService = houseInfoService;
     }
 }

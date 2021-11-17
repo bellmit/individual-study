@@ -49,6 +49,11 @@ public abstract class BaseService<T> implements IBaseService<T> {
     }
 
     @Override
+    public int count(T condition) {
+        return baseDao.selectCount(condition);
+    }
+
+    @Override
     public List<T> queryAll() {
         return baseDao.selectAll();
     }

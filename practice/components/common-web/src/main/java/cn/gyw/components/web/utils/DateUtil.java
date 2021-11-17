@@ -2,6 +2,7 @@ package cn.gyw.components.web.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * 日期工具
@@ -14,11 +15,23 @@ public final class DateUtil {
 
     /**
      * 获取前一天的日期
+     *
      * @return 字符串
      */
-    public static String getDateOfYesterday() {
-        return LocalDate.now().minusDays(1).format(dateFormatter);
+    public static LocalDate getDateOfYesterday() {
+        return LocalDate.now().minusDays(1);
     }
 
-    private DateUtil() {}
+    /**
+     * 获取前一天的日期
+     *
+     * @return 字符串
+     */
+    public static String formatDate(LocalDate localDate) {
+        Objects.requireNonNull(localDate);
+        return localDate.format(dateFormatter);
+    }
+
+    private DateUtil() {
+    }
 }

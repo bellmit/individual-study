@@ -5,6 +5,8 @@ import java.util.Map;
 
 public interface IBaseService<T> {
 
+	int count(T condition);
+
 	List<T> queryAll();
 
 	List<T> query(T condition);

@@ -1,13 +1,9 @@
-package cn.gyw.backend.resource.houseinfo.dto;
+package cn.gyw.backend.resource.houseinfo.model.dto;
 
 import cn.gyw.components.web.model.ToStringObject;
 
 import java.time.LocalDateTime;
 
-/**
- * @description TODO
- * @createdTime 2021/10/20 15:21
- */
 public class HouseInfoDto extends ToStringObject {
 
     private Long id;
