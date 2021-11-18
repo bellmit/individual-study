@@ -1,6 +1,7 @@
 package cn.gyw.backend.resource.houseinfo.controller;
 
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
+import cn.gyw.backend.resource.houseinfo.model.HouseInfoRequest;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.backend.resource.houseinfo.service.HouseInfoService;
@@ -34,9 +35,8 @@ public class HouseInfoController
 
     @ApiOperation(value = "查询上海各个区房屋小区价格排名")
     @GetMapping("/villageRank")
-    public VillageRankVo find(HouseInfoRequest request) {
-        CommonRespEnum.PARAM_NULL.assertNotNull(request.getData(), "请求参数异常");
-        HouseInfoDto houseInfoDto = request.getData();
+    public VillageRankVo villageRank(HouseInfoDto houseInfoDto) {
+        CommonRespEnum.PARAM_NULL.assertNotNull(houseInfoDto, "请求参数异常");
         return houseInfoService.queryVillageRank(houseInfoDto.getProvince(), houseInfoDto.getCity(), houseInfoDto.getDistrict());
     }
 }

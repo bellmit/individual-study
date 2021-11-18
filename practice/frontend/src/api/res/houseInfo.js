@@ -9,6 +9,13 @@ class HouseInfoApi extends BaseApi {
     super(apiTypes.HOUSE_INFO);
   }
 
+  getVillageRank(params) {
+    return request({
+      url: this.src + '/villageRank',
+      method: 'get',
+      params: params
+    })
+  }
 }
 
 let logger = LoggerFactory.getLogger(apiTypes.HOUSE_INFO)

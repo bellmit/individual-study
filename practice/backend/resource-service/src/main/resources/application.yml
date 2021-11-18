@@ -1,6 +1,10 @@
 server:
   port: 8082
 
+spring:
+  profiles:
+    active: default
+
 # 爬虫库资源
 crawler:
   ds:

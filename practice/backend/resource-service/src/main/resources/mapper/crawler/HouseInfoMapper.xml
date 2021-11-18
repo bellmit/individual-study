@@ -34,5 +34,5 @@
     <select id="queryMaxCrawlDate" resultType="java.time.LocalDate">
         select max(crawl_date) from house_info
     </select>
-
+    
 </mapper>

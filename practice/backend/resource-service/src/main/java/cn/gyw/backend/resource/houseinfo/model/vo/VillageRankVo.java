@@ -1,10 +1,14 @@
 package cn.gyw.backend.resource.houseinfo.model.vo;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class VillageRankVo {
 
     private String province;
     private String city;
     private String district;
+    private List<Village> villageList;
 
     public String getProvince() {
         return province;
@@ -30,9 +34,18 @@ public class VillageRankVo {
         this.district = district;
     }
 
+    public List<Village> getVillageList() {
+        return villageList;
+    }
+
+    public void setVillageList(List<Village> villageList) {
+        this.villageList = villageList;
+    }
+
     public static class Village {
         private String name;
-        private Double price;
+
+        private BigDecimal price;
 
         public String getName() {
             return name;
@@ -42,11 +55,11 @@ public class VillageRankVo {
             this.name = name;
         }
 
-        public Double getPrice() {
+        public BigDecimal getPrice() {
             return price;
         }
 
-        public void setPrice(Double price) {
+        public void setPrice(BigDecimal price) {
             this.price = price;
         }
     }

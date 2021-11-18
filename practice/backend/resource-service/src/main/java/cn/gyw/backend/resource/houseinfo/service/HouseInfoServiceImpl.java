@@ -7,11 +7,11 @@ import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.components.web.base.mgb.BaseService;
 import cn.gyw.components.web.utils.RegexUtil;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -74,9 +74,21 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
         condition.setCity(city);
         condition.setDistrict(district);
         condition.setCrawlDate(maxCrawlDate);
-
-        List<HouseInfo> houseInfoList = houseInfoMapper.select(condition);
-
-        return new VillageRankVo();
+        Example example = new Example(HouseInfo.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo(condition);
+        example.orderBy("price").desc();
+        List<HouseInfo> houseInfoList = houseInfoMapper.selectByExample(example);
+        VillageRankVo villageRankVo = new VillageRankVo();
+        villageRankVo.setProvince(province);
+        villageRankVo.setCity(city);
+        villageRankVo.setDistrict(district);
+        villageRankVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
+            VillageRankVo.Village village = new VillageRankVo.Village();
+            village.setName(houseInfo.getVillageName());
+            village.setPrice(houseInfo.getPrice());
+            return village;
+        }).collect(Collectors.toList()));
+        return villageRankVo;
     }
 }
