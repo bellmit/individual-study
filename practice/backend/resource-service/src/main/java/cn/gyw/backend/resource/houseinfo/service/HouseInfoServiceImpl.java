@@ -6,11 +6,14 @@ import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.components.web.base.mgb.BaseService;
+import cn.gyw.components.web.utils.RegexUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -38,7 +41,11 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
                 houseInfo.setCrawlDate(LocalDate.parse(houseInfoDto.getCrawlDate(), dateFormatter));
             }
             // 价格处理
-            // TODO： 正则表达式获取金额
+            String priceStr = houseInfoDto.getPrice().trim();
+            BigDecimal price = RegexUtil.getBeginNum(priceStr);
+            String priceUnit = priceStr.replaceFirst(RegexUtil.REGEX_NUM_OF_BEGIN, "");
+            houseInfo.setPrice(price);
+            houseInfo.setPriceUnit(priceUnit);
             // 数据来源
             houseInfo.setOriginType(OriginTypeEnum.getCode(houseInfoDto.getOriginType()));
             houseInfo.setHouseType(1);
@@ -69,7 +76,6 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
         condition.setCrawlDate(maxCrawlDate);
 
         List<HouseInfo> houseInfoList = houseInfoMapper.select(condition);
-        log.debug("dataList:{}", houseInfoList);
 
         return new VillageRankVo();
     }

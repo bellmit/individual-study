@@ -1,4 +1,4 @@
-package cn.gyw.backend.web.utils;
+package cn.gyw.components.web.utils;
 
 import java.util.HashMap;
 import java.util.Map;

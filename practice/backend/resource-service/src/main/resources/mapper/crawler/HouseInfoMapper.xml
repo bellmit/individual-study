@@ -4,7 +4,7 @@
 
     <sql id="Base_Column_List">
         crawl_date
-        ,province,city,village_name,price,rooms,area,address,district,sale,detail_url,
+        ,province,city,village_name,price,price_unit,rooms,area,address,district,sale,detail_url,
         house_type,`usage`,origin_type
     </sql>
 
@@ -17,6 +17,7 @@
             #{item.city},
             #{item.villageName},
             #{item.price},
+            #{item.priceUnit},
             #{item.rooms},
             #{item.area},
             #{item.address},

@@ -27,4 +27,5 @@ dependencies {
     implementation persistence_api
     implementation opencsv
 
+    testImplementation spring_boot_starter_test
 }

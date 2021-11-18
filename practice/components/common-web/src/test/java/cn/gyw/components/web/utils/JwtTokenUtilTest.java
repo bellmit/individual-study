@@ -1,6 +1,5 @@
-package cn.gyw.backend.web.utils;
+package cn.gyw.components.web.utils;
 
-import cn.gyw.components.web.utils.JwtTokenUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
