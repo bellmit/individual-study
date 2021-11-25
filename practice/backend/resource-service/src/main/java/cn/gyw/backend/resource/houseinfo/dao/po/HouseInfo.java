@@ -1,5 +1,8 @@
 package cn.gyw.backend.resource.houseinfo.dao.po;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -10,8 +13,12 @@ import java.time.LocalDateTime;
  * @Description 房屋信息
  * @createdTime 2021/9/30 15:17
  */
+@Getter
+@Setter
 @Table(name = "house_info")
 public class HouseInfo {
+
+    public static final String CREATED_TIME = "createdTime";
 
     private Long id;
     // 爬取日期
@@ -49,148 +56,4 @@ public class HouseInfo {
     private LocalDateTime createdTime;
     // 修改时间
     private LocalDateTime modifiedTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCrawlDate() {
-        return crawlDate;
-    }
-
-    public void setCrawlDate(LocalDate crawlDate) {
-        this.crawlDate = crawlDate;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getVillageName() {
-        return villageName;
-    }
-
-    public void setVillageName(String villageName) {
-        this.villageName = villageName;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getPriceUnit() {
-        return priceUnit;
-    }
-
-    public void setPriceUnit(String priceUnit) {
-        this.priceUnit = priceUnit;
-    }
-
-    public String getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(String rooms) {
-        this.rooms = rooms;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getSale() {
-        return sale;
-    }
-
-    public void setSale(String sale) {
-        this.sale = sale;
-    }
-
-    public String getDetailUrl() {
-        return detailUrl;
-    }
-
-    public void setDetailUrl(String detailUrl) {
-        this.detailUrl = detailUrl;
-    }
-
-    public Integer getHouseType() {
-        return houseType;
-    }
-
-    public void setHouseType(Integer houseType) {
-        this.houseType = houseType;
-    }
-
-    public Integer getUsage() {
-        return usage;
-    }
-
-    public void setUsage(Integer usage) {
-        this.usage = usage;
-    }
-
-    public Integer getOriginType() {
-        return originType;
-    }
-
-    public void setOriginType(Integer originType) {
-        this.originType = originType;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
 }

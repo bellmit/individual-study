@@ -37,3 +37,36 @@ dependencies {
 
     testImplementation spring_boot_starter_test
 }
+
+mbg {
+    skip = false
+    overwrite = false
+    consoleable = true
+    generatorFile = "generatorConfig.xml"
+//    tableNames = "admin"
+    allTable = false
+    jdbc {
+        driver = "com.mysql.jdbc.Driver"
+        url    = "jdbc:mysql://127.0.0.1:3306/db_crawler?useSSL=false&allowPublicKeyRetrieval=true"
+        username = "root"
+        password = "root"
+    }
+    xml {
+        mapperPackage = "cn.gyw.backend.resource.dao"
+        modelPackage = "cn.gyw.backend.resource.model.entity"
+        mapperMapper = "cn.gyw.components.web.base.mgb.BaseDao"
+        xmlPackage = "mappers"
+        tableName = "house_info"
+        objectName = "HouseInfo"
+        mapperSuffix = "Mapper"
+    }
+    ftl {
+        restControllerStyle = true
+        entityPackage = "cn.gyw.backend.resource.model.entity"
+        entityDtoPackage = "cn.gyw.backend.resource.model.dto"
+        superServiceClass = "cn.gyw.components.web.base.mgb.BaseService"
+        servicePackage = "cn.gyw.backend.resource.service"
+        superControllerClass = "cn.gyw.components.web.base.mgb.BaseController"
+        controllerPackage = "cn.gyw.backend.resource.controller"
+    }
+}

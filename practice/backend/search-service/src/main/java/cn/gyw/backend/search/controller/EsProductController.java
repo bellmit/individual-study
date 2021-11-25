@@ -3,11 +3,11 @@ package cn.gyw.backend.search.controller;
 import cn.gyw.backend.search.domain.EsProduct;
 import cn.gyw.backend.search.domain.EsProductRelatedInfo;
 import cn.gyw.backend.search.service.EsProductService;
-import cn.gyw.backend.web.enums.CommonRespEnum;
-import cn.gyw.backend.web.model.BaseResponse;
-import cn.gyw.backend.web.model.DataResponse;
-import cn.gyw.backend.web.model.PageData;
-import cn.gyw.backend.web.utils.SpringDataUtil;
+import cn.gyw.components.web.enums.CommonRespEnum;
+import cn.gyw.components.web.model.BaseResponse;
+import cn.gyw.components.web.model.DataResponse;
+import cn.gyw.components.web.model.PageData;
+import cn.gyw.components.web.utils.SpringDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +61,8 @@ public class EsProductController {
      */
     @GetMapping(value = "/search/simple")
     public DataResponse<PageData<EsProduct>> search(@RequestParam(required = false) String keyword,
-                                                   @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+                                                    @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         Page<EsProduct> esProductPage = esProductService.search(keyword, pageNum, pageSize);
         return DataResponse.success(SpringDataUtil.resetPage(esProductPage));
     }

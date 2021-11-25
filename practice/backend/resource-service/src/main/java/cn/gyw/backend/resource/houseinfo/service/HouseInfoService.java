@@ -29,4 +29,6 @@ public interface HouseInfoService extends IBaseService<HouseInfo> {
      * 小区价格排名
      */
     VillageRankVo queryVillageRank(String province, String city, String district);
+
+
 }

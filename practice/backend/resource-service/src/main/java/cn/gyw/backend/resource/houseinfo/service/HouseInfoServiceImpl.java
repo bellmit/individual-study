@@ -7,6 +7,7 @@ import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.components.web.base.mgb.BaseService;
 import cn.gyw.components.web.utils.RegexUtil;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,20 +76,17 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
         condition.setDistrict(district);
         condition.setCrawlDate(maxCrawlDate);
         Example example = new Example(HouseInfo.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo(condition);
-        example.orderBy("price").desc();
+        example.createCriteria().andEqualTo(condition);
+        example.orderBy(HouseInfo.CREATED_TIME);
+
         List<HouseInfo> houseInfoList = houseInfoMapper.selectByExample(example);
-        VillageRankVo villageRankVo = new VillageRankVo();
-        villageRankVo.setProvince(province);
-        villageRankVo.setCity(city);
-        villageRankVo.setDistrict(district);
-        villageRankVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
+        VillageRankVo rankVo = new VillageRankVo();
+        BeanUtils.copyProperties(condition, rankVo);
+        rankVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
             VillageRankVo.Village village = new VillageRankVo.Village();
-            village.setName(houseInfo.getVillageName());
-            village.setPrice(houseInfo.getPrice());
+            BeanUtils.copyProperties(houseInfo, village);
             return village;
         }).collect(Collectors.toList()));
-        return villageRankVo;
+        return rankVo;
     }
 }
