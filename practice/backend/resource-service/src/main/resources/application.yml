@@ -4,6 +4,10 @@ server:
 spring:
   profiles:
     active: default
+  #热部署
+  devtools:
+    restart:
+      enabled: true
 
 # 爬虫库资源
 crawler:

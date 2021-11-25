@@ -1,5 +1,3 @@
-apply plugin: 'java'
-
 ext {
     SpringBootVersion = '2.3.11.RELEASE'
 }

@@ -1,5 +1,3 @@
-apply plugin: 'java'
-
 dependencies {
     implementation project(':components:common-web')
 
