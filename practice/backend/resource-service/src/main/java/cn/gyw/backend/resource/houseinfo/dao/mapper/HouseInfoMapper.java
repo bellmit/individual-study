@@ -22,5 +22,13 @@ public interface HouseInfoMapper extends BaseDao<HouseInfo> {
      */
     LocalDate queryMaxCrawlDate();
 
+    /**
+     * 小区排行榜
+     * @param province 省
+     * @param city 市
+     * @param district 区
+     * @param crawlDate 爬取日期
+     * @return 小区列表
+     */
     List<HouseInfo> queryVillageRank(String province, String city, String district, LocalDate crawlDate);
 }

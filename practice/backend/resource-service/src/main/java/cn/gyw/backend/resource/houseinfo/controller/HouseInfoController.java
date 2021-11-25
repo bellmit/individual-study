@@ -1,8 +1,10 @@
 package cn.gyw.backend.resource.houseinfo.controller;
 
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
+import cn.gyw.backend.resource.houseinfo.model.HouseInfoRequest;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
+import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
 import cn.gyw.backend.resource.houseinfo.service.HouseInfoService;
 import cn.gyw.components.web.base.mgb.BaseController;
 import cn.gyw.components.web.enums.CommonRespEnum;
@@ -14,7 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -45,5 +46,11 @@ public class HouseInfoController
     public VillageRankVo villageRank(HouseInfoDto houseInfoDto) {
         CommonRespEnum.PARAM_NULL.assertNotNull(houseInfoDto, "请求参数异常");
         return houseInfoService.queryVillageRank(houseInfoDto.getProvince(), houseInfoDto.getCity(), houseInfoDto.getDistrict());
+    }
+
+    @GetMapping("villageTrend")
+    public VillageTrendVo villageTrend(HouseInfoDto houseInfoDto) {
+        CommonRespEnum.PARAM_NULL.assertNotNull(houseInfoDto, "请求参数异常");
+        return null;
     }
 }

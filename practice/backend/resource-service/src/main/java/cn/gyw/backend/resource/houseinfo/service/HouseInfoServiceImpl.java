@@ -5,9 +5,11 @@ import cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper;
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
+import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
+import cn.gyw.backend.resource.houseinfo.model.vo.VillageVo;
 import cn.gyw.components.web.base.mgb.BaseService;
+import cn.gyw.components.web.utils.DateUtil;
 import cn.gyw.components.web.utils.RegexUtil;
-import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,10 +85,31 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
         VillageRankVo rankVo = new VillageRankVo();
         BeanUtils.copyProperties(condition, rankVo);
         rankVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
-            VillageRankVo.Village village = new VillageRankVo.Village();
+            VillageVo village = new VillageVo();
             BeanUtils.copyProperties(houseInfo, village);
             return village;
         }).collect(Collectors.toList()));
         return rankVo;
+    }
+
+    @Override
+    public VillageTrendVo queryVillageTrend(HouseInfoDto houseInfoDto) {
+        HouseInfo condition = new HouseInfo();
+        BeanUtils.copyProperties(houseInfoDto, condition);
+        Example example = new Example(HouseInfo.class);
+        example.createCriteria().andEqualTo(condition);
+        example.orderBy(HouseInfo.CREATED_TIME);
+
+        List<HouseInfo> houseInfoList = houseInfoMapper.selectByExample(example);
+
+        VillageTrendVo trendVo = new VillageTrendVo();
+        BeanUtils.copyProperties(condition, trendVo);
+        trendVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
+            VillageVo village = new VillageVo();
+            BeanUtils.copyProperties(houseInfo, village);
+            village.setCrawlDate(DateUtil.formatDate(houseInfo.getCrawlDate()));
+            return village;
+        }).collect(Collectors.toList()));
+        return trendVo;
     }
 }

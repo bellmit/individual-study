@@ -3,6 +3,7 @@ package cn.gyw.backend.resource.houseinfo.service;
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
+import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
 import cn.gyw.components.web.base.mgb.IBaseService;
 
 import java.time.LocalDate;
@@ -30,5 +31,10 @@ public interface HouseInfoService extends IBaseService<HouseInfo> {
      */
     VillageRankVo queryVillageRank(String province, String city, String district);
 
-
+    /**
+     * 小区趋势
+     * @param houseInfoDto 房屋Dto
+     * @return 趋势Vo
+     */
+    VillageTrendVo queryVillageTrend(HouseInfoDto houseInfoDto);
 }
