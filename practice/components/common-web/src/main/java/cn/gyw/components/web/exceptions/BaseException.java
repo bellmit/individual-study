@@ -13,27 +13,20 @@ public class BaseException extends RuntimeException {
 
     private IRespCode respCode;
 
-    private Object[] args;
-
     public BaseException(IRespCode respCode) {
         this(respCode, null, null);
     }
 
-    public BaseException(IRespCode respCode, Object[] args) {
-        this(respCode, args, null);
+    public BaseException(IRespCode respCode, String message) {
+        this(respCode, message, null);
     }
 
-    public BaseException(IRespCode respCode, Object[] args, Throwable t) {
-        super(String.join(",", respCode.getMessage(), Arrays.toString(args)), t);
+    public BaseException(IRespCode respCode, String message, Throwable t) {
+        super(String.join("|", respCode.getMessage(), message), t);
         this.respCode = respCode;
-        this.args = args;
     }
 
     public IRespCode getRespCode() {
-		return respCode;
-	}
-
-    public Object[] getArgs() {
-        return args;
+        return respCode;
     }
 }

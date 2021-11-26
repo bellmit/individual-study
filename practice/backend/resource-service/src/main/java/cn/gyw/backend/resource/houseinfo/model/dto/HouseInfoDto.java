@@ -1,9 +1,11 @@
 package cn.gyw.backend.resource.houseinfo.model.dto;
 
 import cn.gyw.components.web.model.ToStringObject;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDateTime;
 
+@FieldNameConstants
 public class HouseInfoDto extends ToStringObject {
 
     private Long id;

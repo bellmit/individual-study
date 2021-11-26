@@ -5,12 +5,12 @@ import cn.gyw.components.web.IRespCode;
 public interface CommonExceptionAssert extends IRespCode, IExceptionAssert {
 
 	@Override
-	default BaseException newException(Object... args) {
-		return new CommonException(this, args);
+	default BaseException newException(String message) {
+		return new CommonException(this, message);
 	}
 	
 	@Override
-	default BaseException newException(Throwable t, Object... args) {
-		return new CommonException(this, args, t);
+	default BaseException newException(Throwable t, String message) {
+		return new CommonException(this, message, t);
 	}
 }

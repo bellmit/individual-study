@@ -38,19 +38,27 @@ public class HouseInfoController
 
     @ApiOperation(value = "查询上海各个区房屋小区价格排名")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "data.province", value = "省", paramType = "query", dataType = "String", required = true),
-        @ApiImplicitParam(name = "data.city", value = "市", paramType = "query", dataType = "String", required = true),
-        @ApiImplicitParam(name = "data.district", value = "区", paramType = "query", dataType = "String", required = true),
+            @ApiImplicitParam(name = "data.province", value = "省", paramType = "query", dataType = "String", required = true),
+            @ApiImplicitParam(name = "data.city", value = "市", paramType = "query", dataType = "String", required = true),
+            @ApiImplicitParam(name = "data.district", value = "区", paramType = "query", dataType = "String", required = true),
     })
     @GetMapping("/villageRank")
     public VillageRankVo villageRank(HouseInfoDto houseInfoDto) {
-        CommonRespEnum.PARAM_NULL.assertNotNull(houseInfoDto, "请求参数异常");
+        CommonRespEnum.PARAM_NULL.assertAllNotNull(houseInfoDto, HouseInfoDto.Fields.province, HouseInfoDto.Fields.city,
+                HouseInfoDto.Fields.district);
         return houseInfoService.queryVillageRank(houseInfoDto.getProvince(), houseInfoDto.getCity(), houseInfoDto.getDistrict());
     }
 
+    @ApiOperation(value = "查询指定小区价格趋势")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data.province", value = "省", paramType = "query", dataType = "String", required = true),
+            @ApiImplicitParam(name = "data.city", value = "市", paramType = "query", dataType = "String", required = true),
+            @ApiImplicitParam(name = "data.district", value = "区", paramType = "query", dataType = "String", required = true),
+    })
     @GetMapping("villageTrend")
     public VillageTrendVo villageTrend(HouseInfoDto houseInfoDto) {
-        CommonRespEnum.PARAM_NULL.assertNotNull(houseInfoDto, "请求参数异常");
+        CommonRespEnum.PARAM_NULL.assertAllNotNull(houseInfoDto, HouseInfoDto.Fields.province, HouseInfoDto.Fields.city,
+                HouseInfoDto.Fields.district);
         return null;
     }
 }

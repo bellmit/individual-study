@@ -34,7 +34,7 @@ public class FileUploadController {
 	public String uploadSingleFile(@RequestParam("file") MultipartFile uploadFile,
 			@RequestParam(name = "userId", required = false, defaultValue = "-1") String userId,
 			@RequestParam(name = "expire", required = false) String expire) {
-		FileServerAssert.FILE_NOT_EMPTY.assertNotEmpty(uploadFile);
+		FileServerAssert.FILE_IS_EMPTY.assertNotEmpty(uploadFile);
 		FileInfo fileInfo = fileUploadService.buildFileInfo(uploadFile.getOriginalFilename(), userId, expire);
 		String fileId = fileUploadService.uploadSingleFile(fileInfo, uploadFile);
 		FileServerAssert.UPLOAD_SUCCESS.assertNotEmpty(fileId);
@@ -49,7 +49,7 @@ public class FileUploadController {
 	 */
 	@GetMapping("/{id}")
 	public void download(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
-		FileServerAssert.FILE_ID_NOT_EMPTY.assertNotEmpty(id);
+		FileServerAssert.FILE_ID_IS_EMPTY.assertNotEmpty(id);
 		fileUploadService.download(id, request, response);
 	}
 }

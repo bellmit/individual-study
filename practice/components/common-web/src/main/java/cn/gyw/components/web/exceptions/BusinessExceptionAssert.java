@@ -8,12 +8,12 @@ import cn.gyw.components.web.IRespCode;
 public interface BusinessExceptionAssert extends IRespCode, IExceptionAssert {
 
     @Override
-    default BaseException newException(Object... args) {
-        return new BusinessException(this, args);
+    default BaseException newException(String message) {
+        return new BusinessException(this, message);
     }
 
     @Override
-    default BaseException newException(Throwable t, Object... args) {
-        return new BusinessException(this, args, t);
+    default BaseException newException(Throwable t, String message) {
+        return new BusinessException(this, message, t);
     }
 }
