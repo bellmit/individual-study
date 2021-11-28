@@ -5,11 +5,17 @@
       <dt>2.不同小区最高价格，最低价格柱状图</dt>
     </dl>
     <el-row>
-      <p>柱状图</p>
-      <div id="myChart" :style="{ width: '500px', height: '500px' }" />
+      <el-cascader
+        size="large"
+        :props="props"
+        :options="options"
+        v-model="selectedOptions"
+        @change="handleChange"
+      >
+      </el-cascader>
+      <div id="barChart" :style="{ width: '800px', height: '500px' }" />
     </el-row>
     <el-row>
-      <p>饼状图</p>
       <div id="pieChart" :style="{ width: '600px', height: '500px' }" />
     </el-row>
   </div>
@@ -22,43 +28,67 @@ export default {
   name: 'Dashboard',
   data() {
     return {
-      villageRank: []
+      // 省市区级联选择器
+      props: { multiple: true },
+      options: [],
+      selectedOptions: [],
+      // 小区Rank数据
+      villageRank: [],
     }
   },
-  created() {
-  },
+  created() {},
   mounted() {
-    houseInfoApi.getVillageRank({"province":"安徽","city":"马鞍山市","district":"花山区"})
-    .then(response => {
-          this.villageRank = response.data.villageList;
-        });
-    // 模版渲染后调用绘制图表的方法
-    this.drawLine()
+    houseInfoApi
+      .getVillageRank({
+        province: '安徽',
+        city: '马鞍山市',
+        district: '花山区',
+      })
+      .then((response) => {
+        this.villageRank = response.data.villageList
+        this.drawBar(response.data.crawlDate)
+      })
     this.drawPie()
   },
   methods: {
-    drawLine() {
-      // 初始化echarts实例
-      const myChart = this.$echarts.init(document.getElementById('myChart'))
-      // 绘制图表
-      myChart.setOption({
-        legend: {},
+    drawBar(crawlDate) {
+      const barChart = this.$echarts.init(document.getElementById('barChart'))
+      let options = {
+        // 图表的标题
+        title: {
+          text: '小区排行榜 ' + crawlDate,
+          top: '0px',
+          left: '10px',
+        },
+        // 图例组件，可以展示不同系列的标记，颜色及名字，点击图例控制哪些系列不展示
+        legend: {
+          type: 'plain',
+        },
+        // 提示框组件
         tooltip: {},
         dataset: {
-          dimensions: ['product', '2015', '2016', '2017'],
-          source: [
-            { product: 'Matcha Latte', 2015: 43.3, 2016: 85.8, 2017: 93.7 },
-            { product: 'Milk Tea', 2015: 83.1, 2016: 73.4, 2017: 55.1 },
-            { product: 'Cheese Cocoa', 2015: 86.4, 2016: 65.2, 2017: 82.5 },
-            { product: 'Walnut Brownie', 2015: 72.4, 2016: 53.9, 2017: 39.1 },
-          ],
+          dimensions: ['name', 'price'],
+          source: this.villageRank,
         },
-        xAxis: { type: 'category' },
+        // 避免x轴显示不全
+        grid: {
+          y2: 140,
+        },
+        xAxis: {
+          type: 'category',
+          axisLabel: {
+            // 横轴信息全部显示
+            interval: 0,
+            // -30度角倾斜
+            rotate: -30,
+          },
+        },
         yAxis: {},
         // Declare several bar series, each will be mapped
         // to a column of dataset.source by default.
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
-      })
+        series: [{ type: 'bar' }],
+      }
+      barChart.setOption(options)
     },
 
     drawPie() {
@@ -85,6 +115,10 @@ export default {
           },
         ],
       })
+    },
+
+    handleChange(value) {
+      console.log(value)
     },
   },
 }

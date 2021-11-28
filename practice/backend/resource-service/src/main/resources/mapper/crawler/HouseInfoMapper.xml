@@ -76,4 +76,7 @@
         order by price desc
     </select>
 
+    <select id="queryRegionList" resultMap="BaseResultMap">
+        select province,city,district from house_info t group by province, city, district
+    </select>
 </mapper>

@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
 }
@@ -47,6 +48,11 @@ dependencies {
     implementation mysql_connector_java
     implementation hutool_all
 
+    // lombok 公用包，简化代码
+    compileOnly lombok
+    annotationProcessor lombok
+    testCompileOnly lombok
+    testAnnotationProcessor lombok
     testImplementation(spring_boot_starter_test) {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -64,7 +70,7 @@ mbg {
     jdbc {
         driver = "com.mysql.jdbc.Driver"
 //        url = "jdbc:mysql://127.0.0.1:3306/c_system?useSSL=false&allowPublicKeyRetrieval=true"
-        url    = "jdbc:mysql://192.168.1.181:3306/c_system?useSSL=false&allowPublicKeyRetrieval=true"
+        url = "jdbc:mysql://192.168.1.181:3306/c_system?useSSL=false&allowPublicKeyRetrieval=true"
         username = "root"
         password = "root"
     }
@@ -97,6 +103,6 @@ dependencyManagement {
 jar {
     manifest {
         attributes "Manifest-Version": 1.0,
-            'Main-Class': 'cn.gyw.backend.system.SystemApiApplication'
+                'Main-Class': 'cn.gyw.backend.system.SystemApiApplication'
     }
 }

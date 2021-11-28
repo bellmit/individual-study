@@ -2,6 +2,7 @@ package cn.gyw.backend.resource.houseinfo.service;
 
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
+import cn.gyw.backend.resource.houseinfo.model.vo.TreeData;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
 import cn.gyw.components.web.base.mgb.IBaseService;
@@ -37,4 +38,9 @@ public interface HouseInfoService extends IBaseService<HouseInfo> {
      * @return 趋势Vo
      */
     VillageTrendVo queryVillageTrend(HouseInfoDto houseInfoDto);
+
+    /**
+     * 获取查询条件列表
+     */
+    List<TreeData> getQueryCondition();
 }

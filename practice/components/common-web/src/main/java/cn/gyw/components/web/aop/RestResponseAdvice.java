@@ -1,7 +1,5 @@
 package cn.gyw.components.web.aop;
 
-import java.util.Objects;
-
 import cn.gyw.components.web.exceptions.GlobalExceptionHandler;
 import cn.gyw.components.web.model.BaseResponse;
 import cn.gyw.components.web.model.DataResponse;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import java.util.Objects;
 
 
 /**
@@ -34,7 +34,6 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
                 || controllerClass.isAnnotationPresent(ResponseBody.class)
                 || returnType.getMethodAnnotation(ResponseBody.class) != null
                 || controllerClass.equals(GlobalExceptionHandler.class);
-        LOGGER.debug("{} isSupported:{}", controllerClass.getName(), isSupported);
         return isSupported;
     }
 
@@ -48,7 +47,6 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
         }
         if (request instanceof ServletServerHttpRequest) {
             if (Objects.nonNull(resp) && !(resp instanceof BaseResponse)) {
-                LOGGER.debug("Handle response ...");
                 resp = DataResponse.success(body);
             }
         } else {

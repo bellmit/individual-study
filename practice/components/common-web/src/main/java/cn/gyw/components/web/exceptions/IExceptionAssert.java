@@ -70,7 +70,7 @@ public interface IExceptionAssert {
         }
         try {
             for (String prop : propList) {
-                Object value = FieldUtils.readDeclaredField(obj, prop);
+                Object value = FieldUtils.readDeclaredField(obj, prop, true);
                 if (Objects.isNull(value)) {
                     throw newException("[" + prop + "] is null");
                 }

@@ -5,7 +5,7 @@
         <i class="el-icon-search"></i>
         <span>筛选搜索</span>
         <el-button style="float:right" type="primary" @click="handleSearchList()" size="small">
-          查询搜索
+          查询
         </el-button>
         <el-button style="float:right;margin-right: 15px" @click="handleResetSearch()" size="small">
           重置
@@ -22,7 +22,6 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">添加</el-button>
     </el-card>
     <div class="table-container">
       <el-table ref="roleTable" :data="list" style="width: 100%;" v-loading="listLoading" border>
@@ -68,7 +67,7 @@
 
   const defaultListQuery = {
     pageNum: 1,
-    pageSize: 5,
+    pageSize: 20,
     keyword: null
   };
   const defaultRole = {

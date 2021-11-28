@@ -1,3 +1,7 @@
+plugins {
+    id 'java'
+}
+
 dependencies {
     implementation project(':components:common-web')
 
@@ -11,4 +15,10 @@ dependencies {
     implementation commons_io
     implementation commons_lang3
     implementation gson
+
+    // lombok 公用包，简化代码
+    compileOnly lombok
+    annotationProcessor lombok
+    testCompileOnly lombok
+    testAnnotationProcessor lombok
 }

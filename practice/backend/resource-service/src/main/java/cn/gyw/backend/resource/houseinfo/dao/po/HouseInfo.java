@@ -2,6 +2,7 @@ package cn.gyw.backend.resource.houseinfo.dao.po;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -15,10 +16,9 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@FieldNameConstants
 @Table(name = "house_info")
 public class HouseInfo {
-
-    public static final String CREATED_TIME = "createdTime";
 
     private Long id;
     // 爬取日期

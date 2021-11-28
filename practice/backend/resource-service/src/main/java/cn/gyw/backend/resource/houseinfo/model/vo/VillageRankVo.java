@@ -9,8 +9,10 @@ import java.util.List;
 @Setter
 public class VillageRankVo {
 
+    private String crawlDate;
     private String province;
     private String city;
     private String district;
+
     private List<VillageVo> villageList;
 }

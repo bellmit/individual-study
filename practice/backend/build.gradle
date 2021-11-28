@@ -40,8 +40,6 @@ allprojects { Project project ->
 
 // 设定所有子模块共享的配置
 subprojects {
-    apply plugin: 'java'
-
     repositories {
         // maven 本地仓库
         mavenLocal()
@@ -50,14 +48,6 @@ subprojects {
             url 'https://maven.aliyun.com/nexus/content/groups/htm'
         }
         mavenCentral()
-    }
-
-    dependencies {
-        // lombok 公用包，简化代码
-        compileOnly lombok
-        annotationProcessor lombok
-        testCompileOnly lombok
-        testAnnotationProcessor lombok
     }
 }
 

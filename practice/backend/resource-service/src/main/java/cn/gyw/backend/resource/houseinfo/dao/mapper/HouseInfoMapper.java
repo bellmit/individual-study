@@ -31,4 +31,9 @@ public interface HouseInfoMapper extends BaseDao<HouseInfo> {
      * @return 小区列表
      */
     List<HouseInfo> queryVillageRank(String province, String city, String district, LocalDate crawlDate);
+
+    /**
+     * 查询区域列表
+     */
+    List<HouseInfo> queryRegionList();
 }
