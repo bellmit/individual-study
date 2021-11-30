@@ -84,30 +84,23 @@ quartz='org.quartz-scheduler:quartz:2.3.0'
 quartz_jobs='org.quartz-scheduler:quartz:2.3.0'
 netty_all='io.netty:netty-all:4.1.52.Final'
 
-// DB
+/* DB */
 mysql_connector_java='mysql:mysql-connector-java:5.1.47'
 c3p0='c3p0:c3p0:0.9.1.1'
 h2database='com.h2database:h2:1.4.200'
 commons_dbutils='commons-dbutils:commons-dbutils:1.7'
 tk_mybatis_mapper='tk.mybatis:mapper:4.1.5'
-
 /* lucence */
 lucene_core='org.apache.lucene:lucene-core:8.6.3'
-// 普通分词器 常用于英文分词
-lucene_analyzers_common='org.apache.lucene:lucene-analyzers-common:8.6.3'
-// 中文分词器
-lucene_analyzers_smartcn='org.apache.lucene:lucene-analyzers-smartcn:8.6.3'
+lucene_analyzers_common='org.apache.lucene:lucene-analyzers-common:8.6.3' // 普通分词器 常用于英文分词
+lucene_analyzers_smartcn='org.apache.lucene:lucene-analyzers-smartcn:8.6.3' // 中文分词器
 hanlp_lucene_plugin='com.hankcs.nlp:hanlp-lucene-plugin:1.1.7'
-// 对分词索引查询解析
-lucene_queryparser='org.apache.lucene:lucene-queryparser:8.6.3'
-// 检索关键字高亮显示
-lucene_highlighter='org.apache.lucene:lucene-highlighter:8.6.3'
-// IK 分词器
-ikanalyzer='com.janeluo:ikanalyzer:2012_u6'
-
+lucene_queryparser='org.apache.lucene:lucene-queryparser:8.6.3' // 对分词索引查询解析
+lucene_highlighter='org.apache.lucene:lucene-highlighter:8.6.3' // 检索关键字高亮显示
+ikanalyzer='com.janeluo:ikanalyzer:2012_u6' // IK 分词器
 /* flowable BPMN */
 flowable_engine='org.flowable:flowable-engine:6.2.1'
 flowable_spring='org.flowable:flowable-spring:6.2.1'
-// swagger
+/* swagger2 */
 springfox_swagger2='io.springfox:springfox-swagger2:2.9.2'
 springfox_swagger_ui='io.springfox:springfox-swagger-ui:2.9.2'

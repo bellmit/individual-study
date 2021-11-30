@@ -25,8 +25,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
 
-//	implementation graphql_java
-//	implementation graphql_java_spring_boot_starter_webmvc
+	implementation graphql_java
+	implementation graphql_java_spring_boot_starter_webmvc
 	// 可视化调试工具 graphiql
 	implementation graphiql_spring_boot_starter
 	implementation springfox_swagger2

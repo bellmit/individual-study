@@ -1,5 +1,6 @@
 package cn.gyw.springboot;
 
+import com.oembedler.moon.graphiql.boot.GraphiQLAutoConfiguration;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
