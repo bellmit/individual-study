@@ -1,12 +1,12 @@
 
 ***
 目录  
-[安装](#安装)  
+[Docker安装](#Docker安装)  
 [安装Elasticsearch](#安装Elasticsearch)
 
 ***
 
-# 安装
+# Docker安装
 参考：https://www.cnblogs.com/caoweixiong/p/12186736.html
 
 uname -r :查看内核版本  
@@ -58,7 +58,6 @@ vi /etc/resolv.conf
 nameserver 8.8.8.8  
 nameserver 8.8.8.4
 
-***
 # Docker 使用
 参考：https://docs.docker.com/engine/reference/commandline/  
 ## 基本使用
@@ -94,7 +93,8 @@ docker attach Glearn
 
 ### 安装wget库  
 sudo yum install wget  
-#进入usr/local/src目录下  
+
+### 进入usr/local/src目录下  
 cd /usr/local/src  
 #获取JDK1.8包  
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz"  
@@ -174,3 +174,24 @@ docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker image
 docker images | grep image | awk '{print $3}' | xargs docker rmi
 删除指定容器
 docker rm -f $(docker ps -a | grep "imsage-name" | awk '{print $1}')
+
+## 安装nginx
+1. docker pull nginx
+  容器内
+  日志位置：/var/log/nginx/
+  配置文件位置：/etc/nginx/
+  项目位置：/usr/share/nginx/html
+2. docker images
+3. 建目录用于存放nginx配置文件、证书文件
+  mkdir /opt/docker/nginx/conf.d -p
+  touch /opt/docker/nginx/conf.d/nginx.conf
+  mkdir /opt/docker/nginx/cert -p
+  mkdir /opt/docker/nginx/logs -p
+  mkdir /opt/docker/nginx/html -p
+4. 编辑nginx.conf
+  vim /opt/docker/nginx/conf.d/nginx.conf
+5. 启动
+docker run -itd --name nginx -p 80:80 -p 443:443 -v /opt/docker/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf -v /opt/docker/nginx/cert:/etc/nginx -v /opt/docker/nginx/logs:/var/log/nginx/ -v /opt/docker/nginx/html:/usr/share/nginx/html -m 256m nginx  
+说明：-m 限制内存大小
+6. 修改配置文件
+dokcer exec -it nginx nginx -s reload
