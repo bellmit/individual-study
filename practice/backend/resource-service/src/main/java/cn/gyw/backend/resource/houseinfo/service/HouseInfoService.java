@@ -2,6 +2,7 @@ package cn.gyw.backend.resource.houseinfo.service;
 
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
+import cn.gyw.backend.resource.houseinfo.model.vo.MinMaxOfCityVo;
 import cn.gyw.backend.resource.houseinfo.model.vo.TreeData;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
 import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
@@ -22,15 +23,9 @@ public interface HouseInfoService extends IBaseService<HouseInfo> {
     boolean batchInsert(List<HouseInfoDto> data);
 
     /**
-     * 查询最大日期
-     * @return 日期
-     */
-    LocalDate findMaxCrawlDate();
-
-    /**
      * 小区价格排名
      */
-    VillageRankVo queryVillageRank(String province, String city, String district);
+    VillageRankVo queryVillageRank(String crawlDate, String province, String city, String district);
 
     /**
      * 小区趋势
@@ -43,4 +38,9 @@ public interface HouseInfoService extends IBaseService<HouseInfo> {
      * 获取查询条件列表
      */
     List<TreeData> getQueryCondition();
+
+    /**
+     * 查询城市的最高/最低价格小区
+     */
+    List<MinMaxOfCityVo> queryMinMaxOfCity(String crawlDate, String province, String city);
 }

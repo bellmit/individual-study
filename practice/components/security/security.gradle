@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation project(':components:common-web')
+    implementation project(':common-web')
 
     implementation spring_boot_starter_web
     implementation spring_boot_starter_security

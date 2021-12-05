@@ -7,7 +7,7 @@ ext {
 }
 
 dependencies {
-    implementation project(':components:common-web')
+    implementation components_common_web
 
     // SpringBoot2.2.x版本才支持ElasticSearch7.x
     implementation "org.springframework.boot:spring-boot-starter-web:${SpringBootVersion}"

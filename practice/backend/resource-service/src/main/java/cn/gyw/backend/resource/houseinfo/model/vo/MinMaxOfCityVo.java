@@ -3,20 +3,18 @@ package cn.gyw.backend.resource.houseinfo.model.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-/**
- * 小区趋势
- *
- * @date 2021/11/25 19:15
- */
 @Getter
 @Setter
-public class VillageTrendVo {
+public class MinMaxOfCityVo {
 
+    private String crawlDate;
     private String province;
     private String city;
     private String district;
-    private List<VillageVo> villageList;
+
+    private BigDecimal minPrice;
+    private BigDecimal maxPrice;
 
 }

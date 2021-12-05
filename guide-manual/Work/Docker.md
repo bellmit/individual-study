@@ -181,17 +181,23 @@ docker rm -f $(docker ps -a | grep "imsage-name" | awk '{print $1}')
   日志位置：/var/log/nginx/
   配置文件位置：/etc/nginx/
   项目位置：/usr/share/nginx/html
-2. docker images
+2. 启动容器
+  docker run --name nginx -p 80:80 -d nginx
 3. 建目录用于存放nginx配置文件、证书文件
+  mkdir /opt/docker/nginx/conf -p
+  touch /opt/docker/nginx/conf/nginx.conf
   mkdir /opt/docker/nginx/conf.d -p
-  touch /opt/docker/nginx/conf.d/nginx.conf
-  mkdir /opt/docker/nginx/cert -p
   mkdir /opt/docker/nginx/logs -p
   mkdir /opt/docker/nginx/html -p
-4. 编辑nginx.conf
-  vim /opt/docker/nginx/conf.d/nginx.conf
-5. 启动
-docker run -itd --name nginx -p 80:80 -p 443:443 -v /opt/docker/nginx/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf -v /opt/docker/nginx/cert:/etc/nginx -v /opt/docker/nginx/logs:/var/log/nginx/ -v /opt/docker/nginx/html:/usr/share/nginx/html -m 256m nginx  
+4. 将容器中相应的文件拷贝到宿主机目录中
+  docker cp ee1:/etc/nginx/nginx.conf /opt/docker/nginx/
+  docker cp ee1:/etc/nginx/conf.d /opt/docker/nginx/
+  docker cp ee1:/usr/share/nginx/html /opt/docker/nginx/
+  注：docker cp ee1 中的 "ee1" 为容器ID前缀
+5. 编辑nginx.conf
+  vim /opt/docker/nginx/nginx.conf
+6. 启动
+docker run -itd --name nginx -p 80:80 -p 443:443 -v /opt/docker/nginx/html:/usr/share/nginx/html -v /opt/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /opt/docker/nginx/conf.d:/etc/nginx/conf.d -v /opt/docker/nginx/logs:/var/log/nginx nginx
 说明：-m 限制内存大小
-6. 修改配置文件
+7. 修改配置文件重启
 dokcer exec -it nginx nginx -s reload

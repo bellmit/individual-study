@@ -12,9 +12,9 @@ sourceSets {
 }
 
 dependencies {
-    implementation project(':facade:system-service-api')
-    implementation project(':components:security')
-    implementation project(':components:common-web')
+    implementation project(':system-service-api')
+    implementation components_security
+    implementation components_common_web
 
     // 公共模块依赖
     implementation platform_configuration

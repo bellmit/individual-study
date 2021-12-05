@@ -16,24 +16,25 @@ import java.util.List;
 public class TreeData {
 
     /**
+     * 节点键
+     */
+    private String key;
+    /**
+     * 节点值
+     */
+    private String value;
+    /**
      * 层级 1-...
      */
     private Integer level;
-    /**
-     * 节点名称
-     */
-    private String name;
     /**
      * 子节点列表
      */
     private List<TreeData> children = Lists.newArrayList();
 
-    public TreeData(String name) {
-        this.name = name;
-    }
-
-    public TreeData(Integer level, String name) {
+    public TreeData(String key, String value, Integer level) {
+        this.key = key;
+        this.value = value;
         this.level = level;
-        this.name = name;
     }
 }

@@ -1,4 +1,5 @@
-// key = 'group:id:version'
+components_common_web='cn.gyw.components:common-web:1.0.0'
+components_security='cn.gyw.components:security:1.0.0'
 
 platform_annotations='cn.gyw.platform:annotations:1.0.0'
 platform_configuration='cn.gyw.platform:configuration:1.0.0'

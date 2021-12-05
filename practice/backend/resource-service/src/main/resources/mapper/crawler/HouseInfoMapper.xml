@@ -62,12 +62,12 @@
         on duplicate key update modified_time = now()
     </insert>
 
-    <select id="queryMaxCrawlDate" resultType="java.time.LocalDate">
-        select max(crawl_date) from house_info
+    <select id="selectAllCrawlDate" resultType="java.time.LocalDate">
+        select distinct crawl_date from house_info order by crawl_date desc;
     </select>
 
     <select id="queryVillageRank" resultMap="BaseResultMap">
-        select * from house_info t
+        select <include refid="Base_Column_List"/> from house_info t
         where 1=1
         and t.province = #{province, jdbcType=VARCHAR}
         and t.city = #{city, jdbcType=VARCHAR}
@@ -79,4 +79,24 @@
     <select id="queryRegionList" resultMap="BaseResultMap">
         select province,city,district from house_info t group by province, city, district
     </select>
+
+    <select id="selectMinMaxPriceList" resultType="cn.gyw.backend.resource.houseinfo.model.vo.MinMaxOfCityVo">
+        select t1.crawl_date as crawlDate,
+               t1.province,
+               t1.city,
+               t1.district,
+               min(t1.price) minPrice,
+               max(t1.price) maxPrice
+        from (
+            select
+            <include refid="Base_Column_List"/>
+            from house_info t
+            where 1=1
+            and t.province = #{province, jdbcType=VARCHAR}
+            and t.city = #{city, jdbcType=VARCHAR}
+            and t.crawl_date = #{crawlDate, jdbcType=DATE}
+        ) t1
+        group by t1.crawl_date, t1.province, t1.city, t1.district
+    </select>
+
 </mapper>

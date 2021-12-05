@@ -4,13 +4,12 @@ import cn.gyw.backend.resource.enums.OriginTypeEnum;
 import cn.gyw.backend.resource.houseinfo.dao.mapper.HouseInfoMapper;
 import cn.gyw.backend.resource.houseinfo.dao.po.HouseInfo;
 import cn.gyw.backend.resource.houseinfo.model.dto.HouseInfoDto;
-import cn.gyw.backend.resource.houseinfo.model.vo.TreeData;
-import cn.gyw.backend.resource.houseinfo.model.vo.VillageRankVo;
-import cn.gyw.backend.resource.houseinfo.model.vo.VillageTrendVo;
-import cn.gyw.backend.resource.houseinfo.model.vo.VillageVo;
+import cn.gyw.backend.resource.houseinfo.model.vo.*;
 import cn.gyw.components.web.base.mgb.BaseService;
 import cn.gyw.components.web.utils.DateUtil;
 import cn.gyw.components.web.utils.RegexUtil;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,10 @@ import tk.mybatis.mapper.entity.Example;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,18 +68,13 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
     }
 
     @Override
-    public LocalDate findMaxCrawlDate() {
-        return houseInfoMapper.queryMaxCrawlDate();
-    }
-
-    @Override
-    public VillageRankVo queryVillageRank(String province, String city, String district) {
-        LocalDate maxCrawlDate = houseInfoMapper.queryMaxCrawlDate();
+    public VillageRankVo queryVillageRank(String crawlDate, String province, String city, String district) {
+        LocalDate queryDate = LocalDate.parse(crawlDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
         HouseInfo condition = new HouseInfo();
         condition.setProvince(province);
         condition.setCity(city);
         condition.setDistrict(district);
-        condition.setCrawlDate(maxCrawlDate);
+        condition.setCrawlDate(queryDate);
         Example example = new Example(HouseInfo.class);
         example.createCriteria().andEqualTo(condition);
         example.orderBy(HouseInfo.Fields.price).desc();
@@ -85,7 +82,7 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
         List<HouseInfo> houseInfoList = houseInfoMapper.selectByExample(example);
         VillageRankVo rankVo = new VillageRankVo();
         BeanUtils.copyProperties(condition, rankVo);
-        rankVo.setCrawlDate(DateUtil.formatDate(maxCrawlDate));
+        rankVo.setCrawlDate(DateUtil.formatDate(queryDate));
         rankVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
             VillageVo village = new VillageVo();
             village.setCrawlDate(DateUtil.formatDate(houseInfo.getCrawlDate()));
@@ -108,12 +105,8 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
 
         VillageTrendVo trendVo = new VillageTrendVo();
         BeanUtils.copyProperties(condition, trendVo);
-        trendVo.setVillageList(houseInfoList.stream().map(houseInfo -> {
-            VillageVo village = new VillageVo();
-            BeanUtils.copyProperties(houseInfo, village);
-            village.setCrawlDate(DateUtil.formatDate(houseInfo.getCrawlDate()));
-            return village;
-        }).collect(Collectors.toList()));
+        trendVo.setVillageList(houseInfoList.stream().map(this::buildVillageVo)
+                .collect(Collectors.toList()));
         return trendVo;
     }
 
@@ -121,36 +114,57 @@ public class HouseInfoServiceImpl extends BaseService<HouseInfo> implements Hous
     public List<TreeData> getQueryCondition() {
         List<HouseInfo> regionList = houseInfoMapper.queryRegionList();
         List<TreeData> treeDataList = new ArrayList<>();
+        // TODO: 优化树状结构数据构造
         for (HouseInfo houseInfo : regionList) {
+            if (StringUtils.isEmpty(houseInfo.getProvince())
+                    || StringUtils.isEmpty(houseInfo.getCity())
+                    || StringUtils.isEmpty(houseInfo.getDistrict())) {
+                // 省市区空值数据，直接跳过
+                continue;
+            }
             // 省
             Optional<TreeData> provinceOp = treeDataList.stream()
-                    .filter(item -> houseInfo.getProvince().equals(item.getName()))
+                    .filter(item -> houseInfo.getProvince().equals(item.getValue()))
                     .findFirst();
             TreeData provinceNode;
             if (!provinceOp.isPresent()) {
-                provinceNode = new TreeData(1, houseInfo.getProvince());
+                provinceNode = new TreeData(houseInfo.getProvince(), houseInfo.getProvince(), 1);
                 treeDataList.add(provinceNode);
             } else {
                 provinceNode = provinceOp.get();
             }
             // 市
-            Optional<TreeData> cityOp =provinceNode.getChildren().stream()
-                    .filter(item -> houseInfo.getCity().equals(item.getName()))
+            Optional<TreeData> cityOp = provinceNode.getChildren().stream()
+                    .filter(item -> houseInfo.getCity().equals(item.getValue()))
                     .findFirst();
             TreeData cityNode;
             if (!cityOp.isPresent()) {
-                cityNode = new TreeData(2, houseInfo.getCity());
+                cityNode = new TreeData(houseInfo.getCity(), houseInfo.getCity(), 2);
                 provinceNode.getChildren().add(cityNode);
             } else {
                 cityNode = cityOp.get();
             }
             // 区
             boolean flag = cityNode.getChildren().stream()
-                    .anyMatch(item -> houseInfo.getDistrict().equals(item.getName()));
+                    .anyMatch(item -> houseInfo.getDistrict().equals(item.getValue()));
             if (!flag) {
-                cityNode.getChildren().add(new TreeData(3, houseInfo.getDistrict()));
+                cityNode.getChildren().add(new TreeData(houseInfo.getDistrict(), houseInfo.getDistrict(), 3));
             }
         }
         return treeDataList;
+    }
+
+    @Override
+    public List<MinMaxOfCityVo> queryMinMaxOfCity(String crawlDate, String province, String city) {
+        LocalDate queryDate = LocalDate.parse(crawlDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        List<MinMaxOfCityVo> result = houseInfoMapper.selectMinMaxPriceList(queryDate, province, city);
+        return result;
+    }
+
+    private VillageVo buildVillageVo(HouseInfo houseInfo) {
+        VillageVo village = new VillageVo();
+        BeanUtils.copyProperties(houseInfo, village);
+        village.setCrawlDate(DateUtil.formatDate(houseInfo.getCrawlDate()));
+        return village;
     }
 }

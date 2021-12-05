@@ -21,4 +21,4 @@ crawler:
     fileDir: /root/data
 
 local:
-  file: /config-center/local.properties
+  file: /root/config-center/local.properties

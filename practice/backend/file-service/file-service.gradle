@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(':components:common-web')
+    implementation components_common_web
 
     implementation platform_common
 

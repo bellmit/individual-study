@@ -1,38 +1,17 @@
 // 项目名称
 rootProject.name = 'backend'
 
-// 组件
-include ':components:common-web'
-project(':components:common-web').projectDir = new File(rootDir, '../components/common-web')
-include ':components:security'
-project(':components:security').projectDir = new File(rootDir, '../components/security')
-include ':components:id-generator'
-project(':components:id-generator').projectDir = new File(rootDir, '../components/id-generator')
-
-// RPC 接口
-include ':facade:system-service-api'
-project(':facade:system-service-api').projectDir = new File(rootDir, 'facade/system-service-api')
-
 // 服务注册中心
 include 'registry-center'
 
 // 服务
 include 'system-service' // 系统管理服务
+include ':system-service-api'
 include 'instant-messaging' // 及时通信服务
 include 'file-service' // 文件服务
 include 'search-service' // 搜索服务
 include 'resource-service' // 资源服务
 
-rootProject.children.each {project ->
-	
-	if (project.name == 'facade'
-			|| project.name == 'components') {
-		project.children.each { subProject ->
-			subProject.buildFileName = "${subProject.name}.gradle"
-		}
-		return
-	}
-	project.buildFileName = "${project.name}.gradle"
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
 }
-include 'resource-service'
-
