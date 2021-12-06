@@ -28,8 +28,6 @@ dependencies {
 	implementation reactor_netty
     // spring 支持websocket
     implementation spring_websocket
-    // spring test 支持
-    testImplementation spring_test
 	// 嵌入式Tomcat
 	implementation 'org.apache.tomcat.embed:tomcat-embed-core:8.5.32'
 
@@ -61,5 +59,6 @@ dependencies {
 	implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 	implementation tk_mybatis_mapper
 
-    testCompile junit
+    // spring test 支持
+    testImplementation spring_test
 }

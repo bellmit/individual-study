@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
 
-import cn.gyw.spring.config.MainConfigOfPropertyValues;
+import cn.gyw.spring.propvalue.PropertyValueConfig;
 import cn.gyw.spring.model.UserSpring;
 
 /**
@@ -13,7 +13,7 @@ import cn.gyw.spring.model.UserSpring;
 public class BeanPropertyValueTest extends AbstractTest {
 
     public BeanPropertyValueTest() {
-        super(MainConfigOfPropertyValues.class);
+        super(PropertyValueConfig.class);
     }
 
     @Test

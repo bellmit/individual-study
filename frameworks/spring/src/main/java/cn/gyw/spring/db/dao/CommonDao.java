@@ -1,4 +1,4 @@
-package cn.gyw.spring.dao;
+package cn.gyw.spring.db.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
