@@ -1,5 +1,5 @@
 allprojects {
-    group 'cn.gyw'
+    group 'cn.gyw.frameworks'
     version '1.0.0'
 }
 
@@ -25,9 +25,6 @@ buildscript {
         mavenCentral()
         // 添加 Maven 仓库
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-//		maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
-//		maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-//		maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
 		maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
 
     }
@@ -55,9 +52,9 @@ subprojects {
         // 添加 Maven 仓库
         mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-//        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
-//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/htm' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         mavenCentral()
     }
@@ -67,9 +64,9 @@ subprojects {
         implementation sl4j_api
 
         // 必须加入依赖，否则无法识别lombok
-        /*annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         compile "org.projectlombok:lombok:${lombokVersion}"
         testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"*/
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
     }
 }

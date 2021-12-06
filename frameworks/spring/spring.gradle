@@ -59,6 +59,7 @@ dependencies {
 	implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 	implementation tk_mybatis_mapper
 
+    testImplementation junit
     // spring test 支持
     testImplementation spring_test
 }
