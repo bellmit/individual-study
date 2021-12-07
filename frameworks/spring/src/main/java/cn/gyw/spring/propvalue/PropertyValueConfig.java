@@ -16,15 +16,9 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 public class PropertyValueConfig {
 
-    private String propValue;
-
     @Bean
     public PropValueBean propValueBean() {
         return new PropValueBean();
     }
 
-    @Value("${property.value}")
-    public void setPropValue(String propValue) {
-        this.propValue = propValue;
-    }
 }
