@@ -1,5 +1,6 @@
 package cn.gyw.platform.common.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,12 +9,25 @@ import java.time.format.DateTimeFormatter;
  */
 public final class DateUtil {
 
-    private static final DateTimeFormatter LONG_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final String DATE_TIME_WITH_HYPHEN = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_NO_HYPHEN = "yyyyMMddHHmmss";
+    public static final String DATE_WITH_HYPHEN = "yyyy-MM-dd";
+    public static final String DATE_NO_HYPHEN = "yyyyMMdd";
 
-    public static String currentDateTime() {
-        LocalDateTime now = LocalDateTime.now();
-        return LONG_FORMATTER.format(now);
+    /**
+     * 获取当前日期
+     *
+     * @param pattern
+     * @return
+     */
+    public static String getCurrentDate(String pattern) {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(pattern));
     }
 
-    private DateUtil() {}
+    public static String currentDateTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_WITH_HYPHEN));
+    }
+
+    private DateUtil() {
+    }
 }

@@ -64,7 +64,6 @@ subprojects {
 	// publishToMavenLocal是maven-publish插件自动创建的的一个任务，
 	task jarToLocalMaven(dependsOn: publishToMavenLocal) {
 		doLast {
-			def userHome = System.getProperty("user.home");
 			println "publish jar to ${userHome}/.m2/repository"
 		}
 	}
