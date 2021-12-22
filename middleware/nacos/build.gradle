@@ -1,0 +1,21 @@
+ext {
+    nacosSpringContext='1.1.0'
+    springVersion='5.0.8.RELEASE'
+}
+
+dependencies {
+
+    implementation spring_boot_starter_web
+
+    implementation "com.alibaba.nacos:nacos-spring-context:${nacosSpringContext}"
+
+    // 嵌入式Tomcat
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:8.5.32'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

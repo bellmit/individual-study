@@ -201,3 +201,9 @@ docker run -itd --name nginx -p 80:80 -p 443:443 -v /opt/docker/nginx/html:/usr/
 说明：-m 限制内存大小
 7. 修改配置文件重启
 dokcer exec -it nginx nginx -s reload
+
+## 安装nacos
+1. docker pull nacos/nacos-server
+2. 挂载目录，用于映射到容器
+mkdir -p /data/nacos/logs/  
+mkdir -p /data/nacos/init.d/ 
