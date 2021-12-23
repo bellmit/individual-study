@@ -206,4 +206,5 @@ dokcer exec -it nginx nginx -s reload
 1. docker pull nacos/nacos-server
 2. 挂载目录，用于映射到容器
 mkdir -p /data/nacos/logs/  
-mkdir -p /data/nacos/init.d/ 
+mkdir -p /data/nacos/init.d/  
+vim /data/nacos/init.d/custom.properties

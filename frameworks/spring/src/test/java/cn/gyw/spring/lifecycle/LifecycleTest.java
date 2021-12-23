@@ -12,6 +12,14 @@ public class LifecycleTest {
 
 	@Autowired
 	private Product product;
+
+	/**
+	 * 查看Spring 组件生命周期
+	 */
+	@Test
+	public void showStartOrder() {
+		System.out.println("showStartOrder");
+	}
 	
 	@Test
 	public void test() {

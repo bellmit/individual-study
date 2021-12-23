@@ -69,6 +69,10 @@ public class LifecycleConfig {
         return new MyBeanPostProcessor();
     }
 
+    @Bean
+    public AwareBean awareBean() {
+        return new AwareBean();
+    }
     /**
      * 后置处理器：初始化前后进行处理工作
      * 将后置处理器加入到容器中
