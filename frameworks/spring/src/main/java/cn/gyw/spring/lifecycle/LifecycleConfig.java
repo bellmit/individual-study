@@ -73,6 +73,11 @@ public class LifecycleConfig {
     public AwareBean awareBean() {
         return new AwareBean();
     }
+
+    @Bean
+    public BeanDefinitionExtension beanDefinitionExtension() {
+        return new BeanDefinitionExtension();
+    }
     /**
      * 后置处理器：初始化前后进行处理工作
      * 将后置处理器加入到容器中

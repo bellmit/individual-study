@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * TODO
+ * 字符串处理类
  *
  * @date 2021/10/29 13:27
  */
@@ -26,8 +26,78 @@ public class StringResolver {
     Windows系统换行符："\r\n"
     */
     private static final String PATTERN_LINE_SEPARATOR = "\\r\\n|\\r|\\n";
+    // 下划线分隔符
+    private static final char SEPARATOR = '_';
 
-    // public static final String PATTERN_LINE_SEPARATOR = "\\R";
+    /**
+     * 驼峰命名 转 下划线
+     */
+    public static String toUnderlineName(String s) {
+        if (s == null) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        boolean upperCase = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            boolean nextUpperCase = true;
+
+            if (i < (s.length() - 1)) {
+                nextUpperCase = Character.isUpperCase(s.charAt(i + 1));
+            }
+
+            if (Character.isUpperCase(c)) {
+                if (!upperCase || !nextUpperCase) {
+                    if (i > 0) {
+                        sb.append(SEPARATOR);
+                    }
+                }
+                upperCase = true;
+            } else {
+                upperCase = false;
+            }
+
+            sb.append(Character.toLowerCase(c));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 下划线命名 转 小驼峰命名
+     */
+    public static String toCamelCase(String s) {
+        if (s == null) {
+            return null;
+        }
+        s = s.toLowerCase();
+        StringBuilder sb = new StringBuilder(s.length());
+        boolean upperCase = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == SEPARATOR) {
+                upperCase = true;
+            } else if (upperCase) {
+                sb.append(Character.toUpperCase(c));
+                upperCase = false;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 下划线命名 转 大写驼峰命名
+     *
+     */
+    public static String toCapitalizeCamelCase(String s) {
+        if (s == null) {
+            return null;
+        }
+        s = toCamelCase(s);
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
 
     /**
      * 去除首尾空格 和 换行符

@@ -22,7 +22,6 @@ rootProject.children.each {project ->
 	if (project.name == 'spi') {
 		project.children.each { subProject ->
 			subProject.buildFileName = "${subProject.name}.gradle"
-			println "${subProject.name} -> ${subProject.buildFileName}"
 		}
 		return
 	}

@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
  * 它不仅能够解析XML向上下文中注册更多BeanDefiniion，同时还支持自定义XML Tag
  * @createdTime 2021/12/23 22:06
  */
-@Component
 public class BeanDefinitionExtension implements BeanDefinitionRegistryPostProcessor, BeanFactoryPostProcessor {
 
     /**

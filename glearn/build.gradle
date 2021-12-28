@@ -2,10 +2,6 @@ allprojects { Project proj ->
 	group 'cn.gyw.glearn'
 	version '1.0.0'
 	
-	ext {
-		userHome = System.getProperty("user.home")
-	}
-	
 	if (proj != rootProject) {
 		
 	}
