@@ -59,7 +59,6 @@ allprojects {
     // serach version definition file in project root
     versionDefinitionFiles.each {versionFile->
         if (file("$rootPath/$versionFile").exists()) {
-            println "find project [${project.name}] specific version definition file: $versionFile"
             importVersionFile("$rootPath/$versionFile") {module, version->
                 ext.set(module, version)
             }
