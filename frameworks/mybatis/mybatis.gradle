@@ -12,7 +12,9 @@ dependencies {
     // 时间插件：Mybatis对Java 8 time (JSR 310)支持
     implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
     // jdbc jar
-    implementation 'mysql:mysql-connector-java:8.0.20'
+//    implementation 'mysql:mysql-connector-java:8.0.20'
+    implementation 'com.oracle:ojdbc14:10.2.0.4.0'
+
     implementation tk_mybatis_mapper
 	
 	testCompile 'junit:junit:4.12'
