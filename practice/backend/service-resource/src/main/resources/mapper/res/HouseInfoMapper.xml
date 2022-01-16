@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gyw.backend.service.resource.dao.HouseInfoMapper">
+
+    <resultMap id="BaseResultMap" type="cn.gyw.backend.service.resource.model.po.HouseInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="crawl_date" jdbcType="DATE" property="crawlDate" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="village_name" jdbcType="VARCHAR" property="villageName" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="price_unit" jdbcType="VARCHAR" property="priceUnit" />
+        <result column="rooms" jdbcType="VARCHAR" property="rooms" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="district" jdbcType="VARCHAR" property="district" />
+        <result column="sale" jdbcType="VARCHAR" property="sale" />
+        <result column="detail_url" jdbcType="VARCHAR" property="detailUrl" />
+        <result column="house_type" jdbcType="INTEGER" property="houseType" />
+        <result column="usage" jdbcType="INTEGER" property="usage" />
+        <result column="origin_type" jdbcType="INTEGER" property="originType" />
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, crawl_date, province, city, village_name, price, price_unit, rooms, area, address,
+        district, sale, detail_url, house_type, `usage`, origin_type, created_time, modified_time
+    </sql>
+
+    <sql id="Batch_Insert_Column_List">
+        crawl_date
+        ,province,city,village_name,price,price_unit,rooms,area,address,district,sale,detail_url,
+        house_type,`usage`,origin_type
+    </sql>
+
+    <insert id="batchInsert" parameterType="arraylist">
+        insert into house_info (<include refid="Batch_Insert_Column_List"/>)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.crawlDate},
+            #{item.province},
+            #{item.city},
+            #{item.villageName},
+            #{item.price},
+            #{item.priceUnit},
+            #{item.rooms},
+            #{item.area},
+            #{item.address},
+            #{item.district},
+            #{item.sale},
+            #{item.detailUrl},
+            #{item.houseType},
+            #{item.usage},
+            #{item.originType})
+        </foreach>
+        on duplicate key update modified_time = now()
+    </insert>
+
+    <select id="selectAllCrawlDate" resultType="java.time.LocalDate">
+        select distinct crawl_date from house_info order by crawl_date desc;
+    </select>
+
+    <select id="queryVillageRank" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from house_info t
+        where 1=1
+        and t.province = #{province, jdbcType=VARCHAR}
+        and t.city = #{city, jdbcType=VARCHAR}
+        and t.district = #{district, jdbcType=VARCHAR}
+        and t.crawl_date = #{crawlDate, jdbcType=DATE}
+        order by price desc
+    </select>
+
+    <select id="queryRegionList" resultMap="BaseResultMap">
+        select province,city,district from house_info t group by province, city, district
+    </select>
+
+    <select id="selectMinMaxPriceList" resultType="cn.gyw.backend.service.resource.model.vo.MinMaxOfCityVo">
+        select t1.crawl_date as crawlDate,
+               t1.province,
+               t1.city,
+               t1.district,
+               min(t1.price) minPrice,
+               max(t1.price) maxPrice
+        from (
+            select
+            <include refid="Base_Column_List"/>
+            from house_info t
+            where 1=1
+            and t.province = #{province, jdbcType=VARCHAR}
+            and t.city = #{city, jdbcType=VARCHAR}
+            and t.crawl_date = #{crawlDate, jdbcType=DATE}
+        ) t1
+        group by t1.crawl_date, t1.province, t1.city, t1.district
+    </select>
+
+</mapper>

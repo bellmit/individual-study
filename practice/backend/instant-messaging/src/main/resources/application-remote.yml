@@ -1,9 +1,0 @@
-# 开发环境
-spring:
-  profiles: remote
-  # 数据库配置
-  datasource:
-    url: jdbc:mysql://192.168.1.181:3306/c_system?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-  redis:
-    host: 192.168.1.181
-    password: 123456

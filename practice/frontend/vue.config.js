@@ -52,41 +52,41 @@ module.exports = {
       },
       // Api gateway
       '/api': {
-        target: 'http://localhost:9001',
+        target: 'http://localhost:8080',
         secure: false,
         changeOrigin: true,
         pathRewrite: {
           ['^/api']: ''
         }
       },
-      '/sys': {
-        target: 'http://localhost:8081',
-        // remote
-        // target: 'http://192.168.1.181:8081',
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^/sys']: ''
-        }
-      },
-      '/res': {
-        target: 'http://localhost:8082',
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^/res']: ''
-        }
-      },
-      '/chat-info': {
-        target: 'http://localhost:8083/im',
-        secure: false,
-        changeOrigin: true
-      },
-      '/file': {
-        target: 'http://localhost:8085',
-        secure: false,
-        changeOrigin: true
-      },
+      // '/sys': {
+      //   target: 'http://localhost:8081',
+      //   // remote
+      //   // target: 'http://192.168.1.181:8081',
+      //   secure: false,
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     ['^/sys']: ''
+      //   }
+      // },
+      // '/res': {
+      //   target: 'http://localhost:8082',
+      //   secure: false,
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     ['^/res']: ''
+      //   }
+      // },
+      // '/chat-info': {
+      //   target: 'http://localhost:8083/im',
+      //   secure: false,
+      //   changeOrigin: true
+      // },
+      // '/file': {
+      //   target: 'http://localhost:8085',
+      //   secure: false,
+      //   changeOrigin: true
+      // },
     },
     after: require('./mock/mock-server.js')
   },

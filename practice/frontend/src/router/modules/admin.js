@@ -9,7 +9,7 @@ export const adminRouter = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views-admin/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'menu', auth: true }
+      meta: { title: 'Dashboard', icon: 's-home', auth: true }
     }]
   },
   {
@@ -31,7 +31,7 @@ export const adminRouter = [
       path: 'house_info',
       name: 'houseInfo',
       component: () => import('@/views-admin/res/house-info/index'),
-      meta: { title: '新房管理', icon: 'menu', auth: true }
+      meta: { title: '新房管理', icon: 'office-building', auth: true }
     }]
   },
   {
@@ -45,7 +45,7 @@ export const adminRouter = [
         path: 'admin',
         name: 'admin',
         component: () => import('@/views-admin/ums/admin/index'),
-        meta: { title: '管理员', icon: 'setting' }
+        meta: { title: '管理员', icon: 's-custom' }
       },
       {
         path: 'role',

@@ -1,10 +1,9 @@
-def springBoot='2.0.4.RELEASE'
-//def springBoot='2.1.11.RELEASE'
 def springVersion = '5.1.2.RELEASE'
-def camelVersion = '2.25.1'
-def jacksonVersion = '2.11.2'
-def junitVersion = '4.12'
+def lombokVersion = '1.18.6'
 def logbackVersion = '1.2.3'
+def springBootVersion = '2.1.11.RELEASE'
+def camelVersion = '2.25.3'
+def jacksonVersion = '2.11.2'
 
 // spring
 spring_core="org.springframework:spring-core:${springVersion}"
@@ -21,36 +20,27 @@ spring_websocket="org.springframework:spring-websocket:${springVersion}"
 reactor_netty='io.projectreactor.netty:reactor-netty:0.8.14.RELEASE'
 spring_webflux="org.springframework:spring-webflux:${springVersion}"
 spring_test="org.springframework:spring-test:${springVersion}"
-
 spring_data_commons="org.springframework.data:spring-data-commons:2.5.0"
 
-spring_boot_starter= "org.springframework.boot:spring-boot-starter:${springBoot}"
-spring_boot_starter_web="org.springframework.boot:spring-boot-starter-web:${springBoot}"
-spring_boot_starter_websocket="org.springframework.boot:spring-boot-starter-websocket:${springBoot}"
-spring_boot_starter_data_redis="org.springframework.boot:spring-boot-starter-data-redis:${springBoot}"
-spring_boot_starter_data_jpa="org.springframework.boot:spring-boot-starter-data-jpa:${springBoot}"
-spring_boot_starter_data_elasticsearch="org.springframework.boot:spring-boot-starter-data-elasticsearch:${springBoot}"
-spring_boot_starter_jdbc="org.springframework.boot:spring-boot-starter-jdbc:${springBoot}"
-spring_boot_starter_webflux="org.springframework.boot:spring-boot-starter-webflux:${springBoot}"
-spring_boot_starter_tomcat= "org.springframework.boot:spring-boot-starter-tomcat:${springBoot}"
-spring_boot_devtools= "org.springframework.boot:spring-boot-devtools:${springBoot}"
-spring_boot_starter_actuator= "org.springframework.boot:spring-boot-starter-actuator:${springBoot}"
-spring_boot_starter_test= "org.springframework.boot:spring-boot-starter-test:${springBoot}"
-spring_boot_starter_jta_atomikos="org.springframework.boot:spring-boot-starter-jta-atomikos:${springBoot}"
-spring_boot_starter_security="org.springframework.boot:spring-boot-starter-security:${springBoot}"
+// springboot
+spring_boot_starter= "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+spring_boot_starter_web= "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+spring_boot_starter_webflux="org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+spring_boot_starter_jdbc= "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
+spring_boot_starter_jpa= "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+spring_boot_starter_tomcat= "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+spring_boot_devtools= "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+spring_boot_starter_actuator= "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+spring_boot_starter_test= "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+spring_boot_starter_data_redis= "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
+spring_boot_starter_security="org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 
-spring_security_oauth2="org.springframework.security.oauth:spring-security-oauth2:2.2.3.RELEASE"
-mybatis_spring_boot_starter='org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
-mapper_spring_boot_starter="tk.mybatis:mapper-spring-boot-starter:2.0.4"
-pagehelper_spring_boot_starter='com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
+// springcloud
 
 // GraphQL
-// GraphQL Java Engine itself is only concerned with executing queries. It doesn’t deal with any HTTP or JSON related topics.
-graphql_java='com.graphql-java:graphql-java:2020-08-31T04-32-29-6a56b3a'
-// adapter which takes care of exposing our API via Spring Boot over HTTP.
-graphql_java_spring_boot_starter_webmvc='com.graphql-java:graphql-java-spring-boot-starter-webmvc:2020-07-12T23-24-35-c6606f6'
-// 可视化调试工具 graphiql
-graphiql_spring_boot_starter='com.graphql-java:graphiql-spring-boot-starter:5.0.2'
+graphql_java='com.graphql-java:graphql-java:2020-08-31T04-32-29-6a56b3a' // GraphQL Java Engine itself is only concerned with executing queries. It doesn’t deal with any HTTP or JSON related topics.
+graphql_java_spring_boot_starter_webmvc='com.graphql-java:graphql-java-spring-boot-starter-webmvc:2020-07-12T23-24-35-c6606f6' // adapter which takes care of exposing our API via Spring Boot over HTTP.
+graphiql_spring_boot_starter='com.graphql-java:graphiql-spring-boot-starter:5.0.2' // 可视化调试工具 graphiql
 
 // common
 sl4j_api='org.slf4j:slf4j-api:1.7.25'
@@ -58,19 +48,36 @@ logback_classic="ch.qos.logback:logback-classic:${logbackVersion}"
 logback_core="ch.qos.logback:logback-core:${logbackVersion}"
 logback_access="ch.qos.logback:logback-access:${logbackVersion}"
 slf4j_log4j12='org.slf4j:slf4j-log4j12:1.7.30'
-logstash_logback_encoder='net.logstash.logback:logstash-logback-encoder:6.6'
-junit='junit:junit:4.12'
 javax_persistence='org.javassist:javassist:3.27.0-GA'
 persistence_api='javax.persistence:persistence-api:1.0'
 javax_mail_api='javax.mail:javax.mail-api:1.6.0'
+javax_annotation_api='javax.annotation:javax.annotation-api:1.3.2'
 mail='javax.mail:mail:1.4.4'
 javax_servlet_api='javax.servlet:javax.servlet-api:4.0.0' // servlet
 gson='com.google.code.gson:gson:2.8.1'
+java_jwt='com.auth0:java-jwt:3.10.3'
+jjwt='io.jsonwebtoken:jjwt:0.9.1'
 guava= 'com.google.guava:guava:29.0-jre'
 jackson_databind='com.fasterxml.jackson.core:jackson-databind:2.11.2'
 jackson_core='com.fasterxml.jackson.core:jackson-core:2.11.2'
 jackson_annotations='com.fasterxml.jackson.core:jackson-annotations:2.11.2'
-json='org.json:json:20200518'
+junit_jupiter_api='org.junit.jupiter:junit-jupiter-api:5.7.1'
+junit_jupiter_engine='org.junit.jupiter:junit-jupiter-engine:5.7.1'
+junit_platform_runner='org.junit.platform:junit-platform-runner:1.7.1'
+jfreechart='jfree:jfreechart:1.0.13'
+freemarker='org.freemarker:freemarker:2.3.23'
+jcommon='jfree:jcommon:1.0.16'
+oshi='com.github.oshi:oshi-core:3.5.0' // hardware info
+joda_time='joda-time:joda-time:2.10.1'
+dom4j='dom4j:dom4j:1.6.1'
+quartz='org.quartz-scheduler:quartz:2.3.0'
+quartz_jobs='org.quartz-scheduler:quartz:2.3.0'
+netty_all='io.netty:netty-all:4.1.52.Final'
+lombok="org.projectlombok:lombok:${lombokVersion}"
+logstash_logback_encoder='net.logstash.logback:logstash-logback-encoder:6.6'
+hutool_all='cn.hutool:hutool-all:5.7.2'
+opencsv='com.opencsv:opencsv:5.5.2'
+
 // apache commons until
 commons_io='commons-io:commons-io:2.7'
 commons_cli='commons-cli:commons-cli:1.4'
@@ -78,65 +85,38 @@ commons_beanutils='commons-beanutils:commons-beanutils:1.9.3'
 commons_lang3='org.apache.commons:commons-lang3:3.6'
 commons_text='org.apache.commons:commons-text:1.6'
 commons_net='commons-net:commons-net:3.6'
+commons_pool2='org.apache.commons:commons-pool2:2.6.2'
+commons_codec='commons-codec:commons-codec:1.11'
 commons_collections4='org.apache.commons:commons-collections4:4.4'
-jfreechart='jfree:jfreechart:1.0.13'
-freemarker='org.freemarker:freemarker:2.3.23'
-jcommon='jfree:jcommon:1.0.16'
-oshi='com.github.oshi:oshi-core:3.5.0' // hardware info
-joda_time='joda-time:joda-time:2.10.1'
-dom4j='dom4j:dom4j:1.6.1'
 poi='org.apache.poi:poi:4.1.2'
 poi_ooxml='org.apache.poi:poi-ooxml:4.1.2'
 httpclient='org.apache.httpcomponents:httpclient:4.5.3'
 httpmime='org.apache.httpcomponents:httpmime:4.5.3'
-quartz='org.quartz-scheduler:quartz:2.3.0'
-quartz_jobs='org.quartz-scheduler:quartz:2.3.0'
-netty_all='io.netty:netty-all:4.1.52.Final'
-jsoup='org.jsoup:jsoup:1.13.1'
-java_jwt='com.auth0:java-jwt:3.10.3'
-jjwt='io.jsonwebtoken:jjwt:0.9.1'
-hutool_all='cn.hutool:hutool-all:5.7.2'
 
-// DB
+/* DB */
 mysql_connector_java='mysql:mysql-connector-java:5.1.47'
-h2database='com.h2database:h2:1.4.200'
 c3p0='c3p0:c3p0:0.9.1.1'
-druid='com.alibaba:druid:1.2.1'
-sharding_jdbc_core='org.apache.shardingsphere:sharding-jdbc-core:4.1.1'
-pagehelper='com.github.pagehelper:pagehelper:5.1.11'
+h2database='com.h2database:h2:1.4.200'
+commons_dbutils='commons-dbutils:commons-dbutils:1.7'
 tk_mybatis_mapper='tk.mybatis:mapper:4.1.5'
+mybatis_plus_boot_starter='com.baomidou:mybatis-plus-boot-starter:3.0.5'
+mapper_spring_boot_starter="tk.mybatis:mapper-spring-boot-starter:2.0.4"
+pagehelper='com.github.pagehelper:pagehelper:5.1.11'
+pagehelper_spring_boot_starter='com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
+druid='com.alibaba:druid:1.2.8'
 mybatis_typehandlers_jsr310='org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 
 /* lucence */
 lucene_core='org.apache.lucene:lucene-core:8.6.3'
-// 普通分词器 常用于英文分词
-lucene_analyzers_common='org.apache.lucene:lucene-analyzers-common:8.6.3'
-// 中文分词器
-lucene_analyzers_smartcn='org.apache.lucene:lucene-analyzers-smartcn:8.6.3'
+lucene_analyzers_common='org.apache.lucene:lucene-analyzers-common:8.6.3' // 普通分词器 常用于英文分词
+lucene_analyzers_smartcn='org.apache.lucene:lucene-analyzers-smartcn:8.6.3' // 中文分词器
 hanlp_lucene_plugin='com.hankcs.nlp:hanlp-lucene-plugin:1.1.7'
-// 对分词索引查询解析
-lucene_queryparser='org.apache.lucene:lucene-queryparser:8.6.3'
-// 检索关键字高亮显示
-lucene_highlighter='org.apache.lucene:lucene-highlighter:8.6.3'
-// IK 分词器
-ikanalyzer='com.janeluo:ikanalyzer:2012_u6'
-
+lucene_queryparser='org.apache.lucene:lucene-queryparser:8.6.3' // 对分词索引查询解析
+lucene_highlighter='org.apache.lucene:lucene-highlighter:8.6.3' // 检索关键字高亮显示
+ikanalyzer='com.janeluo:ikanalyzer:2012_u6' // IK 分词器
 /* flowable BPMN */
 flowable_engine='org.flowable:flowable-engine:6.2.1'
 flowable_spring='org.flowable:flowable-spring:6.2.1'
-
-/* RPC */
-dubbo='com.alibaba:dubbo:2.6.9'
-
-/* Zookeeper */
-curator_framework='org.apache.curator:curator-framework:5.1.0'
-curator_recipes='org.apache.curator:curator-recipes:5.1.0'
-
-// JNA
-jna='net.java.dev.jna:jna:5.6.0'
-// swagger
+/* swagger2 */
 springfox_swagger2='io.springfox:springfox-swagger2:2.9.2'
 springfox_swagger_ui='io.springfox:springfox-swagger-ui:2.9.2'
-
-opencsv='com.opencsv:opencsv:5.5.2'
-lombok='org.projectlombok:lombok:1.18.20'

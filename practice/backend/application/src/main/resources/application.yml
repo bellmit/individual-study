@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: backend
+  profiles: # 配置加载 dev-环境|system-模块|remote-远程配置
+    active: dev,system,resource,remote
+  mvc: # 404 异常处理
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+logging:
+  config: classpath:log/logback.xml
+
+# security 安全配置相关
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /**/swagger-ui.html/**
+      - /**/swagger-resources/**
+      - /**/swagger/**
+      - /**/v2/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /actuator/**
+      - /druid/**
+      - /admin/login
+      - /admin/register
+      - /admin/info
+      - /admin/logout
+
+# 本地自定义配置文件
+local:
+  config:
+    file: /data/config-center/local.properties

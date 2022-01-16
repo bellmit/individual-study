@@ -1,0 +1,21 @@
+dependencies {
+    implementation project(':components:common')
+    implementation platform_common
+
+    implementation spring_boot_starter_web
+    implementation spring_boot_starter_jdbc
+
+    implementation commons_lang3
+    implementation mysql_connector_java
+    implementation(mapper_spring_boot_starter) {
+        exclude group: 'javax.persistence', module: 'persistence-api'
+    }
+    implementation pagehelper_spring_boot_starter
+    implementation pagehelper
+    implementation mybatis_typehandlers_jsr310
+    implementation(javax_persistence) { force = true }
+    implementation persistence_api
+    implementation mybatis_typehandlers_jsr310
+    implementation druid
+    implementation opencsv
+}

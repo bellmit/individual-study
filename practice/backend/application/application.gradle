@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+bootJar {
+    archiveBaseName = 'backend-service'
+    archiveVersion = '0.0.01'
+}
+
+dependencies {
+    implementation project(':components:common')
+    implementation project(':service-system')
+    implementation project(':service-resource')
+
+    implementation spring_boot_starter
+    implementation spring_boot_starter_web
+
+    // 不指定版本，会使用最新版本 TODO 解决方案
+    implementation mysql_connector_java
+    implementation httpmime
+}

@@ -1,17 +1,19 @@
-// 项目名称
 rootProject.name = 'backend'
 
-// 服务注册中心
-include 'registry-center'
+include 'application'
+include 'service-system'
+include 'service-resource'
 
-// 服务
-include 'system-service' // 系统管理服务
-include ':system-service-api'
-include 'instant-messaging' // 及时通信服务
-include 'file-service' // 文件服务
-include 'search-service' // 搜索服务
-include 'resource-service' // 资源服务
+include ':components:common'
+include ':components:security'
 
+// 修改构建脚本名称 build.gradle->{projectName}.gradle
 rootProject.children.each { project ->
+    if (project.name == 'components') {
+        project.children.each {subProject ->
+            subProject.buildFileName = "${project.name}-${subProject.name}.gradle"
+        }
+    }
+
     project.buildFileName = "${project.name}.gradle"
 }

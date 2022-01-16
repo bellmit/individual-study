@@ -1,0 +1,12 @@
+ds:
+  res:
+    driverClassName: com.mysql.jdbc.Driver
+    host: localhost
+    url: jdbc:mysql://%s:3306/backend_res?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+
+# 爬虫数据文件目录
+crawler:
+  csv:
+    fileDir: /data/web-crawler

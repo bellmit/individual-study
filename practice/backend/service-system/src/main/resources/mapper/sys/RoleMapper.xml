@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gyw.backend.service.system.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="cn.gyw.backend.service.system.model.po.Role">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="admin_count" jdbcType="INTEGER" property="adminCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, name, description, admin_count, create_time, status, sort
+  </sql>
+
+  <select id="getMenuList" resultType="cn.gyw.backend.service.system.model.po.Menu">
+    SELECT
+    m.id id,
+    m.parent_id parentId,
+    m.create_time createTime,
+    m.title title,
+    m.level level,
+    m.sort sort,
+    m.name name,
+    m.icon icon,
+    m.hidden hidden
+    FROM
+    admin_role_relation arr
+    LEFT JOIN role r ON arr.role_id = r.id
+    LEFT JOIN role_menu_relation rmr ON r.id = rmr.role_id
+    LEFT JOIN menu m ON rmr.menu_id = m.id
+    WHERE
+    arr.admin_id = #{adminId}
+    AND m.id IS NOT NULL
+    GROUP BY
+    m.id
+  </select>
+  <select id="getMenuListByRoleId" resultType="cn.gyw.backend.service.system.model.po.Menu">
+    SELECT
+    m.id id,
+    m.parent_id parentId,
+    m.create_time createTime,
+    m.title title,
+    m.level level,
+    m.sort sort,
+    m.name name,
+    m.icon icon,
+    m.hidden hidden
+    FROM
+    role_menu_relation rmr
+    LEFT JOIN menu m ON rmr.menu_id = m.id
+    WHERE
+    rmr.role_id = #{roleId}
+    AND m.id IS NOT NULL
+    GROUP BY
+    m.id
+  </select>
+  <select id="getResourceListByRoleId" resultType="cn.gyw.backend.service.system.model.po.Resource">
+    SELECT
+    r.id id,
+    r.create_time createTime,
+    r.`name` `name`,
+    r.url url,
+    r.description description,
+    r.category_id categoryId
+    FROM
+    role_resource_relation rrr
+    LEFT JOIN resource r ON rrr.resource_id = r.id
+    WHERE
+    rrr.role_id = #{roleId}
+    AND r.id IS NOT NULL
+    GROUP BY
+    r.id
+  </select>
+</mapper>

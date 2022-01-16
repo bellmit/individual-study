@@ -1,10 +1,13 @@
+// 接口路由前缀
+const apiPrefix = "/api"
+
 const apiTypes = {
   // 系统管理模块
-  SYS_USER: '/sys/admin',
-  SYS_ROLE: '/sys/role',
+  SYS_USER: apiPrefix + '/sys/admin',
+  SYS_ROLE: apiPrefix + '/sys/role',
 
   // 资源服务
-  HOUSE_INFO: '/res/house_info'
+  HOUSE_INFO: apiPrefix + '/res/house_info'
 }
 
 // mock user api

@@ -1,0 +1,26 @@
+dependencies {
+    implementation project(':components:common')
+    implementation project(':components:security')
+
+//    implementation platform_configuration
+    implementation platform_common
+
+    implementation spring_boot_starter
+    implementation spring_boot_starter_web
+    implementation spring_boot_starter_jdbc
+    implementation spring_boot_starter_data_redis
+    implementation(mapper_spring_boot_starter) {
+        exclude group: 'javax.persistence', module: 'persistence-api'
+    }
+    implementation spring_boot_starter_security
+
+    implementation(javax_persistence) {
+        force = true
+    }
+    implementation persistence_api
+    implementation pagehelper_spring_boot_starter
+    implementation pagehelper
+    implementation mysql_connector_java
+    implementation druid
+    implementation hutool_all
+}
